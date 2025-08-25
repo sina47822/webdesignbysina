@@ -39,7 +39,7 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <div className="overflow-x-hidden">
-              <Header2 />
+              <Header1 />
               {children}
               <Footer4Col />
             </div>

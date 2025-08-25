@@ -50,10 +50,10 @@ export default function FooterNewsletter() {
           <div className="grid items-center gap-8 md:grid-cols-2">
             <div>
               <h3 className="mb-4 text-2xl font-bold md:text-3xl">
-                Stay ahead with Acme Inc.
+                Stay ahead with WDBS Inc.
               </h3>
               <p className="text-foreground/70 mb-6">
-                Join thousands of professionals who trust Acme Inc. for
+                Join thousands of professionals who trust WDBS Inc. for
                 innovative business solutions.
               </p>
               <div className="flex flex-col gap-4 sm:flex-row">
@@ -72,7 +72,7 @@ export default function FooterNewsletter() {
                 <div className="bg-primary/20 absolute inset-0 rotate-6 rounded-xl" />
                 <img
                   src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&auto=format&fit=crop&w=320&h=240&q=80"
-                  alt="Acme Inc. team"
+                  alt="WDBS Inc. team"
                   className="relative w-80 rounded-xl object-cover"
                 />
               </div>
@@ -98,7 +98,7 @@ export default function FooterNewsletter() {
                   />
                 </svg>
               </div>
-              <span className="text-xl font-bold">Acme Inc.</span>
+              <span className="text-xl font-bold">WDBS.</span>
             </div>
             <p className="text-foreground/60 mb-6">
               Empowering businesses with reliable, scalable, and innovative
@@ -136,7 +136,7 @@ export default function FooterNewsletter() {
         </div>
         <div className="border-foreground/10 flex flex-col items-center justify-between border-t pt-8 md:flex-row">
           <p className="text-foreground/60 mb-4 text-sm md:mb-0">
-            © 2023 Acme Inc. All rights reserved.
+            © 2025 WDBS Inc. All rights reserved.
           </p>
           <div className="flex flex-wrap justify-center gap-6">
             {legalLinks.map((text) => (

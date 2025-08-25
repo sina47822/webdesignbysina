@@ -18,7 +18,7 @@ export default function SigninModal() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="secondary">Sign in</Button>
+        <Button variant="secondary" className='cursor-pointer hover:scale-[1.1]'>Sign in</Button>
       </DialogTrigger>
       <DialogContent>
         <div className="flex flex-col items-center gap-2">

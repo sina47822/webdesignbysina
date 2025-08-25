@@ -42,7 +42,6 @@ export default function Home() {
   return (
     <div>
         <HomePage />
-        <LogoCloud />
 
     </div>
   );

@@ -18,6 +18,7 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   { name: 'Home', href: '/' },
+  { name: 'About', href: '/about' },
   { name: 'Features', href: '/features' },
   {
     name: 'Products',
@@ -38,7 +39,7 @@ const navItems: NavItem[] = [
     ],
   },
   { name: 'Pricing', href: '/pricing' },
-  { name: 'About', href: '/about' },
+  { name: 'Contact', href: '/contact' },
 ];
 
 export default function Header1() {
@@ -105,7 +106,7 @@ export default function Header1() {
                 <Sparkles className="h-5 w-5 text-white" />
               </div>
               <span className="bg-gradient-to-r from-rose-500 to-rose-700 bg-clip-text text-xl font-bold text-transparent">
-                Acme Inc.
+                WDBS.
               </span>
             </Link>
           </motion.div>
@@ -217,7 +218,7 @@ export default function Header1() {
                   <Link 
                     prefetch={false}
                     href="/login"
-                    className="text-foreground hover:bg-muted block w-full rounded-lg py-2.5 text-center font-medium transition-colors duration-200"
+                    className="text-foreground cursor-pointer hover:bg-muted block w-full rounded-lg py-2.5 text-center font-medium transition-colors duration-200"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     Sign In

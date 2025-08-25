@@ -105,7 +105,7 @@ export default function Header2() {
                 </div>
                 <div className="flex flex-col">
                   <span className="text-foreground text-lg font-bold">
-                    Acme Inc.
+                    WDBS.
                   </span>
                   <span className="text-muted-foreground -mt-1 text-xs">
                     Build faster
@@ -226,7 +226,7 @@ export default function Header2() {
                   variants={mobileItemVariants}
                 >
                   <Link prefetch={false}                    href="/login"
-                    className="text-foreground hover:bg-muted block w-full rounded-lg py-3 text-center font-medium transition-colors duration-200"
+                    className="text-foreground cursor-pointer hover:bg-muted block w-full rounded-lg py-3 text-center font-medium transition-colors duration-200"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     Sign In

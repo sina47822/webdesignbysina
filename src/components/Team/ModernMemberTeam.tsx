@@ -1,8 +1,15 @@
-import AboutUs1 from '@/components/About/AboutUs1'
-import Team7 from '@/components/Team/ModernMemberTeam'
-import ModernMemberTeam from '@/components/Team/ModernMemberTeam'
-import Team1 from '@/components/Team/ModernMemberTeam'
-import React from 'react'
+'use client';
+
+import Link from 'next/link';
+import { cn } from '@/lib/utils';
+import { Cabin_Condensed } from 'next/font/google';
+import { Facebook, Instagram, Twitter, Globe } from 'lucide-react';
+import { FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa';
+
+const mont = Cabin_Condensed({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+});
 
 type SocialMediaLinks = {
   facebook?: string;
@@ -170,18 +177,123 @@ const teamMembers3D: TeamMember[] = [
   },
 ];
 
+export default function Team7({
+  title = 'We are Born For Technology',
+  subtitle = '• Our awesome team',
+  description = 'We make life easier for our customers and community through reliable, affordable, and useful tech innovations',
+  teamMembers = teamMembers3D,
+  backgroundColor = '#111111',
+  textColor = '#ffffff',
+  accentColor = '#10b981',
+  secondaryColor = '#6b7280',
+  className,
+}: TeamSectionProps) {
+  // Default social media icons if not specified
+  const getSocialIcon = (type: string, url: string) => {
+    switch (type) {
+      case 'facebook':
+        return (
+          <Link prefetch={false}            href={url}
+            className="text-gray-400 transition-colors hover:text-white"
+          >
+            <FaFacebook size={18} />
+          </Link>
+        );
+      case 'instagram':
+        return (
+          <Link prefetch={false}            href={url}
+            className="text-gray-400 transition-colors hover:text-white"
+          >
+            <FaInstagram size={18} />
+          </Link>
+        );
+      case 'twitter':
+        return (
+          <Link prefetch={false}            href={url}
+            className="text-gray-400 transition-colors hover:text-white"
+          >
+            <FaTwitter size={18} />
+          </Link>
+        );
+      case 'website':
+        return (
+          <Link prefetch={false}            href={url}
+            className="text-gray-400 transition-colors hover:text-white"
+          >
+            <Globe size={18} />
+          </Link>
+        );
+      default:
+        return null;
+    }
+  };
 
-const page = () => {
   return (
-    <div>
-        <AboutUs1 />
-        <Team7 
-            title="My Custom Team Title" 
-            backgroundColor="#000000"
-            teamMembers={teamMembers3D} 
-          />
-    </div>
-  )
-}
+    <section
+      className={cn('w-full py-16 text-white', className)}
+      style={{ backgroundColor, color: textColor }}
+    >
+      <div className="container mx-auto max-w-5xl px-4">
+        <div className="mb-12">
+          <p
+            className={cn(
+              'mb-2 text-sm font-medium tracking-wider',
+              mont.className,
+            )}
+            style={{ color: accentColor }}
+          >
+            {subtitle}
+          </p>
+          <h2
+            className={cn(
+              'mb-6 text-4xl leading-tight font-bold md:text-5xl',
+              mont.className,
+            )}
+          >
+            {title}
+          </h2>
+          <p className="max-w-2xl text-lg" style={{ color: secondaryColor }}>
+            {description}
+          </p>
+        </div>
 
-export default page
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {teamMembers.map((member) => (
+            <div key={member.id} className="group">
+              <div
+                className="mb-4 aspect-square overflow-hidden rounded-lg"
+                style={{ backgroundColor: member.backgroundColor || '#374151' }}
+              >
+                <img
+                  src={member.image || '/placeholder.svg'}
+                  alt={member.name}
+                  className="h-full w-full object-cover"
+                />
+              </div>
+              <h3 className="text-xl font-bold">{member.name}</h3>
+              {member.email && (
+                <p className="mb-2 text-sm" style={{ color: accentColor }}>
+                  {member.email}
+                </p>
+              )}
+              {member.bio && (
+                <p className="mb-4 text-sm" style={{ color: secondaryColor }}>
+                  {member.bio}
+                </p>
+              )}
+              <div className="mt-2 flex space-x-4">
+                {member.socialMedia &&
+                  Object.entries(member.socialMedia).map(
+                    ([key, value]) =>
+                      value && (
+                        <span key={key}>{getSocialIcon(key, value)}</span>
+                      ),
+                  )}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}

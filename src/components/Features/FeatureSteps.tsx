@@ -13,7 +13,7 @@ const features = [
       'Create your MVP in record time with our pre-built blocks and components.',
     icon: <Rocket className="text-primary h-6 w-6" />,
     image:
-      'https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?q=80&w=2070&auto=format&fit=crop',
+      '/assets/feature/photo-1551288049-bebda4e38f71.jpeg',
   },
   {
     step: 'Step 2',
@@ -22,7 +22,7 @@ const features = [
       'Tailor every component to your needs with our intuitive design system and flexible architecture.',
     icon: <Paintbrush className="text-primary h-6 w-6" />,
     image:
-      'https://images.unsplash.com/photo-1618761714954-0b8cd0026356?q=80&w=2070&auto=format&fit=crop',
+      '/assets/feature/photo-1581291518633-83b4ebd1d83e.jpeg',
   },
   {
     step: 'Step 3',
@@ -31,7 +31,7 @@ const features = [
       'Launch your product with confidence using our optimized, responsive, and accessible components.',
     icon: <Code className="text-primary h-6 w-6" />,
     image:
-      'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop',
+      '/assets/feature/photo-1618761714954-0b8cd0026356.jpeg',
   },
   {
     step: 'Step 4',
@@ -40,7 +40,7 @@ const features = [
       'Contribute your own blocks and become part of the MVPBlocks community.',
     icon: <Code className="text-primary h-6 w-6" />,
     image:
-      'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop',
+      '/assets/feature/photo-1618761714954-0b8cd0026356.jpeg',
   },
 ];
 
@@ -63,7 +63,7 @@ export default function FeatureSteps() {
 
   return (
     <div className={'p-8 md:p-12'}>
-      <div className="mx-auto w-full max-w-7xl">
+      <div className="mx-auto w-full max-w-7xl py-20">
         <div className="relative mx-auto mb-12 max-w-2xl sm:text-center">
           <div className="relative z-10">
             <h2 className="font-geist text-3xl font-bold tracking-tighter md:text-4xl lg:text-5xl">

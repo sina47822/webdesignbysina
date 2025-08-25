@@ -1,12 +1,7 @@
 import {
-  Dribbble,
-  Facebook,
-  Github,
-  Instagram,
   Mail,
   MapPin,
   Phone,
-  Twitter,
 } from 'lucide-react';
 import Link from 'next/link';
 import { FaDribbble, FaFacebook, FaGithub, FaInstagram, FaTwitter } from 'react-icons/fa';
@@ -88,7 +83,7 @@ export default function Footer4Col() {
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
 
           <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-4 lg:col-span-2">
-            <div className="text-center sm:text-left">
+            <div className="text-center sm:text-right">
               <p className="text-lg font-medium">About Us</p>
               <ul className="mt-8 space-y-4 text-sm">
                 {aboutLinks.map(({ text, href }) => (
@@ -104,7 +99,7 @@ export default function Footer4Col() {
               </ul>
             </div>
 
-            <div className="text-center sm:text-left">
+            <div className="text-center sm:text-right">
               <p className="text-lg font-medium">Our Services</p>
               <ul className="mt-8 space-y-4 text-sm">
                 {serviceLinks.map(({ text, href }) => (
@@ -120,7 +115,7 @@ export default function Footer4Col() {
               </ul>
             </div>
 
-            <div className="text-center sm:text-left">
+            <div className="text-center sm:text-right">
               <p className="text-lg font-medium">Helpful Links</p>
               <ul className="mt-8 space-y-4 text-sm">
                 {helpfulLinks.map(({ text, href, hasIndicator }) => (
@@ -148,7 +143,7 @@ export default function Footer4Col() {
               </ul>
             </div>
 
-            <div className="text-center sm:text-left">
+            <div className="text-center sm:text-right">
               <p className="text-lg font-medium">Contact Us</p>
               <ul className="mt-8 space-y-4 text-sm">
                 {contactInfo.map(({ icon: Icon, text, isAddress }) => (

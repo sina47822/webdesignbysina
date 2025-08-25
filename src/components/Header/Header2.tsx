@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence, easeInOut } from 'framer-motion';
-import { Menu, X, ArrowRight, Zap, Search } from 'lucide-react';
+import { Menu, X, ArrowRight, Zap, Search, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 import SigninModal from '../Modals/SigninModal';
 import { ModeToggle } from '../ModeToggle';
@@ -165,10 +165,10 @@ export default function Header2() {
                 whileTap={{ scale: 0.98 }}
               >
                 <Link prefetch={false}                  href="/signup"
-                  className="bg-foreground text-background hover:bg-foreground/90 inline-flex items-center space-x-2 rounded-lg px-5 py-2.5 text-sm font-medium shadow-sm transition-all duration-200"
+                  className="bg-foreground group text-background hover:bg-foreground/90 inline-flex items-center space-x-2 rounded-lg px-5 py-2.5 text-sm font-medium shadow-sm transition-all duration-200"
                 >
                   <span>Get Started</span>
-                  <ArrowRight className="h-4 w-4" />
+                  <ArrowLeft className="h-4 w-4 duration-[.3s] group-hover:-translate-x-1" />
                 </Link>
               </motion.div>
             </motion.div>

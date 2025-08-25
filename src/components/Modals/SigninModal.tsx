@@ -67,8 +67,11 @@ export default function SigninModal() {
                 Remember me
               </Label>
             </div>
-            <a className="text-sm underline hover:no-underline" href="#">
-              Forgot password?
+            <a 
+              className="text-sm underline hover:no-underline" 
+              href="#"
+            >
+              ?Forgot password
             </a>
           </div>
           <Button type="button" className="w-full">

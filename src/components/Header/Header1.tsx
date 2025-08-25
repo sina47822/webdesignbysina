@@ -2,11 +2,12 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ChevronDown, ArrowRight, Sparkles } from 'lucide-react';
+import { Menu, X, ChevronDown, ArrowRight, Sparkles, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
 import SigninModal from '../Modals/SigninModal';
 import { ModeToggle } from '../ModeToggle';
+import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 
 interface NavItem {
   name: string;
@@ -167,11 +168,13 @@ export default function Header1() {
           <div className="hidden items-center space-x-4 lg:flex">
             <SigninModal />
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Link prefetch={false}                href="/signup"
-                className="inline-flex items-center space-x-2 rounded-full bg-gradient-to-r from-rose-500 to-rose-700 px-6 py-2.5 font-medium text-white transition-all duration-200 hover:shadow-lg"
+              <Link 
+                prefetch={false}
+                href="/signup"
+                className="inline-flex group items-center space-x-2 rounded-full bg-gradient-to-r from-rose-500 to-rose-700 px-6 py-2.5 font-medium text-white transition-all duration-200 hover:shadow-lg"
               >
                 <span>Get Started</span>
-                <ArrowRight className="h-4 w-4" />
+                  <ArrowLeft className="h-4 w-4 duration-[.3s] group-hover:-translate-x-1" />
               </Link>
             </motion.div>
             <ModeToggle />
@@ -211,13 +214,17 @@ export default function Header1() {
                   </Link>
                 ))}
                 <div className="space-y-2 px-4 py-2">
-                  <Link prefetch={false}                    href="/login"
+                  <Link 
+                    prefetch={false}
+                    href="/login"
                     className="text-foreground hover:bg-muted block w-full rounded-lg py-2.5 text-center font-medium transition-colors duration-200"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     Sign In
                   </Link>
-                  <Link prefetch={false}                    href="/signup"
+                  <Link 
+                    prefetch={false}
+                    href="/signup"
                     className="block w-full rounded-lg bg-gradient-to-r from-rose-500 to-rose-700 py-2.5 text-center font-medium text-white transition-all duration-200 hover:shadow-lg"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >

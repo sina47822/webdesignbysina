@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider"
-import Header1 from "@/components/Header.tsx/Header1";
+import Header1 from "@/components/Header/Header1";
 import FooterGlow from "@/components/Footer/FooterGlow";
-import Header2 from "@/components/Header.tsx/Header2";
+import Header2 from "@/components/Header/Header2";
 import Footer4Col from "@/components/Footer/Footer4Col";
 
 const geistSans = Geist({
@@ -29,7 +29,7 @@ export default function RootLayout({
 }>) {
   return (
 
-      <html lang="en" suppressHydrationWarning>
+      <html lang="fa" dir="rtl" suppressHydrationWarning>
         <head />
         <body>
           <ThemeProvider

@@ -86,35 +86,6 @@ export default function Footer4Col() {
     <footer className="bg-secondary dark:bg-secondary/20 pt-16 w-full place-self-end rounded-t-xl">
       <div className="mx-auto max-w-screen-xl px-4 pt-16 pb-6 sm:px-6 lg:px-8 lg:pt-24">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
-          <div>
-            <div className="text-primary flex justify-center gap-2 sm:justify-start">
-              <img
-                src={data.company.logo || '/placeholder.svg'}
-                alt="logo"
-                className="h-8 w-8 rounded-full"
-              />
-              <span className="text-2xl font-semibold">
-                {data.company.name}
-              </span>
-            </div>
-
-            <p className="text-foreground/50 mt-6 max-w-md text-center leading-relaxed sm:max-w-xs sm:text-left">
-              {data.company.description}
-            </p>
-
-            <ul className="mt-8 flex justify-center gap-6 sm:justify-start md:gap-8">
-              {socialLinks.map(({ icon: Icon, label, href }) => (
-                <li key={label}>
-                  <Link prefetch={false}                    href={href}
-                    className="text-primary hover:text-primary/80 transition"
-                  >
-                    <span className="sr-only">{label}</span>
-                    <Icon className="size-6" />
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
 
           <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-4 lg:col-span-2">
             <div className="text-center sm:text-left">
@@ -201,6 +172,36 @@ export default function Footer4Col() {
                 ))}
               </ul>
             </div>
+          </div>
+
+          <div>
+            <div className="text-primary flex justify-center gap-2 sm:justify-start">
+              <img
+                src={data.company.logo || '/placeholder.svg'}
+                alt="logo"
+                className="h-8 w-8 rounded-full"
+              />
+              <span className="text-2xl font-semibold">
+                {data.company.name}
+              </span>
+            </div>
+
+            <p className="text-foreground/50 mt-6 max-w-md text-justify leading-relaxed sm:max-w-xs sm:text-right">
+              {data.company.description}
+            </p>
+
+            <ul className="mt-8 flex justify-center gap-6 sm:justify-start md:gap-8">
+              {socialLinks.map(({ icon: Icon, label, href }) => (
+                <li key={label}>
+                  <Link prefetch={false}                    href={href}
+                    className="text-primary hover:text-primary/80 transition"
+                  >
+                    <span className="sr-only">{label}</span>
+                    <Icon className="size-6" />
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
 

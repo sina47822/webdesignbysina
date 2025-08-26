@@ -1,4 +1,4 @@
-import CongestedPricing from '@/components/Pricing/CongestedPricing'
+import CongestedPricing from '@/components/Pages/Pricing/CongestedPricing'
 import React from 'react'
 
 const page = () => {

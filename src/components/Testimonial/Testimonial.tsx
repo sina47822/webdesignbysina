@@ -244,15 +244,16 @@ export default function Testimonials() {
         transition={{ duration: 0.5 }}
       >
         <h2 className="text-foreground mb-4 text-center text-4xl leading-[1.2] font-bold tracking-tighter md:text-5xl">
-          What Our Users Are Saying
+          مشتریان ما درباره ما چه گفته اند
         </h2>
         <h3 className="text-muted-foreground mx-auto mb-8 max-w-lg text-center text-lg font-medium tracking-tight text-balance">
-          Don&apos;t just take our word for it. Here&apos;s what{' '}
+           فقط به حرف ما اعتماد نکنید ببینید {' '}
           <span className="bg-gradient-to-r from-blue-500 to-sky-500 bg-clip-text text-transparent">
-            real developers
+            مشتریان ما
           </span>{' '}
-          are saying about{' '}
-          <span className="font-semibold text-blue-500">NexaUI</span>
+           درباره {' '}
+          <span className="font-semibold text-blue-500"> وب دیزاین با سینا </span>
+          چه می گویند
         </h3>
       </motion.div>
 

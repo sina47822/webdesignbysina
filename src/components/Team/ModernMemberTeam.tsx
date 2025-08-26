@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { Cabin_Condensed } from 'next/font/google';
-import { Facebook, Instagram, Twitter, Globe } from 'lucide-react';
+import { Globe } from 'lucide-react';
 import { FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa';
 
 const mont = Cabin_Condensed({
@@ -178,9 +178,9 @@ const teamMembers3D: TeamMember[] = [
 ];
 
 export default function Team7({
-  title = 'We are Born For Technology',
-  subtitle = '• Our awesome team',
-  description = 'We make life easier for our customers and community through reliable, affordable, and useful tech innovations',
+  title = 'ما توی تکنولوژی زاده شدیم و عاشقشیم',
+  subtitle = '• تیم جذاب ما',
+  description = 'ما از تکنولوژی در جهت راحت تر کردن کارهای استفاده میکنیم و به مشتریامون کمک میکنیم تا در کنار معرفی و ساخت بازارهای جانبی کسب و کار روتین تر و راحت تری داشته باشن',
   teamMembers = teamMembers3D,
   backgroundColor = '#111111',
   textColor = '#ffffff',
@@ -193,7 +193,9 @@ export default function Team7({
     switch (type) {
       case 'facebook':
         return (
-          <Link prefetch={false}            href={url}
+          <Link 
+            prefetch={false}
+            href={url}
             className="text-gray-400 transition-colors hover:text-white"
           >
             <FaFacebook size={18} />
@@ -201,7 +203,8 @@ export default function Team7({
         );
       case 'instagram':
         return (
-          <Link prefetch={false}            href={url}
+          <Link prefetch={false}
+            href={url}
             className="text-gray-400 transition-colors hover:text-white"
           >
             <FaInstagram size={18} />
@@ -209,7 +212,8 @@ export default function Team7({
         );
       case 'twitter':
         return (
-          <Link prefetch={false}            href={url}
+          <Link prefetch={false}
+            href={url}
             className="text-gray-400 transition-colors hover:text-white"
           >
             <FaTwitter size={18} />
@@ -217,7 +221,8 @@ export default function Team7({
         );
       case 'website':
         return (
-          <Link prefetch={false}            href={url}
+          <Link prefetch={false}
+            href={url}
             className="text-gray-400 transition-colors hover:text-white"
           >
             <Globe size={18} />

@@ -19,7 +19,7 @@ export default function SignupModal() {
         <Button variant="secondary">عضویت</Button>
       </DialogTrigger>
       <DialogContent>
-        <div className="flex flex-col items-center gap-2">
+        <div className="flex flex-col items-center gap-2 ">
           <div
             className="flex size-11 shrink-0 items-center justify-center rounded-full border"
             aria-hidden="true"
@@ -67,7 +67,7 @@ export default function SignupModal() {
             </div>
           </div>
           <Button type="button" className="w-full">
-            Sign up
+            عضویت
           </Button>
         </form>
 

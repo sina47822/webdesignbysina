@@ -1,4 +1,4 @@
-import ContactUs1 from '@/components/Contact/ContactUs1'
+import ContactUs1 from '@/components/Pages/Contact/ContactUs1'
 import CTA1 from '@/components/CTA/CTA1'
 import Faq1 from '@/components/FAQ/FAQ1'
 import React from 'react'

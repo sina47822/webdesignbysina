@@ -40,40 +40,40 @@ const iconComponents = {
 
 const defaultValues: AboutUsProps['values'] = [
   {
-    title: 'Innovation',
+    title: 'نوآوری',
     description:
-      'We constantly push boundaries and explore new possibilities to create cutting-edge solutions.',
+      'ما مرزها را جابه‌جا می‌کنیم — با خلاقیت و کنجکاوی راه‌حل‌های پیشرو و آینده‌نگر می‌سازیم تا پروژه‌ها متفاوت بدرخشند.',
     icon: 'Lightbulb',
   },
   {
-    title: 'Collaboration',
+    title: 'همکاری',
     description:
-      'We believe in the power of teamwork and diverse perspectives to achieve extraordinary results.',
+      'باور داریم بهترین نتایج با کار تیمی و دیدگاه‌های متنوع حاصل می‌شود. همراه مشتری‌هایمان می‌مانیم تا ایده‌ها به محصولی واقعی و موفق تبدیل شوند.',
     icon: 'Users',
   },
   {
-    title: 'Excellence',
+    title: 'برتری',
     description:
-      'We strive for perfection in everything we do, consistently delivering high-quality work.',
+      'در هر جزئیات به دنبال کمالیم و با استانداردهای سخت‌گیرانه، تجربه‌ای قابل‌اطمینان و باکیفیت تحویل می‌دهیم.',
     icon: 'Sparkles',
   },
   {
-    title: 'Impact',
+    title: 'تأثیر',
     description:
-      "We measure our success by the positive difference we make in people's lives and businesses.",
+      'معیار موفقیت ما تأثیری است که بر کسب‌وکارها و کاربران می‌گذاریم — هدفمان ایجاد رشد ملموس و پایدار برای مشتریان است.',
     icon: 'Globe',
   },
 ];
 
 export default function AboutUs1() {
   const aboutData = {
-    title: 'About Us',
+    title: 'درباره ما',
     subtitle:
-      'Building the future of web development with beautiful, reusable components.',
+      'آیندهٔ توسعه وب را با کامپوننت‌های زیبا و قابل‌استفادهٔ مجدد می‌سازیم.',
     mission:
-      'Our mission is to democratize web development by providing high-quality, customizable components that help developers build stunning websites quickly and efficiently.',
+    'ماموریت ما دسترس‌پذیر کردن توسعه وب برای همه است — با ارائهٔ کامپوننت‌های حرفه‌ای، قابل‌سفارشی‌سازی و باکیفیت که به تیم‌ها کمک می‌کنند وب‌سایت‌های خیره‌کننده را سریع و مؤثر بسازند.',
     vision:
-      'We envision a world where creating beautiful websites is accessible to everyone, regardless of their design or development experience.',
+    'ما دنیایی را تصور می‌کنیم که ساخت وب‌سایت‌های زیبا برای همه آسان و در دسترس باشد، فارغ از میزان تجربه در طراحی یا توسعه.',
     values: defaultValues,
     className: 'relative overflow-hidden py-20',
   };
@@ -134,7 +134,7 @@ export default function AboutUs1() {
 
               <div className="space-y-4">
                 <h2 className="from-primary/90 to-primary/70 mb-4 bg-gradient-to-r bg-clip-text text-3xl font-bold text-transparent">
-                  Our Mission
+                  ماموریت ما
                 </h2>
 
                 <p className="text-muted-foreground text-lg leading-relaxed">
@@ -158,7 +158,7 @@ export default function AboutUs1() {
               </div>
 
               <h2 className="mb-4 bg-gradient-to-r from-blue-500/90 to-blue-500/70 bg-clip-text text-3xl font-bold text-transparent">
-                Our Vision
+                آینده نگری ما
               </h2>
 
               <p className="text-muted-foreground text-lg leading-relaxed">
@@ -178,11 +178,10 @@ export default function AboutUs1() {
             className="mb-12 text-center"
           >
             <h2 className="from-foreground/80 via-foreground to-foreground/80 bg-gradient-to-r bg-clip-text text-3xl font-bold tracking-tight text-transparent sm:text-4xl">
-              Our Core Values
+              ارزش اصلی ما
             </h2>
             <p className="text-muted-foreground mx-auto mt-4 max-w-2xl text-lg">
-              The principles that guide everything we do and every decision we
-              make.
+              اصولی که چهارچوب همهٔ فعالیت‌ها و تصمیم‌گیری‌های ما را شکل می‌دهند.
             </p>
           </motion.div>
 

@@ -62,7 +62,7 @@ const MainHomePage: React.FC = () => {
           <span ref={starRef1}>
             <StarIcon className="text-yellow-100 duration-[.2s] hover:scale-[1.2] duration-2 hover:text-yellow-500 cursor-pointer inline-block" />
           </span>
-          <span className="px-3">Web Design By Sina</span>
+          <span className="px-3">Web Design With Sina</span>
           <span ref={starRef2}>
             <StarIcon className="text-yellow-100 hover:scale-[1.2] hover:text-yellow-500 cursor-pointer inline-block" />
           </span>

@@ -22,36 +22,35 @@ export default function CTA1() {
           />
           <div className="relative isolate overflow-hidden px-4 py-12 sm:px-24">
             <p className="w-fit rounded-xl bg-white px-4 py-1 text-center text-base leading-7 font-semibold text-black uppercase lg:text-left">
-              Get in touch
+              ارتباط با ما
             </p>
-            <h2 className="mt-3 max-w-md text-4xl font-semibold text-white md:text-6xl">
-              How Can You <span className="text-primary-2"> Reach Us</span>?
+            <h2 className="mt-3 max-w-lg text-4xl font-semibold text-white md:text-6xl">
+              چطور به ما <span className="text-primary-2"> دسترسی </span>پیدا کنید؟
             </h2>
             <p className="my-auto mt-3 max-w-2xl text-base text-gray-300 md:text-lg">
-              If you need to get in touch, there are several ways to contact us.
+              اگر شما میخواهید با ما در ارتباط باشید راه های مختلفی برای آن وجود دارد
             </p>
             <div className="mt-8 flex w-full flex-col justify-between gap-4 text-lg md:flex-row">
               <a
                 className="flex items-center gap-2 text-white"
-                href="mailto:subha9.5roy350@gmail.com"
+                href="mailto:sinaa.afshar@gmail.com"
               >
                 <Mail className="h-7 w-7 text-red-500" />
-                subha9.5roy350@gmail.com
+                sinaa.afshar@gmail.com
               </a>
               <a className="flex items-center gap-2 text-white" href="#">
                 <Phone className="h-7 w-7 text-green-500" />
-                +91-8637373116
+                09192001923
               </a>
               <Link prefetch={false} className="flex items-center gap-2 text-white" href="/">
                 <Globe className="h-7 w-7 text-blue-500" />
-                mvp-subha.me
+                webdesignwithsina.ir
               </Link>
             </div>
             <ul className="mt-8 ml-4 list-disc text-sm text-gray-300 md:text-base">
-              <li>Submit your query and state your requirements.</li>
+              <li>میتوانید درخواست خود را از طریق ارسال کلمه سفارش در مسیج یا ایمیل یا تلگرام یا اینستاگرام برای ما ثبت کنید</li>
               <li>
-                Receive a call back from our experts as per your query to help
-                for your need.
+                ما با دریافت کلمه سفارش از شما فرم همکاری را برای شما ارسال میکنیم و در صورتی که شما موافق همکاری با ما باشید میتوانید از طریق ارسال کلمه توافق فرم قرارداد را دریافت و به بستن قرارداد دوطرفه اقدام کنید 
               </li>
             </ul>
           </div>

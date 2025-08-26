@@ -5,6 +5,7 @@ import LogoCloud from "@/components/LogoCloud/LogoCloud"
 import AppHero from "@/components/Hero/AppHero"
 import FeatureSteps from "@/components/Features/FeatureSteps"
 import CTA2 from "@/components/CTA/CTA2"
+import Testimonials from "@/components/Testimonial/Testimonial"
 
 const HomePage = () => {
 
@@ -13,8 +14,11 @@ const HomePage = () => {
         <MainHomePage />
         <FeatureSteps />
         <AppHero />
-        <LogoCloud />
         <div className="flex justify-center pt-20"> 
+          <Testimonials />
+        </div>
+        <LogoCloud />
+        <div className="flex justify-center py-20"> 
           <CTA2 />
         </div>
     </main>

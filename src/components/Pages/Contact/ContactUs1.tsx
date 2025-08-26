@@ -67,13 +67,13 @@ export default function ContactUs1() {
                   isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }
                 }
                 transition={{ duration: 0.5, delay: 0.1 }}
-                className="flex w-full gap-2"
+                className="flex w-full gap-2 "
               >
-                <h2 className="from-foreground to-foreground/80 mb-2 bg-gradient-to-r bg-clip-text text-4xl font-bold tracking-tight text-transparent md:text-5xl">
-                  ertebat
+                <h2 className="from-foreground py-5 to-foreground/80 mb-2 bg-gradient-to-r bg-clip-text text-4xl font-bold tracking-tight text-transparent md:text-5xl">
+                  ارتباط
                 </h2>
-                <span className="text-primary relative z-10 w-full text-4xl font-bold tracking-tight italic md:text-5xl">
-                  ma
+                <span className="text-primary py-5 relative z-10 w-full text-4xl font-bold tracking-tight italic md:text-5xl">
+                  با ما
                 </span>
                 <SparklesCore
                   id="tsparticles"
@@ -102,12 +102,12 @@ export default function ContactUs1() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.4 }}
                   >
-                    <Label htmlFor="name">Name</Label>
+                    <Label htmlFor="name">نام کامل شما</Label>
                     <Input
                       id="name"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
-                      placeholder="Enter your name"
+                      placeholder="سینا افشار"
                       required
                     />
                   </motion.div>
@@ -118,13 +118,13 @@ export default function ContactUs1() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.5 }}
                   >
-                    <Label htmlFor="email">Email</Label>
+                    <Label htmlFor="email">ایمیل</Label>
                     <Input
                       id="email"
                       type="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      placeholder="Enter your email"
+                      placeholder="example@gmail.com"
                       required
                     />
                   </motion.div>
@@ -136,12 +136,12 @@ export default function ContactUs1() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.6 }}
                 >
-                  <Label htmlFor="message">Message</Label>
+                  <Label htmlFor="message">پیام شما</Label>
                   <Textarea
                     id="message"
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
-                    placeholder="Enter your message"
+                    placeholder="پیام خود را در این قسمت بنویسید"
                     required
                     className="h-40 resize-none"
                   />
@@ -160,15 +160,17 @@ export default function ContactUs1() {
                     {isSubmitting ? (
                       <span className="flex items-center justify-center">
                         <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                        Sending...
+                        در حال ارسال...
                       </span>
                     ) : isSubmitted ? (
                       <span className="flex items-center justify-center">
                         <Check className="mr-2 h-4 w-4" />
-                        Message Sent!
+                        ارسال شد!
                       </span>
                     ) : (
-                      <span>Send Message</span>
+                      <span>
+                        ارسال
+                      </span>
                     )}
                   </Button>
                 </motion.div>
@@ -182,8 +184,8 @@ export default function ContactUs1() {
               className="relative my-8 flex items-center justify-center overflow-hidden pr-8"
             >
               <div className="flex flex-col items-center justify-center overflow-hidden">
-                <article className="relative mx-auto h-[350px] min-h-60 max-w-[450px] overflow-hidden rounded-3xl border bg-gradient-to-b from-[#e60a64] to-[#e60a64]/5 p-6 text-3xl tracking-tight text-white md:h-[450px] md:min-h-80 md:p-8 md:text-4xl md:leading-[1.05] lg:text-5xl">
-                  Presenting you with the best UI possible.
+                <article className="relative mx-auto h-[350px] min-h-60 max-w-[450px] overflow-hidden rounded-3xl border bg-gradient-to-b from-[#e60a64] to-[#e60a64]/5 p-6 text-3xl tracking-tight text-white md:h-[450px] md:min-h-80 md:p-8 md:text-3xl md:leading-[1.05] lg:text-4xl">
+                  طراحی مطابق با به روز ترین طراحی های حال حاضر دنیا
                   <div className="absolute -right-20 -bottom-20 z-10 mx-auto flex h-full w-full max-w-[300px] items-center justify-center transition-all duration-700 hover:scale-105 md:-right-28 md:-bottom-28 md:max-w-[550px]">
                     <Earth
                       scale={1.1}

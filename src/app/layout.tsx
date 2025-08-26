@@ -38,12 +38,7 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <div className="overflow-x-hidden">
-              <Header1 />
-              {children}
-              <Footer4Col />
-            </div>
-
+            {children}
           </ThemeProvider>
         </body>
       </html>

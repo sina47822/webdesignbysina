@@ -11,33 +11,33 @@ import {
 const items = [
   {
     id: '1',
-    title: 'What makes MVPBlocks different?',
+    title: 'چه چیزی کار کردن با سینا را خاص می کند؟',
     content:
-      'MVPBlocks is a fully open-source, developer-first component library built using Next.js and TailwindCSS, designed to help you launch your MVPs in record time. No bloated packages, no unnecessary installs—just clean, copyable code to plug right into your next big thing.',
+      'سعی ما همیشه بر آن بوده تا از بهترین امکانات روز دنیا برای سریع تر شدن که به طبع آن قیمت محصول نهایی را پایین می آورد تا بهترین طراحی های روز دنیا استفاده شود تا مشتری ما هم رضابت داشته باشد در انتهای کار و هم باعث شود محصول نهایی خاص باشد و به هدف ما که جایگاه سازی برای مخاطبانمان است دست یابد',
   },
   {
     id: '2',
-    title: 'How can I customize the components?',
+    title: 'چطور میتوانم برای طراحی بخش خاصی از وبسایت اقدام کنم؟',
     content:
-      'All components are built with Tailwind CSS, making them highly customizable. Simply modify the class names or use our theme variables to match your brand. Components also support both light and dark modes out of the box.',
+      'ما سعی کردیم از بهترین طراحی های روز دنیا استفاده کنیم و همه نیازهای مخاطب خود را که سریع ارائه شدن خاص بودن و برطرف کننده نیاز بودن مشتری هست  را ارائه دادیم اما اگر بازهم طرح شما میان طرح های ما نبود میتوانید با ثبت درخواست از طریق ایمیل یا فرم اختصاصی بالا این درخواست را ثبت کنید تا پس از بررسی مالی آن برای شما فاکتور مجزا ارائه شود',
   },
   {
     id: '3',
-    title: 'Are MVPBlocks components responsive?',
+    title: 'آیا بخش های سایت ریسپانسیو است و در گوشی و دسکتاپ متفاوت است؟',
     content:
-      "Absolutely! All components are designed to be fully responsive and work beautifully on all devices, from mobile phones to large desktop screens. We've carefully crafted each component to provide an optimal experience regardless of screen size.",
+      "کاملا! همه قسمت های سایت به صورت ریسپانسیو طراحی شده است و در 4 حالت موبایل صفحه کوچک و صفجه بزرگ و صفحه خیلی بزرگ طراحی انجام شده است",
   },
   {
     id: '4',
-    title: 'Can I use MVPBlocks for commercial projects?',
+    title: 'آیا میتوانم برای فروشگاه سازی از خدمات شما بهره مند شوم؟',
     content:
-      'Yes, all MVPBlocks components are free to use for both personal and commercial projects. No attribution required—just build and launch your MVP faster than ever before.',
+      'بله کاملا! ما همه امکانات لازم برای طراحی سایت شرکتی، رزومه، فروشگاهی،آموزشی و رزرو آنلاین را فراهم کرده ایم',
   },
   {
     id: '5',
-    title: 'How do I get started with MVPBlocks?',
+    title: 'چطور میتوانم با شما همکاری کنم؟',
     content:
-      "Simply browse our component library, find the components you need, and copy the code into your project. It's that easy! Our documentation provides clear instructions for installation and usage.",
+      "به سادگی! شما میتوانید با ثبت درخواست خود به صورت آنلاین یا با تماس تلفنی فرم طراحی را دریافت و با پرداخت پیش پرداخت همکاری خودبا ما را آغاز کنید",
   },
 ];
 
@@ -49,16 +49,15 @@ export default function Faq1() {
           <h2
             className="mb-4 text-3xl font-bold tracking-tight md:text-4xl"
           >
-            Frequently Asked{' '}
-            <span className="from-primary bg-gradient-to-r to-rose-400 bg-clip-text text-transparent">
-              Questions
+            سوالات متداول{' '}
+            <span className="from-primary bg-gradient-to-r to-rose-200 bg-clip-text text-transparent">
+              از ما
             </span>
           </h2>
           <p
             className="text-muted-foreground mx-auto max-w-2xl"
           >
-            Everything you need to know about MVPBlocks and how to use our
-            components to build your next project quickly.
+            همه سوالاتی که شما برای شروع همکاری با ما ممکن است بپرسید در اینجا سعی شده قرار داده شود اگر سوالی خارج از اینها دارید میتوانید از طریق ایمیل سوال خود را مطرح کنید
           </p>
         </div>
 

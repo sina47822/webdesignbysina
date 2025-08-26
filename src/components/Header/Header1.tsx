@@ -50,20 +50,21 @@ export default function Header1() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      setIsScrolled(window.scrollY > 10);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const headerVariants = {
-    initial: { y: -100, opacity: 0 },
-    animate: { y: 0, opacity: 1 },
-    scrolled: {
-      backdropFilter: 'blur(20px)',
-      backgroundColor:
-        theme === 'dark' ? 'rgba(0, 0, 0, 0.8)' : 'rgba(255, 255, 255, 0.8)',
-      boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)',
+  const containerVariants = {
+    hidden: { opacity: 0, y: -20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        staggerChildren: 0.1,
+      },
     },
   };
 
@@ -79,8 +80,12 @@ export default function Header1() {
 
   return (
     <motion.header
-      className="fixed top-0 right-0 left-0 z-50 transition-all duration-300"
-      variants={headerVariants}
+        className={`fixed top-0 right-0 left-0 z-50 transition-all duration-500 ${
+          isScrolled
+            ? 'border-border/50 bg-background/80 border-b text-white shadow-sm backdrop-blur-md'
+            : 'bg-transparent'
+        }`}
+      variants={containerVariants}
       initial="initial"
       animate={isScrolled ? 'scrolled' : 'animate'}
       transition={{ duration: 0.3, ease: 'easeInOut' }}
@@ -106,7 +111,7 @@ export default function Header1() {
                 <Sparkles className="h-5 w-5 text-white" />
               </div>
               <span className="bg-gradient-to-r from-gray-200 to-gray-300 bg-clip-text text-xl font-bold text-transparent">
-                WDBS.
+                WDWS.
               </span>
             </Link>
           </motion.div>

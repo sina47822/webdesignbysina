@@ -30,7 +30,7 @@ export default function SigninModal() {
             <img src="/logo.webp" alt="logo" className="h-8 w-8 rounded-full" />
           </div>
           <DialogHeader>
-            <DialogTitle className="sm:text-center">Web Design by Sina</DialogTitle>
+            <DialogTitle className="sm:text-center">Web Design With Sina</DialogTitle>
             <DialogDescription className="sm:text-center">
               نام کاربری و رمز عبور خود را برای ورود وارد کنید.
             </DialogDescription>

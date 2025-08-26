@@ -15,59 +15,60 @@ import NumberFlow from '@number-flow/react';
 // Define your plans
 const plans = [
   {
-    name: 'STARTER',
-    price: '50',
-    yearlyPrice: '40',
-    period: 'per month',
+    name: 'شرکتی و رزومه',
+    price: '20000000',
+    yearlyPrice: '16000000',
+    period: 'ماهانه',
     features: [
-      'Up to 10 projects',
-      'Basic analytics',
-      '48-hour support response time',
-      'Limited API access',
-      'Community support',
+      'طراحی تک صفحه ای',
+      'سئو پایه',
+      'پشتیبانی ایمیلی',
+      'دو بار طراحی',
+      'عضویت در کانال اعضا',
     ],
-    description: 'Perfect for individuals and small projects',
-    buttonText: 'Start Free Trial',
+    description: 'برای معرفی کسب و کار و صفحات لندینگ و شرکت های کوچک عالی است',
+    buttonText: 'شروع همکاری',
     href: '/sign-up',
     isPopular: false,
   },
   {
-    name: 'PROFESSIONAL',
-    price: '99',
-    yearlyPrice: '79',
-    period: 'per month',
+    name: 'فروشگاهی',
+    price: '40000000',
+    yearlyPrice: '32000000',
+    period: 'ماهانه',
     features: [
-      'Unlimited projects',
-      'Advanced analytics',
-      '24-hour support response time',
-      'Full API access',
-      'Priority support',
-      'Team collaboration',
-      'Custom integrations',
+      'طراحی چند صفحه ای',
+      'سئو پایه',
+      'پشتیبانی ایمیلی و تلفنی',
+      'یک درگاه پرداخت پایه',
+      'صفحات درباره ما و تماس با ما',
+      'صفحات فروشگاه و محصول تکی',
+      'صفحات مقالات و مقاله تکی',
+      'صفحات ورود و عضویت و سبد خرید و صفحه پرداخت و داشبورد پایه',
     ],
-    description: 'Ideal for growing teams and businesses',
-    buttonText: 'Get Started',
+    description: 'مناسب برای فروشگاه های کوچک و کسب و کارهایی که نیاز به فروش محصولات دارند ',
+    buttonText: 'شروع همکاری',
     href: '/sign-up',
     isPopular: true,
   },
   {
-    name: 'ENTERPRISE',
-    price: '299',
-    yearlyPrice: '239',
-    period: 'per month',
+    name: 'آموزش آنلاین و رزرو',
+    price: '60000000',
+    yearlyPrice: '48000000',
+    period: 'ماهانه',
     features: [
-      'Everything in Professional',
-      'Custom solutions',
-      'Dedicated account manager',
-      '1-hour support response time',
-      'SSO Authentication',
-      'Advanced security',
-      'Custom contracts',
-      'SLA agreement',
+      'طراحی چند صفحه ای',
+      'سئو پایه',
+      'پشتیبانی ایمیلی و تلفنی',
+      'یک درگاه پرداخت پایه',
+      'صفحات درباره ما و تماس با ما',
+      'صفحات مقالات و مقاله تکی',
+      'صفحات اختصاصی مرحله ای آزمون و رزرو ',
+      'صفحات ورود و عضویت و سبد خرید و صفحه پرداخت و داشبورد پایه',
     ],
-    description: 'For large organizations with specific needs',
-    buttonText: 'Contact Sales',
-    href: '/contact',
+    description: 'مناسب برای اساتید و هتل ها و کرایه ماشین و ... ',
+    buttonText: 'صفحه جزییات',
+    href: '/reserve',
     isPopular: false,
   },
 ];
@@ -126,13 +127,16 @@ export default function CongestedPricing() {
 
   return (
     <div className="container py-20">
-      <div className="mb-12 space-y-4 text-center">
+      <div className="group mb-12 space-y-4 text-center">
         <h2 className="text-4xl font-bold tracking-tight sm:text-5xl">
-          Simple, transparent pricing for all.
+          قیمت گذاری طراحی وبسایت
         </h2>
-        <p className="text-muted-foreground text-lg whitespace-pre-line">
-          Choose the plan that works for you\nAll plans include access to our
-          platform, lead generation tools, and dedicated support.
+        <p className=" text-muted-foreground text-lg whitespace-pre-line">
+          این قیمت گذاری پایه برای ورود شما به دنیای کسب و کار اینترنتی که سئو شده و با توجه به همه نیازهای شما طراحی می شود.
+          <br />
+          اما اگر شما سایت دارید یا طراحی اختصاصی می گردید می توانید می توانید از
+        <span className='' ><a href="/special-pricing" className='duration-[.4s] group-hover:text-blue-500 group-hover:font-bold'> این لینک </a></span>
+        وارد شوید
         </p>
       </div>
 
@@ -147,8 +151,15 @@ export default function CongestedPricing() {
             />
           </Label>
         </label>
-        <span className="ml-2 font-semibold">
-          Annual billing <span className="text-primary">(Save 20%)</span>
+        <span className="group mr-2 font-semibold">
+          سفارش همراه با 
+          <span>
+            <a href="/support-pricing" className='px-1 duration-[.4s] group-hover:text-blue-500 group-hover:font-bold'>
+             پشتیبانی
+            </a>
+          </span>
+             
+          <span className="text-primary">(تخفیف 20%)</span>
         </span>
       </div>
 
@@ -189,10 +200,10 @@ export default function CongestedPricing() {
             )}
           >
             {plan.isPopular && (
-              <div className="bg-primary absolute top-0 left-0 flex items-center rounded-tr-xl rounded-bl-xl px-2 py-0.5">
+              <div className="bg-primary absolute top-0 right-0 flex items-center rounded-tr-xl rounded-bl-xl px-2 py-0.5">
                 <Star className="text-primary-foreground h-4 w-4 fill-current" />
-                <span className="text-primary-foreground mr-1 font-sans font-semibold">
-                  Popular
+                <span className="text-primary-foreground ml-1 font-sans font-semibold">
+                  پرطرفدار
                 </span>
               </div>
             )}
@@ -201,14 +212,14 @@ export default function CongestedPricing() {
                 {plan.name}
               </p>
               <div className="mt-6 flex items-center justify-center gap-x-2">
-                <span className="text-foreground text-5xl font-bold tracking-tight">
+                <span className="text-foreground text-4xl font-bold tracking-tight">
                   <NumberFlow
                     value={
                       isMonthly ? Number(plan.price) : Number(plan.yearlyPrice)
                     }
                     format={{
                       style: 'currency',
-                      currency: 'USD',
+                      currency: 'IRT',
                       minimumFractionDigits: 0,
                       maximumFractionDigits: 0,
                     }}
@@ -228,7 +239,7 @@ export default function CongestedPricing() {
               </div>
 
               <p className="text-muted-foreground text-xs leading-5">
-                {isMonthly ? 'billed monthly' : 'billed annually'}
+                {isMonthly ? 'پرداخت ابتدای هر ماه' : 'پرداخت ابتدای هر ماه'}
               </p>
 
               <ul className="mt-5 flex flex-col gap-2">
@@ -242,15 +253,16 @@ export default function CongestedPricing() {
 
               <hr className="my-4 w-full" />
 
-              <Link prefetch={false}                href={plan.href}
+              <Link prefetch={false}
+                href={plan.href}
                 className={cn(
                   buttonVariants({
                     variant: 'outline',
                   }),
-                  'group relative w-full gap-2 overflow-hidden text-lg font-semibold tracking-tighter',
+                  'group relative w-full gap-2 overflow-hidden text-md font-semibold tracking-tighter',
                   'hover:bg-primary hover:text-primary-foreground hover:ring-primary transform-gpu ring-offset-current transition-all duration-300 ease-out hover:ring-2 hover:ring-offset-1',
                   plan.isPopular
-                    ? 'bg-primary text-secondary-foreground'
+                    ? 'bg-primary text-secondary'
                     : 'bg-background text-foreground',
                 )}
               >

@@ -105,7 +105,7 @@ export default function Header2() {
                 </div>
                 <div className="flex flex-col">
                   <span className="text-foreground text-lg font-bold">
-                    WDBS.
+                    WDWS.
                   </span>
                   <span className="text-muted-foreground -mt-1 text-xs">
                     Build faster
@@ -164,7 +164,9 @@ export default function Header2() {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
-                <Link prefetch={false}                  href="/signup"
+                <Link 
+                  prefetch={false}                  
+                  href="/signup"
                   className="bg-foreground group text-background hover:bg-foreground/90 inline-flex items-center space-x-2 rounded-lg px-5 py-2.5 text-sm font-medium shadow-sm transition-all duration-200"
                 >
                   <span>Get Started</span>

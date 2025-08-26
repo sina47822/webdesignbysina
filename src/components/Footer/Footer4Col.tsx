@@ -16,7 +16,10 @@ const data = {
     webdev: '/web-development',
     webdesign: '/web-design',
     marketing: '/marketing',
-    googleads: '/google-ads',
+    googleads: '/SEO',
+    uxdesign: '/UX-UI',
+    consulting: '/consulting',
+
   },
   about: {
     history: '/company-history',
@@ -30,14 +33,14 @@ const data = {
     livechat: '/live-chat',
   },
   contact: {
-    email: 'hello@mvpblocks.com',
-    phone: '+91 8637373116',
-    address: 'Kolkata, West Bengal, India',
+    email: 'info@webdesignbysina.ir',
+    phone: '09192001923',
+    address: 'تهران میدان ونک بزرگراه شهید حقانی پلاک 40 و 42',
   },
   company: {
-    name: 'Mvpblocks',
+    name: 'وب دیزاین با سینا',
     description:
-      'Building beautiful and functional web experiences with modern technologies. We help startups and businesses create their digital presence.',
+      'ما با تجربه بیش از 10 سال در کسب و کارهای اینترنتی به شما کمک میکنیم تا جایگاهی درخور و برای خودتون در اینترنت داشته باشید و به جای استفاده از واسطه ها مستقیم با مشتری در ارتباط باشید و حلقه مشتریان خودتون رو نشکیل بدید',
     logo: '/logo.webp',
   },
 };
@@ -51,23 +54,26 @@ const socialLinks = [
 ];
 
 const aboutLinks = [
-  { text: 'Company History', href: data.about.history },
-  { text: 'Meet the Team', href: data.about.team },
-  { text: 'Employee Handbook', href: data.about.handbook },
-  { text: 'Careers', href: data.about.careers },
+  { text: 'تاریخچه کار ما', href: data.about.history },
+  { text: 'مشاهده تیم ما', href: data.about.team },
+  { text: 'راهنمای شروع همکاری', href: data.about.handbook },
+  { text: 'موقعیت های شغلی باز', href: data.about.careers },
 ];
 
 const serviceLinks = [
-  { text: 'Web Development', href: data.services.webdev },
-  { text: 'Web Design', href: data.services.webdesign },
-  { text: 'Marketing', href: data.services.marketing },
-  { text: 'Google Ads', href: data.services.googleads },
+  { text: 'توسعه وب و اپلیکیشن', href: data.services.webdev },
+  { text: 'طراحی گرافیکی سایت', href: data.services.webdesign },
+  { text: 'بازاریابی دیجیتال', href: data.services.marketing },
+  { text: 'SEO', href: data.services.googleads },
+  { text: 'مدیریت محصول', href: data.services.uxdesign },
+  { text: 'مشاوره کسب و کار', href: data.services.consulting },
+
 ];
 
 const helpfulLinks = [
-  { text: 'FAQs', href: data.help.faqs },
-  { text: 'Support', href: data.help.support },
-  { text: 'Live Chat', href: data.help.livechat, hasIndicator: true },
+  { text: 'سوالات متداول', href: data.help.faqs },
+  { text: 'پشتیبانی', href: data.help.support },
+  { text: 'چت آنلاین', href: data.help.livechat, hasIndicator: true },
 ];
 
 const contactInfo = [
@@ -84,7 +90,7 @@ export default function Footer4Col() {
 
           <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-4 lg:col-span-2">
             <div className="text-center sm:text-right">
-              <p className="text-lg font-medium">About Us</p>
+              <p className="text-lg font-medium">درباره ما</p>
               <ul className="mt-8 space-y-4 text-sm">
                 {aboutLinks.map(({ text, href }) => (
                   <li key={text}>
@@ -100,7 +106,7 @@ export default function Footer4Col() {
             </div>
 
             <div className="text-center sm:text-right">
-              <p className="text-lg font-medium">Our Services</p>
+              <p className="text-lg font-medium">خدمات ما</p>
               <ul className="mt-8 space-y-4 text-sm">
                 {serviceLinks.map(({ text, href }) => (
                   <li key={text}>
@@ -116,7 +122,7 @@ export default function Footer4Col() {
             </div>
 
             <div className="text-center sm:text-right">
-              <p className="text-lg font-medium">Helpful Links</p>
+              <p className="text-lg font-medium">لینک های کاربردی</p>
               <ul className="mt-8 space-y-4 text-sm">
                 {helpfulLinks.map(({ text, href, hasIndicator }) => (
                   <li key={text}>
@@ -144,7 +150,7 @@ export default function Footer4Col() {
             </div>
 
             <div className="text-center sm:text-right">
-              <p className="text-lg font-medium">Contact Us</p>
+              <p className="text-lg font-medium">ارتیاط با ما</p>
               <ul className="mt-8 space-y-4 text-sm">
                 {contactInfo.map(({ icon: Icon, text, isAddress }) => (
                   <li key={text}>
@@ -181,7 +187,7 @@ export default function Footer4Col() {
               </span>
             </div>
 
-            <p className="text-foreground/50 mt-6 max-w-md text-justify leading-relaxed sm:max-w-xs sm:text-right">
+            <p className="text-foreground/50 mt-6 max-w-md text-justify leading-relaxed sm:max-w-xs sm:text-justify">
               {data.company.description}
             </p>
 
@@ -203,11 +209,11 @@ export default function Footer4Col() {
         <div className="mt-12 border-t pt-6">
           <div className="text-center sm:flex sm:justify-between sm:text-left">
             <p className="text-sm">
-              <span className="block sm:inline">All rights reserved.</span>
+              <span className="block sm:inline">تمامی حقوق محتوای این وبسایت برای ما محفوظ است</span>
             </p>
 
             <p className="text-secondary-foreground/70 mt-4 text-sm transition sm:order-first sm:mt-0">
-              &copy; 2025 {data.company.name}
+              1404 &copy; {data.company.name}
             </p>
           </div>
         </div>

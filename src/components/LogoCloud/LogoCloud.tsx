@@ -4,11 +4,11 @@ export default function LogoCloud() {
     <div className="h-screen w-screen overflow-hidden bg-[#121212]">
       <div className="mx-auto mt-32 w-screen max-w-2xl">
         <div className="text-center text-3xl text-white">
-          <span className="text-rose-200">Trusted by experts.</span>
+          <span className="text-rose-200">ما توسط متخصصان توصیه می شویم</span>
 
           <br />
 
-          <span>Used by the leaders.</span>
+          <span>و مشاوران ما را پیشنهاد می دهند</span>
         </div>
 
         <div className="mt-14 grid grid-cols-5">

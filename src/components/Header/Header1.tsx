@@ -17,29 +17,29 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { name: 'Home', href: '/' },
-  { name: 'About', href: '/about' },
-  { name: 'Features', href: '/features' },
+  { name: 'خانه', href: '/' },
+  { name: 'درباره ما', href: '/about' },
+  { name: 'قابلیت ها', href: '/features' },
   {
-    name: 'Products',
+    name: 'محصولات',
     href: '/products',
     hasDropdown: true,
     dropdownItems: [
       {
-        name: 'Analytics',
+        name: 'آنالیتیک',
         href: '/analytics',
         description: 'Track your metrics',
       },
       {
-        name: 'Dashboard',
+        name: 'داشبورد',
         href: '/dashboard',
         description: 'Manage your data',
       },
-      { name: 'Reports', href: '/reports', description: 'Generate insights' },
+      { name: 'گزارش گیری', href: '/reports', description: 'Generate insights' },
     ],
   },
-  { name: 'Pricing', href: '/pricing' },
-  { name: 'Contact', href: '/contact' },
+  { name: 'قیمت', href: '/pricing' },
+  { name: 'ارتباط با ما', href: '/contact' },
 ];
 
 export default function Header1() {
@@ -102,10 +102,10 @@ export default function Header1() {
             transition={{ type: 'spring', stiffness: 400, damping: 10 }}
           >
             <Link prefetch={false} href="/" className="flex items-center space-x-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-rose-500 to-rose-700">
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-blue-300 to-blue-700">
                 <Sparkles className="h-5 w-5 text-white" />
               </div>
-              <span className="bg-gradient-to-r from-rose-500 to-rose-700 bg-clip-text text-xl font-bold text-transparent">
+              <span className="bg-gradient-to-r from-gray-200 to-gray-300 bg-clip-text text-xl font-bold text-transparent">
                 WDBS.
               </span>
             </Link>
@@ -136,7 +136,7 @@ export default function Header1() {
                   <AnimatePresence>
                     {activeDropdown === item.name && (
                       <motion.div
-                        className="border-border bg-background/95 absolute top-full left-0 mt-2 w-64 overflow-hidden rounded-xl border shadow-xl backdrop-blur-lg"
+                        className="border-border bg-background/95 absolute top-full right-0 mt-2 w-64 overflow-hidden rounded-xl border shadow-xl backdrop-blur-lg"
                         variants={dropdownVariants}
                         initial="hidden"
                         animate="visible"
@@ -144,7 +144,9 @@ export default function Header1() {
                         transition={{ duration: 0.2 }}
                       >
                         {item.dropdownItems?.map((dropdownItem) => (
-                          <Link prefetch={false}                            key={dropdownItem.name}
+                          <Link 
+                            prefetch={false}                            
+                            key={dropdownItem.name}
                             href={dropdownItem.href}
                             className="hover:bg-muted block px-4 py-3 transition-colors duration-200"
                           >
@@ -174,7 +176,7 @@ export default function Header1() {
                 href="/signup"
                 className="inline-flex group items-center space-x-2 rounded-full bg-gradient-to-r from-rose-500 to-rose-700 px-6 py-2.5 font-medium text-white transition-all duration-200 hover:shadow-lg"
               >
-                <span>Get Started</span>
+                <span>شروع همکاری</span>
                   <ArrowLeft className="h-4 w-4 duration-[.3s] group-hover:-translate-x-1" />
               </Link>
             </motion.div>
@@ -206,7 +208,9 @@ export default function Header1() {
             >
               <div className="border-border bg-background/95 mt-4 space-y-2 rounded-xl border py-4 shadow-xl backdrop-blur-lg">
                 {navItems.map((item) => (
-                  <Link prefetch={false}                    key={item.name}
+                  <Link 
+                    prefetch={false}
+                    key={item.name}
                     href={item.href}
                     className="text-foreground hover:bg-muted block px-4 py-3 font-medium transition-colors duration-200"
                     onClick={() => setIsMobileMenuOpen(false)}
@@ -221,7 +225,7 @@ export default function Header1() {
                     className="text-foreground cursor-pointer hover:bg-muted block w-full rounded-lg py-2.5 text-center font-medium transition-colors duration-200"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
-                    Sign In
+                    ورود
                   </Link>
                   <Link 
                     prefetch={false}
@@ -229,7 +233,7 @@ export default function Header1() {
                     className="block w-full rounded-lg bg-gradient-to-r from-rose-500 to-rose-700 py-2.5 text-center font-medium text-white transition-all duration-200 hover:shadow-lg"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
-                    Get Started
+                    شروع همکاری
                   </Link>
                 </div>
               </div>

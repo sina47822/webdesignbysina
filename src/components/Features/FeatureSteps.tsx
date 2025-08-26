@@ -7,37 +7,37 @@ import { Rocket, Code, Paintbrush } from 'lucide-react';
 
 const features = [
   {
-    step: 'Step 1',
-    title: 'Build Faster',
+    step: 'قدم اول',
+    title: 'هرآنچه شما میخواهید!',
     content:
-      'Create your MVP in record time with our pre-built blocks and components.',
+      'ما به شما کمک میکنیم به سرعت بازاریابی اینترنتی خود را آغاز کنید یا بهبود بخشید',
     icon: <Rocket className="text-primary h-6 w-6" />,
     image:
       '/assets/feature/photo-1551288049-bebda4e38f71.jpeg',
   },
   {
-    step: 'Step 2',
-    title: 'Customize Easily',
+    step: 'قدم دوم',
+    title: 'زیبا باشید و زیبایی ببخشید',
     content:
-      'Tailor every component to your needs with our intuitive design system and flexible architecture.',
+      'ما بوسیله طراحی های اختصاصی و زیبا برای متمایز شدن شما به روزتریم دانش دنیا را به کار میگیریم',
     icon: <Paintbrush className="text-primary h-6 w-6" />,
     image:
       '/assets/feature/photo-1581291518633-83b4ebd1d83e.jpeg',
   },
   {
-    step: 'Step 3',
-    title: 'Deploy Confidently',
+    step: 'قدم سوم',
+    title: 'کاشت درخت در باغ بازار',
     content:
-      'Launch your product with confidence using our optimized, responsive, and accessible components.',
+      'ما برای توسعه امن و سئو محور شما با توجه به بودجه شما بهترین پیشنهاد را برای توسعه امن و سئو محور ارائه میدهیم',
     icon: <Code className="text-primary h-6 w-6" />,
     image:
       '/assets/feature/photo-1618761714954-0b8cd0026356.jpeg',
   },
   {
-    step: 'Step 4',
-    title: 'Add Yours!',
+    step: 'قدم چهارم',
+    title: 'رشد درخت کسب و کار',
     content:
-      'Contribute your own blocks and become part of the MVPBlocks community.',
+      'ما همراه شما باقی می مانیم تا مانند یک باغبان درخت رشد شما را به نوعی هرس کنیم که در جهت درست رشد کنید',
     icon: <Code className="text-primary h-6 w-6" />,
     image:
       '/assets/feature/photo-1618761714954-0b8cd0026356.jpeg',
@@ -67,11 +67,10 @@ export default function FeatureSteps() {
         <div className="relative mx-auto mb-12 max-w-2xl sm:text-center">
           <div className="relative z-10">
             <h2 className="font-geist text-3xl font-bold tracking-tighter md:text-4xl lg:text-5xl">
-              Build Your MVP in Three Steps
+              در چهار مرحله با ما همکاری کنید
             </h2>
             <p className="font-geist text-foreground/60 mt-3">
-              MVPBlocks helps you create, customize, and deploy your product
-              faster than ever before.
+              وب دیزاین با سینا به شما کمک میکند وبسایتی متمایز و جایگاه ساز در بازار رقابت داشته باشید
             </p>
           </div>
           <div

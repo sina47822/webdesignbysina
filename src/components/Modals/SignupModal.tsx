@@ -16,7 +16,7 @@ export default function SignupModal() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="secondary">Sign up</Button>
+        <Button variant="secondary">عضویت</Button>
       </DialogTrigger>
       <DialogContent>
         <div className="flex flex-col items-center gap-2">
@@ -28,10 +28,10 @@ export default function SignupModal() {
           </div>
           <DialogHeader>
             <DialogTitle className="sm:text-center">
-              Sign up to Mvpblocks
+              عضویت در طراحی سایت با سینا
             </DialogTitle>
             <DialogDescription className="sm:text-center">
-              We just need a few details to get you started.
+              ما برای عضویت شما اطلاعات کمی از شما میخواهیم
             </DialogDescription>
           </DialogHeader>
         </div>
@@ -39,28 +39,28 @@ export default function SignupModal() {
         <form className="space-y-5">
           <div className="space-y-4">
             <div className="*:not-first:mt-2">
-              <Label htmlFor={`${id}-name`}>Full name</Label>
+              <Label htmlFor={`${id}-name`}>نام کامل</Label>
               <Input
                 id={`${id}-name`}
-                placeholder="Subhadeep Roy"
+                placeholder="سینا افشار"
                 type="text"
                 required
               />
             </div>
             <div className="*:not-first:mt-2">
-              <Label htmlFor={`${id}-email`}>Email</Label>
+              <Label htmlFor={`${id}-email`}>ایمیل</Label>
               <Input
                 id={`${id}-email`}
-                placeholder="subha9.5roy350@gmail.com"
+                placeholder="example@gmail.com"
                 type="email"
                 required
               />
             </div>
             <div className="*:not-first:mt-2">
-              <Label htmlFor={`${id}-password`}>Password</Label>
+              <Label htmlFor={`${id}-password`}>رمز عبور</Label>
               <Input
                 id={`${id}-password`}
-                placeholder="Enter your password"
+                placeholder="رمز عبور خود را وارد کنید"
                 type="password"
                 required
               />
@@ -71,16 +71,16 @@ export default function SignupModal() {
           </Button>
         </form>
 
-        <div className="before:bg-border after:bg-border flex items-center gap-3 before:h-px before:flex-1 after:h-px after:flex-1">
+        {/* <div className="before:bg-border after:bg-border flex items-center gap-3 before:h-px before:flex-1 after:h-px after:flex-1">
           <span className="text-muted-foreground text-xs">Or</span>
         </div>
 
-        <Button variant="outline">Continue with Google</Button>
+        <Button variant="outline">Continue with Google</Button> */}
 
         <p className="text-muted-foreground text-center text-xs">
-          By signing up you agree to our{' '}
+          در صورت عضویت شما شرایط عضویت سایت را مطالعه کرده اید.{' '}
           <a className="underline hover:no-underline" href="#">
-            Terms
+            شرایط عضویت در سایت
           </a>
           .
         </p>

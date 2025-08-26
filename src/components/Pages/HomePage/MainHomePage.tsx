@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { AuroraBackground } from '@/components/ui/shadcn-io/aurora-background';
 import { StarIcon } from 'lucide-react';
 import { gsap } from 'gsap';
+import Link from 'next/link';
 
 const MainHomePage: React.FC = () => {
   const starRef1 = useRef<HTMLSpanElement>(null);
@@ -70,13 +71,15 @@ const MainHomePage: React.FC = () => {
           <span ref={starRef3}>
             <StarIcon className="text-yellow-100 hover:scale-[1.2] hover:text-yellow-500 cursor-pointer inline-block" />
           </span>
-          <span className='px-3'>And this, is chemical burn.</span>
+          <span className='px-3'>برای جایگاه سازی با ما باشید</span>
           <span ref={starRef4}>
             <StarIcon className="text-yellow-100 hover:scale-[1.2] hover:text-yellow-500 cursor-pointer inline-block" />
           </span>
         </div>
         <button className="bg-black hover:scale-[1.2] duration-[.2s] dark:bg-white dark:hover:bg-gray-900 dark:hover:text-yellow-200 rounded-full w-fit text-white dark:text-black text-xl px-8 py-4">
-          Pricing List
+          <Link href={'/pricing'}>
+            لیست قیمت
+          </Link>
         </button>
       </div>
     </AuroraBackground>

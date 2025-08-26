@@ -12,13 +12,14 @@ import {
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import SignupModal from './SignupModal';
 
 export default function SigninModal() {
   const id = useId();
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="secondary" className='cursor-pointer hover:scale-[1.1]'>Sign in</Button>
+        <Button variant="secondary" className='cursor-pointer hover:scale-[1.1]'>ورود</Button>
       </DialogTrigger>
       <DialogContent>
         <div className="flex flex-col items-center gap-2">
@@ -29,9 +30,9 @@ export default function SigninModal() {
             <img src="/logo.webp" alt="logo" className="h-8 w-8 rounded-full" />
           </div>
           <DialogHeader>
-            <DialogTitle className="sm:text-center">Welcome back</DialogTitle>
+            <DialogTitle className="sm:text-center">Web Design by Sina</DialogTitle>
             <DialogDescription className="sm:text-center">
-              Enter your credentials to login to your account.
+              نام کاربری و رمز عبور خود را برای ورود وارد کنید.
             </DialogDescription>
           </DialogHeader>
         </div>
@@ -39,19 +40,19 @@ export default function SigninModal() {
         <form className="space-y-5">
           <div className="space-y-4">
             <div className="*:not-first:mt-2">
-              <Label htmlFor={`${id}-email`}>Email</Label>
+              <Label htmlFor={`${id}-email`}>ایمیل</Label>
               <Input
                 id={`${id}-email`}
-                placeholder="subha9.5roy350@gmail.com"
+                placeholder="example@gmail.com"
                 type="email"
                 required
               />
             </div>
             <div className="*:not-first:mt-2">
-              <Label htmlFor={`${id}-password`}>Password</Label>
+              <Label htmlFor={`${id}-password`}>رمز عبور</Label>
               <Input
                 id={`${id}-password`}
-                placeholder="Enter your password"
+                placeholder="رمز عبور خود را وارد کنید"
                 type="password"
                 required
               />
@@ -64,26 +65,26 @@ export default function SigninModal() {
                 htmlFor={`${id}-remember`}
                 className="text-muted-foreground font-normal"
               >
-                Remember me
+                رمز عبور را به خاطر بسپار
               </Label>
             </div>
             <a 
-              className="text-sm underline hover:no-underline" 
+              className="text-sm text-blue-400 underline hover:no-underline" 
               href="#"
             >
-              ?Forgot password
+              آیا رمز عبور را فراموش کردید؟
             </a>
           </div>
           <Button type="button" className="w-full">
-            Sign in
+            ورود
           </Button>
         </form>
 
         <div className="before:bg-border after:bg-border flex items-center gap-3 before:h-px before:flex-1 after:h-px after:flex-1">
-          <span className="text-muted-foreground text-xs">Or</span>
+          <span className="text-muted-foreground text-xs">یا</span>
         </div>
 
-        <Button variant="outline">Login with Google</Button>
+        <SignupModal />
       </DialogContent>
     </Dialog>
   );

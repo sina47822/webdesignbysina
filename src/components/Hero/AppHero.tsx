@@ -355,9 +355,6 @@ export default function AppHero() {
           </div>
         </motion.div>
       </motion.main>
-      <div className="absolute left-auto -bottom-40 left-1/2 h-96 w-20 -translate-x-1/2 -rotate-45 rounded-full bg-gray-200/30 blur-[80px] lg:left-96 lg:left-auto lg:translate-x-0"></div>
-      <div className="absolute left-auto -bottom-52 left-1/2 h-96 w-20 -translate-x-1/2 -rotate-45 rounded-full bg-gray-300/20 blur-[80px] lg:left-auto lg:left-auto lg:translate-x-0"></div>
-      <div className="absolute left-auto -bottom-60 left-1/2 h-96 w-10 -translate-x-20 -rotate-45 rounded-full bg-gray-300/20 blur-[80px] lg:left-96 lg:left-auto lg:-translate-x-40"></div>
     </section>
   );
 }

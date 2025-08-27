@@ -2,19 +2,40 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider"
-import Header1 from "@/components/Header/Header1";
-import FooterGlow from "@/components/Footer/FooterGlow";
-import Header2 from "@/components/Header/Header2";
-import Footer4Col from "@/components/Footer/Footer4Col";
+import localFont from 'next/font/local';
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+// Configure the font with its source files, weights, and styles
+const danaFont = localFont({
+  src: [
+    {
+      path: '../../public/fonts/dana-regular.woff',
+      weight: '400', // Specify weight for regular font
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/dana-regular.woff2',
+      weight: '400',
+      style: 'normal',
+    },
+  ],
+  variable: '--font-dana',
+  
 });
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const yekanFont = localFont({
+  src: [
+    {
+      path: '../../public/fonts/YekanBakh-Regular.woff',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/YekanBakh-Bold.woff',
+      weight: '700',
+      style: 'normal',
+    },
+  ],
+  variable: '--font-yekan',
+  
 });
 
 export const metadata: Metadata = {
@@ -29,7 +50,7 @@ export default function RootLayout({
 }>) {
   return (
 
-      <html lang="fa" dir="rtl" suppressHydrationWarning>
+      <html lang="fa" dir="rtl" suppressHydrationWarning className={`${danaFont.variable} ${yekanFont.variable}`}>
         <head />
         <body>
           <ThemeProvider

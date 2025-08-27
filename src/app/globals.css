@@ -52,6 +52,17 @@
   }
 }
 
+body {
+  font-family: var(--font-dana), sans-serif;
+}
+.font-yekan {
+  font-family: var(--font-yekan), sans-serif;
+}
+
+.font-dana {
+  font-family: var(--font-dana), sans-serif;
+}
+
 :root {
   --radius: 0.625rem;
   --background: oklch(1 0 0);

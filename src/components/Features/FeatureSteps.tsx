@@ -8,37 +8,37 @@ import { Rocket, Code, Paintbrush } from 'lucide-react';
 const features = [
   {
     step: 'قدم اول',
-    title: 'هرآنچه شما میخواهید!',
+    title: 'زیبا',
     content:
-      'ما به شما کمک میکنیم به سرعت بازاریابی اینترنتی خود را آغاز کنید یا بهبود بخشید',
-    icon: <Rocket className="text-primary h-6 w-6" />,
-    image:
-      '/assets/feature/photo-1551288049-bebda4e38f71.jpeg',
-  },
-  {
-    step: 'قدم دوم',
-    title: 'زیبا باشید و زیبایی ببخشید',
-    content:
-      'ما بوسیله طراحی های اختصاصی و زیبا برای متمایز شدن شما به روزتریم دانش دنیا را به کار میگیریم',
+      'ما بوسیله طراحی های اختصاصی و زیبا برای متمایز شدن به روزترین دانش دنیا را به کار میگیریم',
     icon: <Paintbrush className="text-primary h-6 w-6" />,
     image:
       '/assets/feature/photo-1581291518633-83b4ebd1d83e.jpeg',
   },
   {
-    step: 'قدم سوم',
-    title: 'کاشت درخت در باغ بازار',
+    step: 'قدم دوم',
+    title: 'سریع',
     content:
-      'ما برای توسعه امن و سئو محور شما با توجه به بودجه شما بهترین پیشنهاد را برای توسعه امن و سئو محور ارائه میدهیم',
-    icon: <Code className="text-primary h-6 w-6" />,
+      'با استفاده از کامپوننت های آماده و زیبا، وبسایت سریع آماده می شود',
+    icon: <Rocket className="text-primary h-6 w-6" />,
     image:
       '/assets/feature/photo-1618761714954-0b8cd0026356.jpeg',
   },
   {
-    step: 'قدم چهارم',
-    title: 'رشد درخت کسب و کار',
+    step: 'قدم سوم',
+    title: 'منصفانه',
     content:
-      'ما همراه شما باقی می مانیم تا مانند یک باغبان درخت رشد شما را به نوعی هرس کنیم که در جهت درست رشد کنید',
+      'بدلیل سریع تر بودن کار ما قیمت منصفانه تری نسبت به همکاران ارائه میدهیم ',
     icon: <Code className="text-primary h-6 w-6" />,
+    image:
+      '/assets/feature/photo-1618761714954-0b8cd0026356.jpeg',
+  },
+    {
+    step: 'قدم چهارم',
+    title: 'کلیک خور',
+    content:
+      'با تجربه بسیاری که ما در حوزه وب داشتیم می دانیم چه کاری برای دیده شدن شما انجام دهیم',
+    icon: <Paintbrush className="text-primary h-6 w-6" />,
     image:
       '/assets/feature/photo-1618761714954-0b8cd0026356.jpeg',
   },
@@ -65,12 +65,12 @@ export default function FeatureSteps() {
     <div className={'p-8 md:p-12'}>
       <div className="mx-auto w-full max-w-7xl py-20">
         <div className="relative mx-auto mb-12 max-w-2xl sm:text-center">
-          <div className="relative z-10">
-            <h2 className="font-geist text-3xl font-bold tracking-tighter md:text-4xl lg:text-5xl">
-              در چهار مرحله با ما همکاری کنید
+          <div className="relative z-10 py-8">
+            <h2 className="font-yekan font-bold text-3xl font-bold tracking-tighter md:text-4xl lg:text-5xl pb-2">
+              <span className='text-blue-300'>چهار ویژگی</span> همکاری با ما
             </h2>
-            <p className="font-geist text-foreground/60 mt-3">
-              وب دیزاین با سینا به شما کمک میکند وبسایتی متمایز و جایگاه ساز در بازار رقابت داشته باشید
+            <p className="font-yekan font-bold text-foreground/60 mt-3">
+              با ما متمایز و جایگاه ساز باشید
             </p>
           </div>
           <div
@@ -81,9 +81,9 @@ export default function FeatureSteps() {
             }}
           ></div>
         </div>
-        <hr className="bg-foreground/30 mx-auto mb-10 h-px w-1/2" />
+        <hr className="bg-foreground/30 mx-auto mb-10 h-px w-2/3" />
 
-        <div className="flex flex-col gap-6 md:grid md:grid-cols-2 md:gap-10">
+        <div className="flex flex-col items-center gap-6 md:grid md:grid-cols-2 md:gap-2">
           <div className="order-2 space-y-8 md:order-1">
             {features.map((feature, index) => (
               <motion.div
@@ -109,10 +109,10 @@ export default function FeatureSteps() {
                 </motion.div>
 
                 <div className="flex-1">
-                  <h3 className="text-xl font-semibold md:text-2xl">
+                  <h3 className="text-xl font-bold md:text-2xl pt-2 pb-2">
                     {feature.title}
                   </h3>
-                  <p className="text-muted-foreground text-sm md:text-base">
+                  <p className="font-yekan text-muted-foreground text-sm max-w-sm">
                     {feature.content}
                   </p>
                 </div>

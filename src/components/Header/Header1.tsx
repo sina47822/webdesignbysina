@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { useTheme } from 'next-themes';
 import SigninModal from '../Modals/SigninModal';
 import { ModeToggle } from '../ModeToggle';
-import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
+import { FaArrowLeft, FaArrowRight, FaSearch } from 'react-icons/fa';
 
 interface NavItem {
   name: string;
@@ -173,8 +173,22 @@ export default function Header1() {
             ))}
           </nav>
 
-          <div className="hidden items-center space-x-4 lg:flex">
+            {/*  داخل بخش اکشن‌های سمت راست (کنار SigninModal و ModeToggle) */}
+            <div className="hidden items-center space-x-4 lg:flex">
             <SigninModal />
+
+
+            {/* دکمهٔ جستجوی سراسری */}
+            <Link
+              prefetch={false}
+              href="/search"
+              className="inline-flex items-center gap-2 rounded-full border px-4 py-2 font-medium hover:bg-gray-100"
+              aria-label="جستجوی سایت"
+            >
+              <FaSearch className="opacity-80" />
+              <span className="hidden md:inline">جستجو</span>
+            </Link>
+
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Link 
                 prefetch={false}
@@ -223,6 +237,14 @@ export default function Header1() {
                     {item.name}
                   </Link>
                 ))}
+                <Link
+                  prefetch={false}
+                  href="/search"
+                  className="text-foreground hover:bg-muted block px-4 py-3 font-medium transition-colors duration-200"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  جستجو
+                </Link>
                 <div className="space-y-2 px-4 py-2">
                   <Link 
                     prefetch={false}

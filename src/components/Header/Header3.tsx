@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { useTheme } from 'next-themes';
 import SigninModal from '../Modals/SigninModal';
 import { ModeToggle } from '../ModeToggle';
-import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
+import { FaArrowLeft, FaArrowRight, FaSearch } from 'react-icons/fa';
 
 interface NavItem {
   name: string;
@@ -59,7 +59,7 @@ export default function Header3() {
 
   return (
     <header
-      className='sticky top-0 z-10 w-full bg-gray-100'
+      className='fixed top-0 left-0 right-[20%] z-50 bg-gray-100 border-b border-gray-200'
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between lg:h-20">
@@ -123,6 +123,17 @@ export default function Header3() {
 
           <div className="hidden items-center space-x-4 lg:flex">
             <SigninModal />
+
+            {/* دکمهٔ جستجو ویژهٔ قابلیت‌ها */}
+            <Link
+              prefetch={false}
+              href="/features/search"
+              className="inline-flex items-center gap-2 rounded-full border px-4 py-2 font-medium hover:bg-gray-100"
+              aria-label="جستجو در قابلیت‌ها"
+            >
+              <FaSearch className="opacity-80" />
+              <span className="hidden md:inline">جستجو</span>
+            </Link>
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Link 
                 prefetch={false}
@@ -171,6 +182,14 @@ export default function Header3() {
                     {item.name}
                   </Link>
                 ))}
+                <Link
+                  prefetch={false}
+                  href="/features/search"
+                  className="text-foreground hover:bg-muted block px-4 py-3 font-medium transition-colors duration-200"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  جستجو در قابلیت‌ها
+                </Link>
                 <div className="space-y-2 px-4 py-2">
                   <Link 
                     prefetch={false}

@@ -140,53 +140,14 @@ const page = () => {
   };
 
   return (
-    <div className='flex min-h-screen'>
-      {/* Sidebar */}
-      <div className='fixed top-0 right-0 w-[20%] h-screen overflow-auto w-[20%] py-5 px-4 rounded-2xl bg-gray-100 h-[100vh]'>
-        <a href="/" className='flex items-center gap-6 opacity-50 hover:opacity-100  duration-[0.3s]'>
-          <div>
-            <img src="/logo.webp" alt="home" className='bg-gray-300 p-3 rounded-md w-13' />
-          </div>
-          <div>
-            <h3 className='font-yekan font-bold'>
-              خانه
-            </h3>
-          </div>
-        </a>
-
-        <div className='divider py-5 flex items-center gap-8'>
-          <span className='text-sm w-[15%] text-gray-500'>هدر ها</span>
-          <span className='flex w-[85%] h-[1px] bg-gray-300'></span>
+    <div>
+      <section className="space-y-4">
+        <h1 className="text-2xl font-bold">دمو: هدر فیکس + صفحات جدا</h1>
+        <p className="text-gray-600">از سایدبار راست یکی از صفحات را انتخاب کنید.</p>
+        <div className="h-[1200px] rounded-xl bg-white border p-6">
+        این باکس بلند است تا اسکرول بخورد و رفتار هدر فیکس را ببینید.
         </div>
-
-        <section className="space-y-4">
-          {menuItems.slice(1).map((item) => (
-            <a
-              key={item.id}
-              href={item.path}
-              onClick={(e) => {
-                e.preventDefault();
-                handleMenuClick(item.component);
-              }}
-              className="flex gap-6 group items-center opacity-80 hover:opacity-100 transition-opacity duration-300"
-            >
-              <div className="group-hover:bg-gray-300 p-3 rounded-md w-12 h-12 flex items-center justify-center transition-colors duration-300">
-                {item.icon}
-              </div>
-              <h3 className="font-bold">{item.title}</h3>
-            </a>
-          ))}
-        </section>
-      </div>
-
-      {/* Main Content Area */}
-      <div className="w-[80%] mr-auto">
-        <Header3 />
-        {/* Content */}
-        <main className="p-6">{activeComponent && <activeComponent />}</main>
-      </div>
-
-
+      </section>
     </div>
   )
 }

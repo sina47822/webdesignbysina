@@ -209,7 +209,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
       {/* هدر فیکس که سمت راستش برای سایدبار خالی شده */}
       <Header3 />
       {/* محتوای اصلی: فاصله از بالا (برای هدر) و از راست (برای سایدبار) */}
-      <main className="pt-20 pr-[20%]">
+      <main className="pt-20 pr-[20%] bg-gray-50">
         <div className="mx-auto max-w-[2000px] px-4 sm:px-6 lg:px-8 py-6">
           {children}
         </div>

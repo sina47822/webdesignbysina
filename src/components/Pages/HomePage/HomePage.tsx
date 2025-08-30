@@ -1,6 +1,6 @@
 "use client"
 
-import MainHomePage from "./MainHomePage"
+import MainHomePage from "../../Hero/MainHomePage"
 import LogoCloud from "@/components/LogoCloud/LogoCloud"
 import AppHero from "@/components/Hero/AppHero"
 import FeatureSteps from "@/components/Features/FeatureSteps"

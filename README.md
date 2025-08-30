@@ -46,3 +46,9 @@ https://blocks.mvp-subha.me/
 ### npm install react-icons
 ### npm install canvas-confetti
 ### npm i --save-dev @types/canvas-confetti
+
+## Use PM2 for run and kill
+// pm2 stop webdesignwithsina.ir
+// pm2 start npm --name "webdesignwithsina.ir" -- start --port 3001
+// pm2 restart webdesignwithsina.ir
+// pm2 list

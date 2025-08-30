@@ -49,8 +49,8 @@ https://blocks.mvp-subha.me/
 
 ## Use PM2 for run and kill
 ```
-// pm2 stop webdesignwithsina.ir
-// pm2 start npm --name "webdesignwithsina.ir" -- start --port 3001
-// pm2 restart webdesignwithsina.ir
-// pm2 list
+pm2 stop webdesignwithsina.ir
+pm2 start npm --name "webdesignwithsina.ir" -- start --port 3001
+pm2 restart webdesignwithsina.ir
+pm2 list
 ```

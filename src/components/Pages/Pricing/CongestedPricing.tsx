@@ -3,7 +3,7 @@
 import { buttonVariants } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
-import {useMediaQuery, useMediaQueries} from '@react-hook/media-query'
+import { useMediaQuery } from '@react-hook/media-query'; // Removed unused `useMediaQueries` import
 import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
 import { Check, Star } from 'lucide-react';
@@ -85,16 +85,10 @@ interface PricingPlan {
   isPopular: boolean;
 }
 
-interface PricingProps {
-  plans: PricingPlan[];
-  title?: string;
-  description?: string;
-}
-
 export default function CongestedPricing() {
   const [isMonthly, setIsMonthly] = useState(true);
   const isDesktop = useMediaQuery('(min-width: 768px)');
-  const switchRef = useRef<HTMLButtonElement>(null);
+  const switchRef = useRef<HTMLButtonElement | null>(null); // Changed to use correct type
 
   const handleToggle = (checked: boolean) => {
     setIsMonthly(!checked);
@@ -144,7 +138,7 @@ export default function CongestedPricing() {
         <label className="relative inline-flex cursor-pointer items-center">
           <Label>
             <Switch
-              ref={switchRef as any}
+              ref={switchRef} // Correctly typed ref
               checked={!isMonthly}
               onCheckedChange={handleToggle}
               className="relative"

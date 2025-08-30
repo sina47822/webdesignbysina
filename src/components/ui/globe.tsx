@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import createGlobe from 'cobe';
 import { cn } from '@/lib/utils';
 
@@ -16,6 +16,7 @@ interface EarthProps {
   markerColor?: [number, number, number];
   glowColor?: [number, number, number];
 }
+
 const Earth: React.FC<EarthProps> = ({
   className,
   theta = 0.25,
@@ -38,7 +39,6 @@ const Earth: React.FC<EarthProps> = ({
     onResize();
     let phi = 0;
 
-    onResize();
     const globe = createGlobe(canvasRef.current!, {
       devicePixelRatio: 2,
       width: width * 2,
@@ -59,9 +59,8 @@ const Earth: React.FC<EarthProps> = ({
         // longitude latitude
       ],
       onRender: (state: Record<string, any>) => {
-        // Called on every animation frame.
-        // `state` will be an empty object, return updated params.\
-        state.phi = phi;
+        // Type assertion to ensure state is treated as Record<string, any>
+        (state as { phi: number }).phi = phi;
         phi += 0.003;
       },
     });
@@ -69,7 +68,17 @@ const Earth: React.FC<EarthProps> = ({
     return () => {
       globe.destroy();
     };
-  }, [dark]);
+  }, [
+    dark, 
+    scale, 
+    diffuse, 
+    mapSamples, 
+    mapBrightness, 
+    baseColor, 
+    markerColor, 
+    glowColor, 
+    theta,
+  ]);
 
   return (
     <div

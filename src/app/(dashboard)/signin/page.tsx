@@ -1,13 +1,13 @@
 import { useId } from 'react';
-
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import SignupModal from '@/components/Modals/SignupModal';
 import { Card } from '@/components/ui/card';
+import Image from 'next/image'; // Import Next.js Image component
 
-export default function page() {
+export default function Page() { // Renamed `page` to `Page`
   const Id = useId();
   return (
     <div className='grid grid-cols-2 h-full'>
@@ -81,9 +81,15 @@ export default function page() {
         </Card>
       </div>
       <div className='relative hidden items-center justify-center m-auto md:flex'>
-        <img src="/assets/img/dbass-login.png" alt="ورود به سایت" className='h-full w-full'/>
+        {/* Replaced <img> with <Image /> from next/image */}
+        <Image 
+          src="/assets/img/dbass-login.png" 
+          alt="ورود به سایت" 
+          className='h-full w-full' 
+          layout="fill" // Adjusted to fill the parent container
+          objectFit="cover" // Ensures image is resized properly
+        />
       </div>
     </div>
-
   );
 }

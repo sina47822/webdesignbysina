@@ -11,7 +11,7 @@ interface FormState {
   name: string;
   email: string;
   message: string;
-  errors: Record<string, string>;
+  errors: Record<string, string>; // Type for errors
   submitting: boolean;
   submitted: boolean;
 }
@@ -110,9 +110,9 @@ export default function ContactUs2() {
                 setState({ ...state, message: e.target.value })
               }
             />
-            {state.errors && (state.errors as any).message && (
+            {state.errors && state.errors.message && (
               <p className="mt-1 text-sm text-red-500">
-                {(state.errors as any).message}
+                {state.errors.message}
               </p>
             )}
           </div>

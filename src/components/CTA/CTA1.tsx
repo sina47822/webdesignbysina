@@ -21,7 +21,7 @@ export default function CTA1() {
             src="/assets/cta/grid.svg"
           />
           <div className="relative isolate overflow-hidden px-4 py-12 sm:px-24">
-            <p className="w-fit rounded-xl bg-white px-4 py-1 text-center text-base leading-7 font-semibold text-black uppercase lg:text-left">
+            <p className="w-fit rounded-2xl bg-white px-4 py-1 text-center text-base leading-7 font-semibold text-black uppercase lg:text-left">
               ارتباط با ما
             </p>
             <h2 className="mt-3 max-w-lg text-4xl font-semibold text-white md:text-6xl">
@@ -55,6 +55,9 @@ export default function CTA1() {
             </ul>
           </div>
         </div>
+      <div className="absolute left-auto -bottom-40 left-1/2 h-96 w-20 -translate-x-1/2 -rotate-45 rounded-full bg-gray-200/30 blur-[80px] lg:left-96 lg:left-auto lg:translate-x-0"></div>
+      <div className="absolute left-auto -bottom-40 left-1/2 h-96 w-20 -translate-x-1/2 -rotate-45 rounded-full bg-gray-200/30 blur-[80px] lg:left-96 lg:left-auto lg:translate-x-0"></div>
+      <div className="absolute left-auto -bottom-40 left-1/2 h-96 w-20 -translate-x-1/2 -rotate-45 rounded-full bg-gray-200/30 blur-[80px] lg:left-96 lg:left-auto lg:translate-x-0"></div>
       </section>
     </div>
   );

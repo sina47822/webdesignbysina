@@ -226,14 +226,14 @@ export default function AppHero() {
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="relative z-10 mb-10 flex w-full max-w-[1450px] flex-grow flex-col items-center justify-center px-4 text-center sm:px-8 lg:mb-0 lg:items-end lg:justify-start lg:text-right"
+        className="relative z-10 mb-10 pt-[800px] flex w-full max-w-[1450px] flex-grow flex-col items-center justify-center px-4 text-center sm:px-8 lg:mb-0 lg:items-end lg:justify-start lg:text-right"
       >
         <motion.div className="flex w-full flex-col items-center justify-between lg:flex-row lg:items-end">
 
           <div className="mt-6 flex flex-col items-center lg:mt-0 lg:items-start">
             <motion.p
               variants={itemVariants}
-              className="mb-8 max-w-md pl-8 text-center text-lg leading-relaxed text-slate-300/90 lg:text-justify"
+              className="mb-8 max-w-md pl-8 text-center text-lg leading-relaxed text-slate-300/90 lg:text-justify text-sm"
             >
               ما در تجربه های بسباری که داشته ایم همیشه سعی کرده ایم تا یادبگیریم و از تجربیات خود و دیگران در جهت بهبود خود قدم برداریم پس در نهایت ما به این نفطه رسیده ایم کهاز امکانات روز دنیا در جهت طراحی های خود استفاده کرده ایم و ایمن ترین تکنولوژی ها را با توجه به بودجه شما پیشنهاد میکنیم
             </motion.p>
@@ -284,7 +284,7 @@ export default function AppHero() {
           <div className="w-full lg:w-auto">
             <motion.div
               variants={itemVariants}
-              className="mb-4 inline-flex items-center rounded-full border border-purple-500/30 bg-purple-500/10 px-3 py-1 text-sm text-purple-300"
+              className="mb-8 inline-flex items-center rounded-full border border-purple-500/30 bg-purple-500/10 px-3 py-1 text-sm text-purple-300"
             >
               معرفی پلتفرم اختصاصی
               <span className="mr-2 rounded-full bg-purple-500 px-2 py-0.5 text-xs font-semibold text-white">
@@ -294,7 +294,7 @@ export default function AppHero() {
 
             <motion.h1
               variants={itemVariants}
-              className="mb-6 bg-gradient-to-r from-white via-white to-gray-300 bg-clip-text text-2xl leading-tight text-transparent sm:text-3xl md:text-4xl lg:text-5xl"
+              className="mb-12 py-6 bg-gradient-to-r from-white via-white to-gray-300 bg-clip-text text-xl leading-tight text-transparent sm:text-2xl md:text-3xl lg:text-4xl"
             >
               پلی میان <br className="hidden sm:inline" />
               <span className="bg-gradient-to-r from-purple-400 via-blue-400 to-gray-300 bg-clip-text text-transparent">
@@ -305,7 +305,7 @@ export default function AppHero() {
             {/* Animated Stats Row */}
             <motion.div
               variants={itemVariants}
-              className="mb-6 flex flex-wrap justify-center gap-4 md:gap-6 lg:justify-start"
+              className="mb-12 flex flex-wrap justify-center gap-4 md:gap-6 lg:justify-start"
             >
               <div className="rounded-lg border border-purple-500/20 bg-black/40 px-4 py-2 backdrop-blur-sm">
                 <p className="text-2xl font-bold text-white">

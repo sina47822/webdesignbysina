@@ -71,7 +71,7 @@ export default function Faq1() {
           <Accordion
             type="single"
             collapsible
-            className="border-border/40 bg-card/30 w-full rounded-xl border p-2 backdrop-blur-sm"
+            className="border-border/40 bg-card/30 w-full rounded-2xl border p-2 backdrop-blur-sm"
             defaultValue="1"
           >
             {items.map((item, index) => (

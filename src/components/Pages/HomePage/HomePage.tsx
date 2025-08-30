@@ -14,13 +14,10 @@ const HomePage = () => {
         <MainHomePage />
         <FeatureSteps />
         <AppHero />
-        <div className="flex justify-center pt-20"> 
+        <div className="flex justify-center py-20"> 
           <Testimonials />
         </div>
-        <LogoCloud />
-        <div className="flex justify-center py-20"> 
-          <CTA2 />
-        </div>
+
     </main>
   )
 }

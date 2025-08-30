@@ -4,6 +4,7 @@ import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
 import { Star } from 'lucide-react';
 import { Marquee } from '@/components/ui/marquee';
+import CTA2 from '../CTA/CTA2';
 
 export function Highlight({
   children,
@@ -233,7 +234,7 @@ const testimonials = [
 
 export default function Testimonials() {
   return (
-    <section className="relative container py-10">
+    <section className="relative container py-10 flex flex-col items-center ">
       {/* Decorative elements */}
       <div className="absolute top-20 -left-20 z-10 h-64 w-64 rounded-full bg-blue-500/5 blur-3xl" />
       <div className="absolute -right-20 bottom-20 z-10 h-64 w-64 rounded-full bg-blue-500/5 blur-3xl" />
@@ -256,8 +257,7 @@ export default function Testimonials() {
           چه می گویند
         </h3>
       </motion.div>
-
-      <div className="relative mt-6 max-h-screen overflow-hidden">
+      <div className="relative mb-16 max-h-screen overflow-hidden">
         <div className="gap-4 md:columns-2 xl:columns-3 2xl:columns-4">
           {Array(Math.ceil(testimonials.length / 3))
             .fill(0)
@@ -291,6 +291,8 @@ export default function Testimonials() {
         <div className="from-background pointer-events-none absolute inset-x-0 bottom-0 h-1/4 w-full bg-gradient-to-t from-20%"></div>
         <div className="from-background pointer-events-none absolute inset-x-0 top-0 h-1/4 w-full bg-gradient-to-b from-20%"></div>
       </div>
+      {/* <LogoCloud /> */}
+      <CTA2 /> 
     </section>
   );
 }

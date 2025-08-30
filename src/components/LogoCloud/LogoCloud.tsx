@@ -1,7 +1,7 @@
 
 export default function LogoCloud() {
   return (
-    <div className="h-screen w-screen overflow-hidden bg-[#121212]">
+    <div className="h-screen w-screen overflow-hidden bg-[#121212] dark:bg-secondary/20">
       <div className="mx-auto mt-32 w-screen max-w-2xl">
         <div className="text-center text-3xl text-white">
           <span className="text-rose-200">ما توسط متخصصان توصیه می شویم</span>

@@ -1,6 +1,6 @@
 "use client"
 
-import MainHomePage from "./MainHomePage"
+import MainHomePage from "../../Hero/MainHomePage"
 import LogoCloud from "@/components/LogoCloud/LogoCloud"
 import AppHero from "@/components/Hero/AppHero"
 import FeatureSteps from "@/components/Features/FeatureSteps"
@@ -14,13 +14,10 @@ const HomePage = () => {
         <MainHomePage />
         <FeatureSteps />
         <AppHero />
-        <div className="flex justify-center pt-20"> 
+        <div className="flex justify-center py-20"> 
           <Testimonials />
         </div>
-        <LogoCloud />
-        <div className="flex justify-center py-20"> 
-          <CTA2 />
-        </div>
+
     </main>
   )
 }

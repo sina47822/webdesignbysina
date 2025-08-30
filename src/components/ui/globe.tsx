@@ -58,7 +58,7 @@ const Earth: React.FC<EarthProps> = ({
       markers: [
         // longitude latitude
       ],
-      onRender: (state: Record<string, any>) => {
+      onRender: (state: Record<string, number>) => {
         // Type assertion to ensure state is treated as Record<string, any>
         (state as { phi: number }).phi = phi;
         phi += 0.003;

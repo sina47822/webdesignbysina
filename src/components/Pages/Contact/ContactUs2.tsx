@@ -1,21 +1,27 @@
 'use client';
-import React from 'react';
+import React, { useState } from 'react';
 import { Mail } from 'lucide-react';
 import { Phone } from 'lucide-react';
 import { MapPin } from 'lucide-react';
-import { Github } from 'lucide-react';
-import { Twitter } from 'lucide-react';
-import { Facebook } from 'lucide-react';
-import { Instagram } from 'lucide-react';
 import { Send } from 'lucide-react';
 import Link from 'next/link';
+import { FaFacebook, FaGithub, FaInstagram, FaTwitter } from 'react-icons/fa';
+
+interface FormState {
+  name: string;
+  email: string;
+  message: string;
+  errors: Record<string, string>;
+  submitting: boolean;
+  submitted: boolean;
+}
 
 export default function ContactUs2() {
-  const [state, setState] = React.useState({
+  const [state, setState] = useState<FormState>({
     name: '',
     email: '',
     message: '',
-    errors: {} as Record<string, string>,
+    errors: {},
     submitting: false,
     submitted: false,
   });
@@ -65,6 +71,10 @@ export default function ContactUs2() {
               className="bg-background flex h-10 w-full rounded-md border border-slate-700 bg-slate-950 px-3 py-2 text-sm shadow-inner shadow-slate-800 outline-none hover:border-slate-600 hover:transition-all hover:outline-none focus:border-slate-500 focus:outline-none"
               placeholder="Enter your name"
               name="name"
+              value={state.name}
+              onChange={(e) =>
+                setState({ ...state, name: e.target.value })
+              }
             />
           </div>
 
@@ -77,11 +87,16 @@ export default function ContactUs2() {
               className="hover:transition-al bg-background placeholder:text-muted-foreground flex h-10 w-full rounded-md border border-slate-700 bg-slate-950 px-3 py-2 text-sm shadow-inner shadow-slate-800 outline-none file:text-sm file:font-medium hover:border-slate-400 hover:outline-none focus:border-slate-500 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
               name="email"
               required
+              value={state.email}
+              onChange={(e) =>
+                setState({ ...state, email: e.target.value })
+              }
             />
             {state.errors && state.errors.email && (
               <p className="mt-1 text-sm text-red-500">{state.errors.email}</p>
             )}
           </div>
+
           <div className="space-y-4 text-lg">
             <label htmlFor="message" className="text-lg" />
             Message
@@ -90,6 +105,10 @@ export default function ContactUs2() {
               id="message"
               placeholder="Enter your message"
               name="message"
+              value={state.message}
+              onChange={(e) =>
+                setState({ ...state, message: e.target.value })
+              }
             />
             {state.errors && (state.errors as any).message && (
               <p className="mt-1 text-sm text-red-500">
@@ -97,6 +116,7 @@ export default function ContactUs2() {
               </p>
             )}
           </div>
+
           <button
             className="group/btn relative block h-10 w-full rounded-md bg-gradient-to-br from-slate-800 to-slate-700 py-2 text-center font-medium text-white shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset] transition-all duration-300 ease-in-out hover:from-slate-700 hover:to-slate-800 hover:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
             type="submit"
@@ -106,12 +126,15 @@ export default function ContactUs2() {
             <Send className="mx-2 inline h-4" />
           </button>
         </form>
+
         <div>
           <h3 className="mb-10 text-2xl font-semibold text-slate-300">
             Connect with Us
           </h3>
           <div className="mb-12 flex gap-8">
-            <Link prefetch={false}              className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-600 shadow-inner shadow-gray-800 hover:shadow-md hover:shadow-slate-500 hover:transition hover:duration-300 hover:ease-in-out"
+            <Link
+              prefetch={false}
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-600 shadow-inner shadow-gray-800 hover:shadow-md hover:shadow-slate-500 hover:transition hover:duration-300 hover:ease-in-out"
               href="#"
             >
               <Mail className="h-5 w-5 text-white" />
@@ -123,7 +146,9 @@ export default function ContactUs2() {
           </div>
 
           <div className="mb-12 flex gap-8">
-            <Link prefetch={false}              className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-600 shadow-inner shadow-gray-800 hover:shadow-md hover:shadow-slate-500 hover:transition hover:duration-300 hover:ease-in-out"
+            <Link
+              prefetch={false}
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-600 shadow-inner shadow-gray-800 hover:shadow-md hover:shadow-slate-500 hover:transition hover:duration-300 hover:ease-in-out"
               href="#"
             >
               <Phone className="h-5 w-5 text-white" />
@@ -135,7 +160,9 @@ export default function ContactUs2() {
           </div>
 
           <div className="mb-12 flex gap-8">
-            <Link prefetch={false}              className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-600 px-2 shadow-inner shadow-gray-800 hover:shadow-md hover:shadow-slate-500 hover:transition hover:duration-300 hover:ease-in-out"
+            <Link
+              prefetch={false}
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-600 px-2 shadow-inner shadow-gray-800 hover:shadow-md hover:shadow-slate-500 hover:transition hover:duration-300 hover:ease-in-out"
               href="#"
             >
               <MapPin className="h-5 w-5 text-white" />
@@ -147,25 +174,33 @@ export default function ContactUs2() {
           </div>
 
           <div className="flex space-x-12 py-7">
-            <Link prefetch={false}              className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-600 bg-gray-800 hover:shadow-md hover:shadow-slate-500 hover:transition hover:duration-300 hover:ease-in-out"
+            <Link
+              prefetch={false}
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-600 bg-gray-800 hover:shadow-md hover:shadow-slate-500 hover:transition hover:duration-300 hover:ease-in-out"
               href="#"
             >
-              <Twitter className="h-5 w-5 text-white" />
+              <FaTwitter className="h-5 w-5 text-white" />
             </Link>
-            <Link prefetch={false}              className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-600 bg-gray-800 hover:shadow-md hover:shadow-slate-500 hover:transition hover:duration-300 hover:ease-in-out"
+            <Link
+              prefetch={false}
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-600 bg-gray-800 hover:shadow-md hover:shadow-slate-500 hover:transition hover:duration-300 hover:ease-in-out"
               href="#"
             >
-              <Facebook className="h-5 w-5 text-white" />
+              <FaFacebook className="h-5 w-5 text-white" />
             </Link>
-            <Link prefetch={false}              className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-700 bg-gray-800 hover:shadow-md hover:shadow-slate-500 hover:transition hover:duration-300 hover:ease-in-out"
+            <Link
+              prefetch={false}
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-700 bg-gray-800 hover:shadow-md hover:shadow-slate-500 hover:transition hover:duration-300 hover:ease-in-out"
               href="#"
             >
-              <Instagram className="h-5 w-5 text-white" />
+              <FaInstagram className="h-5 w-5 text-white" />
             </Link>
-            <Link prefetch={false}              className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-700 bg-gray-800 hover:shadow-md hover:shadow-slate-500 hover:transition hover:duration-300 hover:ease-in-out"
+            <Link
+              prefetch={false}
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-700 bg-gray-800 hover:shadow-md hover:shadow-slate-500 hover:transition hover:duration-300 hover:ease-in-out"
               href="#"
             >
-              <Github className="h-5 w-5 text-white" />
+              <FaGithub className="h-5 w-5 text-white" />
             </Link>
           </div>
         </div>

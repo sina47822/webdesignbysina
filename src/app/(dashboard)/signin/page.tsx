@@ -8,7 +8,7 @@ import SignupModal from '@/components/Modals/SignupModal';
 import { Card } from '@/components/ui/card';
 
 export default function page() {
-  const id = useId();
+  const Id = useId();
   return (
     <div className='grid grid-cols-2 h-full'>
       <div className='flex flex-col justify-center items-center py-20 px-10 md:px-0'>
@@ -32,18 +32,18 @@ export default function page() {
               <form className="space-y-5">
                 <div className="space-y-4">
                   <div className="*:not-first:mt-2">
-                    <Label htmlFor={`${id}-email`}>ایمیل</Label>
+                    <Label htmlFor={`${Id}-email`}>ایمیل</Label>
                     <Input
-                      id={`${id}-email`}
+                      id={`${Id}-email`}
                       placeholder="example@gmail.com"
                       type="email"
                       required
                     />
                   </div>
                   <div className="*:not-first:mt-2">
-                    <Label htmlFor={`${id}-password`}>رمز عبور</Label>
+                    <Label htmlFor={`${Id}-password`}>رمز عبور</Label>
                     <Input
-                      id={`${id}-password`}
+                      id={`${Id}-password`}
                       placeholder="رمز عبور خود را وارد کنید"
                       type="password"
                       required
@@ -52,9 +52,9 @@ export default function page() {
                 </div>
                 <div className="flex justify-between gap-2">
                   <div className="flex items-center gap-2">
-                    <Checkbox id={`${id}-remember`} />
+                    <Checkbox id={`${Id}-remember`} />
                     <Label
-                      htmlFor={`${id}-remember`}
+                      htmlFor={`${Id}-remember`}
                       className="text-muted-foreground font-normal"
                     >
                       رمز عبور را به خاطر بسپار

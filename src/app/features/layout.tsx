@@ -112,11 +112,11 @@ export default function RootLayout({ children }: RootLayoutProps) {
   }, []); // آرایه خالی یعنی این effect فقط یک‌بار اجرا می‌شود
   
   return (
-    <div className="min-h-screen bg-gray-50 overflow-x-hidden">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 overflow-x-hidden">
       <div className="cursor" />
 
       {/* سایدبار راست (فیکس) */}
-      <aside className="fixed top-0 right-0 z-40 h-screen w-[20%] overflow-auto bg-gray-100 border-l border-gray-200 p-4">
+      <aside className="fixed top-0 right-0 z-40 h-screen w-[20%] overflow-auto bg-gray-100 dark:bg-gray-800 border-l border-gray-200 p-4">
         <Link href="/" className="flex items-center gap-3 opacity-80 hover:opacity-100">
           <img src="/logo.webp" alt="home" className="bg-gray-300 p-2 rounded-md w-12 h-12" />
           <h3 className="font-bold">خانه</h3>
@@ -137,7 +137,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
 
 
             {searchOpen && (
-            <div id="features-search-panel" className="mt-3 rounded-xl border bg-white p-3 shadow-sm">
+            <div id="features-search-panel" className="mt-3 rounded-xl border bg-white dark:bg-gray-700 p-3 shadow-sm">
               <div className="relative">
               <FaSearch className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400" />
               <input
@@ -153,7 +153,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
               <button
               type="button"
               onClick={() => setQuery('')}
-              className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:text-gray-300 hover:text-gray-700"
               aria-label="پاک کردن جستجو"
               title="پاک کردن"
               >
@@ -177,7 +177,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
               href={item.href}
               className="flex items-center gap-2 rounded-lg border px-3 py-2 hover:bg-gray-50"
               >
-              <span className="grid place-items-center w-7 h-7 rounded-md bg-gray-200 text-gray-700">
+              <span className="grid place-items-center w-7 h-7 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-100">
               {/* فقط آیکن خاکستری کوچک به‌جای آیکن اصلی */}
               <FaFeather />
               </span>
@@ -192,14 +192,14 @@ export default function RootLayout({ children }: RootLayoutProps) {
             )}
           </div>
         <div className="py-5 flex items-center gap-4">
-          <span className="text-sm text-gray-500">بخش‌ها</span>
+          <span className="text-sm text-gray-500 dark:text-gray-300">بخش‌ها</span>
           <span className="flex h-px flex-1 bg-gray-300" />
         </div>
 
 
         <nav className="space-y-3">
           {sideItems.map((item) => (
-          <Link key={item.href} href={item.href} className="flex items-center gap-3 rounded-md px-3 py-2 hover:bg-gray-200">
+          <Link key={item.href} href={item.href} className="flex items-center gap-3 rounded-md px-3 py-2 hover:bg-secondary/80">
           <span className="grid place-items-center w-8 h-8 rounded-md bg-gray-200 text-gray-700">{item.icon}</span>
           <span className="font-medium">{item.title}</span>
           </Link>
@@ -209,7 +209,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
       {/* هدر فیکس که سمت راستش برای سایدبار خالی شده */}
       <Header3 />
       {/* محتوای اصلی: فاصله از بالا (برای هدر) و از راست (برای سایدبار) */}
-      <main className="pt-20 pr-[20%]">
+      <main className="pt-20 pr-[20%] bg-gray-50 dark:bg-gray-700">
         <div className="mx-auto max-w-[2000px] px-4 sm:px-6 lg:px-8 py-6">
           {children}
         </div>

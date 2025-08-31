@@ -3,12 +3,12 @@
 import { useState, useEffect } from "react"
 import { DragDropContext } from "@hello-pangea/dnd"
 import { Sidebar } from "@/components/Sidebar/Sidebar"
-import { PreviewArea } from "@/components/preview-area"
-import { Toolbar } from "@/components/toolbar"
-import { ComponentLibrary } from "@/components/component-library"
-import { ExportModal } from "@/components/export-modal"
-import { PropertyPanel } from "@/components/property-panel"
-import { MobileRestriction } from "@/components/mobile-restriction"
+import { PreviewArea } from "@/components/Preview-Area/preview-area"
+import { Toolbar } from "@/components/Toolbar/toolbar"
+import { ComponentLibrary } from "@/components/Component-library/component-library"
+import { ExportModal } from "@/components/Export-Modal/export-modal"
+import { PropertyPanel } from "@/components/Property-Panel/property-panel"
+import { MobileRestriction } from "@/components/Mobile-Restriction/mobile-restriction"
 
 export interface Block {
   id: string
@@ -197,18 +197,18 @@ export default function HTMLBuilder() {
   const generateHTML = () => {
     const htmlContent = blocks.map((block) => block.content).join("\n\n")
     return `<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generated HTML Template</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
-<body>
-${htmlContent}
-</body>
-</html>`
+      <html lang="en">
+      <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Generated HTML Template</title>
+          <script src="https://cdn.tailwindcss.com"></script>
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+      </head>
+      <body>
+      ${htmlContent}
+      </body>
+      </html>`
   }
 
   return (

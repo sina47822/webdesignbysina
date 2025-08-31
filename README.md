@@ -54,3 +54,21 @@ pm2 start npm --name "webdesignwithsina.ir" -- start --port 3001
 pm2 restart webdesignwithsina.ir
 pm2 list
 ```
+## send image from local to server
+```
+<!-- after change happened!! first build the docker -->
+docker build -f prod.Dockerfile -t my-nextjs-app .
+<!-- if image truly build -->
+<!-- save docker to repo -->
+docker save -o ./docker/my-nextjs-app.tar my-nextjs-app
+
+rsync -avz -e ssh /mnt/d/project/webdesignbysina/docker/ ubuntu@185.231.180.229:/home/ubuntu/webdesignbysina/docker/
+```
+## after send image to server we have to run image
+```
+docker load -i /home/ubuntu/webdesignbysina/docker/my-nextjs-app.tar
+<!-- if not work and my-nextjs-app exists -->
+docker stop my-nextjs-app
+docker rm my-nextjs-app
+<!-- docker run again -->
+```

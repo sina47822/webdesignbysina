@@ -9,7 +9,7 @@ services:
         NEXT_PUBLIC_ENV_VARIABLE: ${NEXT_PUBLIC_ENV_VARIABLE}
     restart: always
     ports:
-      - 3001:3001
+      - "3001:3000"
     networks:
       - my_network
 
@@ -19,4 +19,3 @@ services:
 # with each other, by using their container name as a hostname
 networks:
   my_network:
-    external: true

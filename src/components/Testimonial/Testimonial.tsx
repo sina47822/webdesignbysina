@@ -92,7 +92,7 @@ const testimonials = [
   {
     name: 'Jordan Hayes',
     role: 'CTO at Quantum Innovations',
-    img: 'https://randomuser.me/api/portraits/men/22.jpg',
+    img: '/api/portraits/men/22.jpg',
     description: (
       <p>
         NexaUI has completely transformed our development workflow.
@@ -106,7 +106,7 @@ const testimonials = [
   {
     name: 'Maya Rodriguez',
     role: 'Lead Developer at Skyline Digital',
-    img: 'https://randomuser.me/api/portraits/women/33.jpg',
+    img: '/api/portraits/women/33.jpg',
     description: (
       <p>
         I was skeptical at first, but NexaUI proved me wrong.
@@ -118,7 +118,7 @@ const testimonials = [
       </p>
     ),
   },
-  // More testimonials...
+  
 ];
 
 export default function Testimonials() {

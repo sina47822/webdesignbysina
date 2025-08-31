@@ -13,13 +13,15 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import SignupModal from './SignupModal';
+import { FaUser } from 'react-icons/fa';
 
 export default function SigninModal() {
   const id = useId();
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="secondary" className='cursor-pointer hover:scale-[1.1]'>ورود</Button>
+        
+        <Button variant="secondary" className='cursor-pointer rounded-full px-6 hover:scale-[1.1]'> <FaUser /></Button>
       </DialogTrigger>
       <DialogContent>
         <div className="flex flex-col items-center gap-2">

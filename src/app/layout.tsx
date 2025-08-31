@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider"
 import localFont from 'next/font/local';
+import Loader from "@/components/Pages/Loading/Loading";
+import ScrollToTopProgress from "@/components/Scroll/Scroll";
 
 // Configure the font with its source files, weights, and styles
 const danaFont = localFont({
@@ -59,6 +61,8 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
+            <Loader text="gnidaoL" />
+            <ScrollToTopProgress />
             {children}
           </ThemeProvider>
         </body>

@@ -206,7 +206,7 @@ export default function CongestedPricing() {
                 {plan.name}
               </p>
               <div className="mt-6 flex items-center justify-center gap-x-2">
-                <span className="text-foreground text-4xl font-bold tracking-tight">
+                <span className="text-foreground text-3xl font-dana font-bold tracking-tight">
                   <NumberFlow
                     value={
                       isMonthly ? Number(plan.price) : Number(plan.yearlyPrice)
@@ -222,10 +222,10 @@ export default function CongestedPricing() {
                       easing: 'ease-out',
                     }}
                     willChange
-                    className="font-variant-numeric: tabular-nums"
+                    className=""
                   />
                 </span>
-                {plan.period !== 'Next 3 months' && (
+                {plan.period !== '' && (
                   <span className="text-muted-foreground text-sm leading-6 font-semibold tracking-wide">
                     / {plan.period}
                   </span>
@@ -238,9 +238,9 @@ export default function CongestedPricing() {
 
               <ul className="mt-5 flex flex-col gap-2">
                 {plan.features.map((feature, idx) => (
-                  <li key={idx} className="flex items-start gap-2">
+                  <li key={idx} className="flex items-start gap-2 max-w-sm py-1.5">
                     <Check className="text-primary mt-1 h-4 w-4 flex-shrink-0" />
-                    <span className="text-right">{feature}</span>
+                    <span className="text-right text-sm">{feature}</span>
                   </li>
                 ))}
               </ul>
@@ -254,10 +254,10 @@ export default function CongestedPricing() {
                     variant: 'outline',
                   }),
                   'group relative w-full gap-2 overflow-hidden text-md font-semibold tracking-tighter',
-                  'hover:bg-primary hover:text-primary-foreground hover:ring-primary transform-gpu ring-offset-current transition-all duration-300 ease-out hover:ring-2 hover:ring-offset-1',
+                  'hover:bg-primary hover:text-primary-foreground hover:ring-primary transform-gpu ring-offset-current transition-all duration-300 ease-out hover:ring-2 hover:ring-offset-1 py-6',
                   plan.isPopular
-                    ? 'bg-primary text-secondary'
-                    : 'bg-background text-foreground',
+                    ? 'bg-primary dark:bg-primary text-secondary'
+                    : 'bg-background dark:bg-background text-foreground',
                 )}
               >
                 {plan.buttonText}

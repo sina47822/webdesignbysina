@@ -82,7 +82,7 @@ export default function Header1() {
     <motion.header
         className={`fixed top-0 right-0 left-0 z-50 transition-all duration-500 ${
           isScrolled
-            ? 'border-border/50 bg-background/80 border-b text-white shadow-sm backdrop-blur-md'
+            ? 'border-border/50 bg-background/80 border-b text-foreground shadow-sm backdrop-blur-md'
             : 'bg-transparent'
         }`}
       variants={containerVariants}
@@ -93,8 +93,8 @@ export default function Header1() {
         backdropFilter: isScrolled ? 'blur(20px)' : 'none',
         backgroundColor: isScrolled
           ? theme === 'dark'
-            ? 'rgba(0, 0, 0, 0.8)'
-            : 'rgba(255, 255, 255, 0.8)'
+            ? 'rgba(0, 0, 0, 0.6) text-gray-200'
+            : 'rgba(0, 0, 0, 0.6) text-gray-200 text-gray-800 '
           : 'transparent',
         boxShadow: isScrolled ? '0 8px 32px rgba(0, 0, 0, 0.1)' : 'none',
       }}
@@ -110,7 +110,7 @@ export default function Header1() {
               <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-blue-300 to-blue-700">
                 <Sparkles className="h-5 w-5 text-white" />
               </div>
-              <span className="bg-gradient-to-r from-gray-200 to-gray-300 bg-clip-text text-xl font-bold text-transparent">
+              <span className="bg-gradient-to-r from-gray-200 to-gray-300 bg-clip-text text-xl font-bold text-foreground">
                 WDWS.
               </span>
             </Link>
@@ -175,7 +175,6 @@ export default function Header1() {
 
             {/*  داخل بخش اکشن‌های سمت راست (کنار SigninModal و ModeToggle) */}
             <div className="hidden items-center space-x-4 lg:flex">
-            <SigninModal />
 
 
             {/* دکمهٔ جستجوی سراسری */}
@@ -200,6 +199,8 @@ export default function Header1() {
               </Link>
             </motion.div>
             <ModeToggle />
+            <SigninModal />
+
           </div>
 
           <motion.button
@@ -225,7 +226,9 @@ export default function Header1() {
               exit="closed"
               transition={{ duration: 0.3, ease: 'easeInOut' }}
             >
-              <div className="border-border bg-background/95 mt-4 space-y-2 rounded-xl border py-4 shadow-xl backdrop-blur-lg">
+              <div className={`border-border bg-background/95 mt-4 space-y-2 rounded-xl border py-4 shadow-xl backdrop-blur-lg`
+                 
+               }>
                 {navItems.map((item) => (
                   <Link 
                     prefetch={false}
@@ -240,16 +243,16 @@ export default function Header1() {
                 <Link
                   prefetch={false}
                   href="/search"
-                  className="text-foreground hover:bg-muted block px-4 py-3 font-medium transition-colors duration-200"
+                  className="text-foreground hover:bg-muted bg-black dark:bg-white block px-4 py-3 font-medium transition-colors duration-200"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   جستجو
                 </Link>
-                <div className="space-y-2 px-4 py-2">
+                <div className="space-y-2 px-6 py-2 ">
                   <Link 
                     prefetch={false}
                     href="/login"
-                    className="text-foreground cursor-pointer hover:bg-muted block w-full rounded-lg py-2.5 text-center font-medium transition-colors duration-200"
+                    className="text-foreground cursor-pointer hover:bg-muted block w-full rounded-2xl py-3 text-center font-medium transition-colors duration-200"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     ورود

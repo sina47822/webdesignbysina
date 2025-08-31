@@ -190,14 +190,14 @@ export default function Header3() {
                 >
                   جستجو در قابلیت‌ها
                 </Link>
-                <div className="space-y-2 px-4 py-2">
+                <div className="space-y-2 px-4 py-2 rounded-full">
                   <Link 
                     prefetch={false}
                     href="/login"
-                    className="text-foreground cursor-pointer hover:bg-muted block w-full rounded-lg py-2.5 text-center font-medium transition-colors duration-200"
+                    className="text-foreground cursor-pointer hover:bg-muted block w-full rounded-2xl py-3.5 text-center font-medium transition-colors duration-200"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
-                    ورود
+                    
                   </Link>
                   <Link 
                     prefetch={false}

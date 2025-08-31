@@ -6,12 +6,14 @@ import AppHero from "@/components/Hero/AppHero"
 import FeatureSteps from "@/components/Features/FeatureSteps"
 import CTA2 from "@/components/CTA/CTA2"
 import Testimonials from "@/components/Testimonial/Testimonial"
+import WorksPage from "@/components/Projects/Projects"
 
 const HomePage = () => {
 
   return (
     <main className="">
         <MainHomePage />
+        <WorksPage />
         <FeatureSteps />
         <AppHero />
         <div className="flex justify-center py-20"> 

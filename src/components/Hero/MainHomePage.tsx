@@ -89,6 +89,11 @@ const MainHomePage: React.FC = () => {
               <span>قابلیت ها</span> 
             </Link>
           </button>
+                    <button className="bg-red-500 hover:bg-red-500/80 hover:scale-[1.1] duration-[.2s] dark:bg-white dark:hover:bg-gray-900 dark:hover:text-yellow-200 rounded-full w-fit text-white dark:text-black text-xl px-12 py-4">
+            <Link href={'/webbuilder'}>
+              <span>سایت ساز</span> 
+            </Link>
+          </button>
           </div>
       </div>
     </AuroraBackground>

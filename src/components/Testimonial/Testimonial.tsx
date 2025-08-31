@@ -118,7 +118,119 @@ const testimonials = [
       </p>
     ),
   },
-  
+    {
+    name: 'Jordan Hayes',
+    role: 'CTO at Quantum Innovations',
+    img: '/api/portraits/men/22.jpg',
+    description: (
+      <p>
+        NexaUI has completely transformed our development workflow.
+        <Highlight>
+          The component system saved us weeks of custom coding and design work.
+        </Highlight>{' '}
+        Our team can now focus on business logic instead of UI details.
+      </p>
+    ),
+  },
+  {
+    name: 'Maya Rodriguez',
+    role: 'Lead Developer at Skyline Digital',
+    img: '/api/portraits/women/33.jpg',
+    description: (
+      <p>
+        I was skeptical at first, but NexaUI proved me wrong.
+        <Highlight>
+          The accessibility features and responsive design are top-notch.
+        </Highlight>{' '}
+        It&apos;s rare to find a framework that prioritizes both aesthetics and
+        functionality.
+      </p>
+    ),
+  },  {
+    name: 'Jordan Hayes',
+    role: 'CTO at Quantum Innovations',
+    img: '/api/portraits/men/22.jpg',
+    description: (
+      <p>
+        NexaUI has completely transformed our development workflow.
+        <Highlight>
+          The component system saved us weeks of custom coding and design work.
+        </Highlight>{' '}
+        Our team can now focus on business logic instead of UI details.
+      </p>
+    ),
+  },
+  {
+    name: 'Maya Rodriguez',
+    role: 'Lead Developer at Skyline Digital',
+    img: '/api/portraits/women/33.jpg',
+    description: (
+      <p>
+        I was skeptical at first, but NexaUI proved me wrong.
+        <Highlight>
+          The accessibility features and responsive design are top-notch.
+        </Highlight>{' '}
+        It&apos;s rare to find a framework that prioritizes both aesthetics and
+        functionality.
+      </p>
+    ),
+  },  {
+    name: 'Jordan Hayes',
+    role: 'CTO at Quantum Innovations',
+    img: '/api/portraits/men/22.jpg',
+    description: (
+      <p>
+        NexaUI has completely transformed our development workflow.
+        <Highlight>
+          The component system saved us weeks of custom coding and design work.
+        </Highlight>{' '}
+        Our team can now focus on business logic instead of UI details.
+      </p>
+    ),
+  },
+  {
+    name: 'Maya Rodriguez',
+    role: 'Lead Developer at Skyline Digital',
+    img: '/api/portraits/women/33.jpg',
+    description: (
+      <p>
+        I was skeptical at first, but NexaUI proved me wrong.
+        <Highlight>
+          The accessibility features and responsive design are top-notch.
+        </Highlight>{' '}
+        It&apos;s rare to find a framework that prioritizes both aesthetics and
+        functionality.
+      </p>
+    ),
+  },  {
+    name: 'Jordan Hayes',
+    role: 'CTO at Quantum Innovations',
+    img: '/api/portraits/men/22.jpg',
+    description: (
+      <p>
+        NexaUI has completely transformed our development workflow.
+        <Highlight>
+          The component system saved us weeks of custom coding and design work.
+        </Highlight>{' '}
+        Our team can now focus on business logic instead of UI details.
+      </p>
+    ),
+  },
+  {
+    name: 'Maya Rodriguez',
+    role: 'Lead Developer at Skyline Digital',
+    img: '/api/portraits/women/33.jpg',
+    description: (
+      <p>
+        I was skeptical at first, but NexaUI proved me wrong.
+        <Highlight>
+          The accessibility features and responsive design are top-notch.
+        </Highlight>{' '}
+        It&apos;s rare to find a framework that prioritizes both aesthetics and
+        functionality.
+      </p>
+    ),
+  },
 ];
 
 export default function Testimonials() {

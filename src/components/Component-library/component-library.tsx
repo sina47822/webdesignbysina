@@ -1,9 +1,9 @@
 export const ComponentCategories = {
-  Navigation: ["navbarModern", "navbarMinimal", "navbarCentered", "navbarSidebar"],
-  "Hero Sections": ["heroGradient", "heroMinimal", "heroImage"],
-  "About Sections": ["aboutImageText", "aboutStats", "aboutTeam"],
-  "Footer Sections": ["footerSimple", "footerNewsletter", "footerSocial"],
-  "Basic Components": [
+  منوها: ["navbarModern", "navbarMinimal", "navbarCentered", "navbarSidebar"],
+  "بخش اصلی (هیرو)": ["heroGradient", "heroMinimal", "heroImage"],
+  "بخش درباره ما": ["aboutImageText", "aboutStats", "aboutTeam"],
+  "بخش فوتر": ["footerSimple", "footerNewsletter", "footerSocial"],
+  "بخش های دیگر": [
     "cardSimple",
     "ctaSection",
     "featureHighlight",
@@ -21,7 +21,7 @@ export const ComponentCategories = {
 export const ComponentLibrary = {
   // Navigation Components
   navbarModern: `
-  <nav class="bg-white shadow-lg sticky top-0 z-50" data-component="navbar">
+  <nav class="bg-white dark:bg-gray-900 shadow-lg sticky top-0 z-50" data-component="navbar">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between items-center h-16">
         <!-- Logo -->
@@ -31,7 +31,7 @@ export const ComponentLibrary = {
               <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
                 <i class="fas fa-bolt text-white text-sm"></i>
               </div>
-              <span class="text-xl font-bold text-gray-900" data-text-id="brand">Brand</span>
+              <span class="text-xl font-bold text-gray-900  dark:text-gray-100" data-text-id="brand">لوگو</span>
             </div>
           </div>
         </div>
@@ -39,17 +39,17 @@ export const ComponentLibrary = {
         <!-- Desktop Navigation -->
         <div class="hidden md:block">
           <div class="ml-10 flex items-baseline space-x-8">
-            <a href="#" class="text-gray-900 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors" data-text-id="nav1">Home</a>
-            <a href="#" class="text-gray-600 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors" data-text-id="nav2">About</a>
-            <a href="#" class="text-gray-600 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors" data-text-id="nav3">Services</a>
-            <a href="#" class="text-gray-600 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors" data-text-id="nav4">Portfolio</a>
-            <a href="#" class="text-gray-600 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors" data-text-id="nav5">Contact</a>
+            <a href="#" class="text-gray-900 dark:text-gray-100 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors" data-text-id="nav1">خانه</a>
+            <a href="#" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors" data-text-id="nav2">درباره ما</a>
+            <a href="#" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors" data-text-id="nav3">خدمات</a>
+            <a href="#" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors" data-text-id="nav4">نمونه کارها</a>
+            <a href="#" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors" data-text-id="nav5">ارتباط با ما</a>
           </div>
         </div>
 
         <!-- CTA Button -->
         <div class="hidden md:block">
-          <a href="#" class="bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-blue-700 transition-colors" data-button-id="cta">Get Started</a>
+          <a href="#" class="bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-blue-700 transition-colors" data-button-id="cta">شروع همکاری</a>
         </div>
 
         <!-- Mobile menu button -->

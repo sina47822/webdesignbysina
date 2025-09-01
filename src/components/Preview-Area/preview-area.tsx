@@ -63,24 +63,24 @@ export function PreviewArea({
 
   return (
     <>
-      <div className="flex-1 overflow-auto bg-gray-100 p-6">
-        <div className={`mx-auto bg-white shadow-lg rounded-lg overflow-hidden ${getPreviewWidth()}`}>
+      <div className="flex-1 overflow-auto bg-gray-200 dark:bg-gray-800 p-6">
+        <div className={`mx-auto bg-gray-100 dark:bg-gray-700 shadow-lg rounded-lg overflow-hidden ${getPreviewWidth()}`}>
           <Droppable droppableId="canvas">
             {(provided, snapshot) => (
               <div
                 {...provided.droppableProps}
                 ref={provided.innerRef}
                 className={`min-h-96 ${
-                  snapshot.isDraggingOver ? "bg-blue-50" : ""
+                  snapshot.isDraggingOver ? "bg-blue-50 dark:bg-gray-900" : ""
                 } ${blocks.length === 0 ? "flex items-center justify-center" : ""}`}
               >
                 {blocks.length === 0 ? (
                   <div className="text-center py-20">
-                    <div className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <Move className="w-8 h-8 text-gray-400" />
+                    <div className="w-16 h-16 bg-gray-200 dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <Move className="w-8 h-8 text-gray-400 dark:text-gray-500" />
                     </div>
-                    <h3 className="text-lg font-medium text-gray-900 mb-2">Start Building</h3>
-                    <p className="text-gray-500">Drag components from the sidebar to start building your page</p>
+                    <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">شروع به ساختن کنید...</h3>
+                    <p className="text-gray-500 dark:text-gray-400">اجزای مختلف را بکشید و به این قسمت انتقال بدید</p>
                   </div>
                 ) : (
                   blocks.map((block, index) => (

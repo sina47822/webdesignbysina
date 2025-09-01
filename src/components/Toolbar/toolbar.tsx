@@ -4,6 +4,7 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Monitor, Tablet, Smartphone, Download, Trash2 } from "lucide-react"
 import { ConfirmationDialog } from "@/components/Dialog/confirmation-dialog"
+import { ModeToggle } from "../ModeToggle"
 
 interface ToolbarProps {
   previewMode: "desktop" | "tablet" | "mobile"
@@ -17,10 +18,10 @@ export function Toolbar({ previewMode, onPreviewModeChange, onExport, onClear }:
 
   return (
     <>
-      <div className="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-6">
+      <div className="h-16 bg-white dark:bg-gray-900 border-b border-gray-200 flex items-center justify-between px-6">
         <div className="flex items-center space-x-4">
-          <h1 className="text-xl font-semibold text-gray-900">Preview</h1>
-          <div className="flex items-center space-x-2 bg-gray-100 rounded-lg p-1">
+          <h1 className="text-xl font-semibold text-gray-900 dark:text-gray-100">پیش نمایش سایت</h1>
+          <div className="flex items-center space-x-2 bg-gray-100 dark:bg-gray-500 rounded-lg p-1">
             <Button
               size="sm"
               variant={previewMode === "desktop" ? "default" : "ghost"}
@@ -48,12 +49,13 @@ export function Toolbar({ previewMode, onPreviewModeChange, onExport, onClear }:
         <div className="flex items-center space-x-2">
           <Button variant="outline" onClick={() => setShowClearDialog(true)}>
             <Trash2 className="w-4 h-4 mr-2" />
-            Clear All
+            پاک کردن همه بخش ها
           </Button>
           <Button onClick={onExport}>
             <Download className="w-4 h-4 mr-2" />
-            Export HTML
+            خروجی HTML
           </Button>
+          <ModeToggle />
         </div>
       </div>
 

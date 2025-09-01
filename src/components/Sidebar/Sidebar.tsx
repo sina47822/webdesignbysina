@@ -4,7 +4,7 @@ import { useState } from "react"
 import { Droppable, Draggable } from "@hello-pangea/dnd"
 import { ComponentCategories } from "../Component-library/component-library"
 import type { Block } from "@/app/webbuilder/page"
-import { Layers, Trash2, Copy, Settings, ChevronDown, ChevronRight, ArrowUp, ArrowDown } from "lucide-react"
+import { Layers, Trash2, Copy, Settings, ChevronDown, ChevronRight, ArrowUp, ArrowDown, ChevronLeft } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Separator } from "@/components/ui/separator"
@@ -67,15 +67,15 @@ export function Sidebar({
 
   return (
     <>
-      <div className="w-80 bg-white border-r border-gray-200 flex flex-col">
+      <div className="w-80 bg-white dark:bg-gray-700 border-r border-gray-200 dark:border-gray-950 flex flex-col">
         <div className="p-4 border-b border-gray-200">
-          <h2 className="text-lg font-semibold text-gray-900">Open Builder</h2>
-          <p className="text-sm text-gray-500">Drag components to build your page</p>
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 pb-4">سایت ساز</h2>
+          <p className="text-xs text-gray-500 dark:text-gray-300">با کشیدن اجزای مختلف در قسمت نمایش میتوانید سایت خود را بسازید</p>
         </div>
 
-        <div className="flex-1 overflow-hidden">
+        <div className="flex-1 overflow-x-hidden">
           <div className="p-4">
-            <h3 className="text-sm font-medium text-gray-900 mb-3">Components</h3>
+            <h3 className="text-md font-medium text-gray-900 dark:text-gray-100 mb-3">قابلیت ها</h3>
             <ScrollArea className="h-80">
               <Droppable droppableId="component-library" isDropDisabled={true}>
                 {(provided) => (
@@ -86,15 +86,15 @@ export function Sidebar({
                         open={openCategories[category]}
                         onOpenChange={() => toggleCategory(category)}
                       >
-                        <CollapsibleTrigger className="flex items-center justify-between w-full p-2 text-left text-sm font-medium text-gray-700 hover:bg-gray-50 rounded-md">
-                          <span>{category}</span>
+                        <CollapsibleTrigger className="flex items-center justify-between w-full p-2 text-right text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-600 rounded-md">
                           {openCategories[category] ? (
                             <ChevronDown className="w-4 h-4" />
                           ) : (
-                            <ChevronRight className="w-4 h-4" />
+                            <ChevronLeft className="w-4 h-4" />
                           )}
+                        <span>{category}</span>
                         </CollapsibleTrigger>
-                        <CollapsibleContent className="space-y-2 mt-2 ml-2">
+                        <CollapsibleContent className="space-y-2 mt-2 mr-2">
                           {components.map((componentType, index) => (
                             <Draggable key={componentType} draggableId={componentType} index={index}>
                               {(provided, snapshot) => (
@@ -102,17 +102,21 @@ export function Sidebar({
                                   ref={provided.innerRef}
                                   {...provided.draggableProps}
                                   {...provided.dragHandleProps}
-                                  className={`p-3 bg-gray-50 rounded-lg border-2 border-dashed border-gray-300 cursor-move hover:border-blue-400 hover:bg-blue-50 transition-colors ${
+                                  className={`p-3 bg-gray-50 dark:bg-gray-900 rounded-lg border-2 border-dashed border-gray-300 cursor-move hover:border-blue-400 hover:bg-blue-50 transition-colors ${
                                     snapshot.isDragging ? "opacity-50" : ""
                                   }`}
                                 >
-                                  <div className="flex items-center space-x-2">
-                                    <div className="w-8 h-8 bg-blue-100 rounded flex items-center justify-center">
-                                      <Layers className="w-4 h-4 text-blue-600" />
+                                  <div className="flex items-center justify-between space-x-2">
+                                    {/* icon sub menu */}
+                                    <div className="w-8 h-8 bg-blue-100 dark:bg-gray-500 rounded flex items-center justify-center">
+                                      <Layers className="w-4 h-4 text-blue-600 dark:text-blue-300" />
                                     </div>
-                                    <span className="text-sm font-medium text-gray-700 capitalize">
-                                      {componentType.replace(/([A-Z])/g, " $1").trim()}
-                                    </span>
+                                    {/* text sub menu */}
+                                    <div>
+                                        <span className="text-sm font-medium text-gray-700 dark:text-gray-100 capitalize">
+                                        {componentType.replace(/([A-Z])/g, " $1").trim()}
+                                        </span>
+                                    </div>
                                   </div>
                                 </div>
                               )}
@@ -131,10 +135,10 @@ export function Sidebar({
           <Separator />
 
           <div className="p-4">
-            <h3 className="text-sm font-medium text-gray-900 mb-3">Page Structure</h3>
+            <h3 className="text-sm font-medium text-gray-900 dark:text-gray-50  mb-3">ساختار صفحه</h3>
             <ScrollArea className="h-64">
               {blocks.length === 0 ? (
-                <p className="text-sm text-gray-500 text-center py-8">No components added yet</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400 text-center py-8">هنوز هیچ قابلیتی اضافه نشده است</p>
               ) : (
                 <div className="space-y-2">
                   {blocks.map((block, index) => (
@@ -142,17 +146,17 @@ export function Sidebar({
                       key={block.id}
                       className={`p-2 rounded border cursor-pointer transition-colors ${
                         selectedBlock === block.id
-                          ? "border-blue-500 bg-blue-50"
+                          ? "border-blue-500 bg-blue-50 dark:bg-gray-900"
                           : "border-gray-200 hover:border-gray-300"
                       }`}
                       onClick={() => onBlockSelect(block.id)}
                     >
                       <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-2">
-                          <Layers className="w-4 h-4 text-gray-400" />
-                          <span className="text-sm font-medium text-gray-700">
+                        <div className="flex items-center space-x-1">
+                          <span className="text-xs px-1 font-medium text-gray-700 dark:text-gray-300">
                             {block.type.replace(/([A-Z])/g, " $1").trim()}
                           </span>
+                            <Layers className="w-4 h-4 text-gray-400 dark:text-gray-400" />
                         </div>
                         <div className="flex items-center space-x-1">
                           <Button
@@ -165,7 +169,7 @@ export function Sidebar({
                             disabled={index === 0}
                             title="Move up"
                           >
-                            <ArrowUp className="w-3 h-3" />
+                            <ArrowUp className="w-3 h-3 text-gray-700 dark:text-gray-200" />
                           </Button>
                           <Button
                             size="sm"
@@ -177,7 +181,7 @@ export function Sidebar({
                             disabled={index === blocks.length - 1}
                             title="Move down"
                           >
-                            <ArrowDown className="w-3 h-3" />
+                            <ArrowDown className="w-3 h-3 text-gray-700 dark:text-gray-200" />
                           </Button>
                           <Button
                             size="sm"
@@ -186,9 +190,9 @@ export function Sidebar({
                               e.stopPropagation()
                               onOpenSettings?.()
                             }}
-                            title="Settings"
+                            title="تنظیمات"
                           >
-                            <Settings className="w-3 h-3" />
+                            <Settings className="w-3 h-3 text-gray-700 dark:text-gray-200" />
                           </Button>
                           <Button
                             size="sm"
@@ -197,9 +201,9 @@ export function Sidebar({
                               e.stopPropagation()
                               onDuplicateBlock(block.id)
                             }}
-                            title="Duplicate"
+                            title="کپی"
                           >
-                            <Copy className="w-3 h-3" />
+                            <Copy className="w-3 h-3 text-gray-700 dark:text-gray-200" />
                           </Button>
                           <Button
                             size="sm"
@@ -208,9 +212,9 @@ export function Sidebar({
                               e.stopPropagation()
                               handleDeleteClick(block.id)
                             }}
-                            title="Delete"
+                            title="پاک کردن"
                           >
-                            <Trash2 className="w-3 h-3" />
+                            <Trash2 className="w-3 h-3 text-gray-700 dark:text-gray-200" />
                           </Button>
                         </div>
                       </div>
@@ -228,7 +232,7 @@ export function Sidebar({
         onClose={() => setDeleteDialog({ isOpen: false, blockId: null })}
         onConfirm={handleDeleteConfirm}
         title="Delete Component"
-        description={`Are you sure you want to delete the "${getBlockName(deleteDialog.blockId || "")}" component? This action cannot be undone.`}
+        description={`از پاک کردن این قسمت مطمئنید؟ "${getBlockName(deleteDialog.blockId || "")}" رو داری پاک میکنی`}
         confirmText="Delete"
         cancelText="Cancel"
         variant="destructive"

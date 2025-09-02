@@ -1,20 +1,19 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { DragDropContext } from "@hello-pangea/dnd"
+import { DragDropContext, DropResult } from "@hello-pangea/dnd"
 import { Sidebar } from "@/components/Sidebar/Sidebar"
 import { PreviewArea } from "@/components/Preview-Area/preview-area"
 import { Toolbar } from "@/components/Toolbar/toolbar"
 import { ComponentLibrary } from "@/components/Component-library/component-library"
 import { ExportModal } from "@/components/Export-Modal/export-modal"
-import { PropertyPanel } from "@/components/Property-Panel/property-panel"
 import { MobileRestriction } from "@/components/Mobile-Restriction/mobile-restriction"
 
 export interface Block {
   id: string
   type: string
   content: string
-  props?: Record<string, any>
+  props?: Record<string, unknown>
   editableProps?: {
     texts?: Record<string, { content: string; styles: TextStyles }>
     buttons?: Record<string, { text: string; link: string; styles: ButtonStyles }>
@@ -83,7 +82,6 @@ export default function HTMLBuilder() {
   const [selectedBlock, setSelectedBlock] = useState<string | null>(null)
   const [showExportModal, setShowExportModal] = useState(false)
   const [previewMode, setPreviewMode] = useState<"desktop" | "tablet" | "mobile">("desktop")
-  const [showPropertyPanel, setShowPropertyPanel] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
@@ -101,14 +99,14 @@ export default function HTMLBuilder() {
     return <MobileRestriction />
   }
 
-  const handleDragEnd = (result: any) => {
+  const handleDragEnd = (result: DropResult) => {
     if (!result.destination) return
 
-    const { source, destination } = result
+    const { source, destination, draggableId } = result
 
-    // If dragging from component library to canvas
+    // From library to canvas
     if (source.droppableId === "component-library" && destination.droppableId === "canvas") {
-      const componentType = result.draggableId
+      const componentType = draggableId
       const newBlock: Block = {
         id: `block-${Date.now()}`,
         type: componentType,
@@ -123,7 +121,7 @@ export default function HTMLBuilder() {
       return
     }
 
-    // If reordering within canvas
+    // Reordering within canvas
     if (source.droppableId === "canvas" && destination.droppableId === "canvas") {
       const newBlocks = Array.from(blocks)
       const [reorderedItem] = newBlocks.splice(source.index, 1)
@@ -153,14 +151,6 @@ export default function HTMLBuilder() {
     }
   }
 
-  const updateBlockProps = (blockId: string, newProps: any) => {
-    setBlocks(
-      blocks.map((block) =>
-        block.id === blockId ? { ...block, editableProps: { ...block.editableProps, ...newProps } } : block,
-      ),
-    )
-  }
-
   const moveBlock = (blockId: string, direction: "up" | "down") => {
     const blockIndex = blocks.findIndex((block) => block.id === blockId)
     if (blockIndex === -1) return
@@ -168,27 +158,9 @@ export default function HTMLBuilder() {
     const newBlocks = [...blocks]
 
     if (direction === "up" && blockIndex > 0) {
-      // Swap with previous block
       ;[newBlocks[blockIndex - 1], newBlocks[blockIndex]] = [newBlocks[blockIndex], newBlocks[blockIndex - 1]]
     } else if (direction === "down" && blockIndex < blocks.length - 1) {
-      // Swap with next block
       ;[newBlocks[blockIndex], newBlocks[blockIndex + 1]] = [newBlocks[blockIndex + 1], newBlocks[blockIndex]]
-    }
-
-    setBlocks(newBlocks)
-  }
-
-  const moveToPosition = (blockId: string, position: "top" | "bottom") => {
-    const blockIndex = blocks.findIndex((block) => block.id === blockId)
-    if (blockIndex === -1) return
-
-    const newBlocks = [...blocks]
-    const [movedBlock] = newBlocks.splice(blockIndex, 1)
-
-    if (position === "top") {
-      newBlocks.unshift(movedBlock)
-    } else {
-      newBlocks.push(movedBlock)
     }
 
     setBlocks(newBlocks)
@@ -197,18 +169,18 @@ export default function HTMLBuilder() {
   const generateHTML = () => {
     const htmlContent = blocks.map((block) => block.content).join("\n\n")
     return `<!DOCTYPE html>
-      <html lang="en">
-      <head>
-          <meta charset="UTF-8">
-          <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title>Generated HTML Template</title>
-          <script src="https://cdn.tailwindcss.com"></script>
-          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-      </head>
-      <body>
-      ${htmlContent}
-      </body>
-      </html>`
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generated HTML Template</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+${htmlContent}
+</body>
+</html>`
   }
 
   return (
@@ -221,7 +193,7 @@ export default function HTMLBuilder() {
           onDeleteBlock={deleteBlock}
           onDuplicateBlock={duplicateBlock}
           onMoveBlock={moveBlock}
-          onOpenSettings={() => setShowPropertyPanel(true)}
+          onOpenSettings={() => {}}
         />
 
         <div className="flex-1 flex flex-col">
@@ -240,20 +212,9 @@ export default function HTMLBuilder() {
             onDeleteBlock={deleteBlock}
             onDuplicateBlock={duplicateBlock}
             onMoveBlock={moveBlock}
-            onShowPropertyPanel={() => setShowPropertyPanel(true)}
+            onShowPropertyPanel={() => {}}
           />
         </div>
-
-        {showPropertyPanel && selectedBlock && (
-          <PropertyPanel
-            block={blocks.find((b) => b.id === selectedBlock)}
-            blocks={blocks}
-            onUpdateProps={(props) => updateBlockProps(selectedBlock, props)}
-            onMoveBlock={moveBlock}
-            onMoveToPosition={moveToPosition}
-            onClose={() => setShowPropertyPanel(false)}
-          />
-        )}
 
         <ExportModal isOpen={showExportModal} onClose={() => setShowExportModal(false)} htmlContent={generateHTML()} />
       </div>

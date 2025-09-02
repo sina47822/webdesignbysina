@@ -83,8 +83,8 @@ export default function ScrollToTopProgress({
         window.addEventListener("scroll", updateProgress, { passive: true });
         window.addEventListener("resize", updateProgress);
         return () => {
-        window.removeEventListener("scroll", updateProgress as any);
-        window.removeEventListener("resize", updateProgress as any);
+        window.removeEventListener("scroll", updateProgress);
+        window.removeEventListener("resize", updateProgress);
         };
     }, [updateProgress]);
 

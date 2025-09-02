@@ -69,42 +69,6 @@ export function EditableComponent({ block, onClick }: EditableComponentProps) {
       return filters.length > 0 ? `filter: ${filters.join(" ")}` : ""
     }
 
-    // Apply text styles
-    if (editableProps?.texts) {
-      Object.entries(editableProps.texts).forEach(([textId, textData]) => {
-        const regex = new RegExp(`(<[^>]*data-text-id="${textId}"[^>]*)(>)([^<]*)(</[^>]*>)`, "g")
-
-        content = content.replace(regex, (match, openTag, closeBracket, currentText, closeTag) => {
-          const styles = textData.styles || {}
-          const content = textData.content || currentText
-
-          // Create CSS string for text styles
-          const cssRules = []
-
-          // Add basic CSS rules
-          const basicCSS = createCSSString(styles)
-          if (basicCSS) cssRules.push(basicCSS)
-
-          // Add transform if needed
-          const transformCSS = createTransformString(styles)
-          if (transformCSS) cssRules.push(transformCSS)
-
-          // Add filter if needed
-          const filterCSS = createFilterString(styles)
-          if (filterCSS) cssRules.push(filterCSS)
-
-          const styleString = cssRules.join("; ")
-
-          // Add or update style attribute
-          if (openTag.includes("style=")) {
-            return openTag.replace(/style="([^"]*)"/, `style="$1; ${styleString}"`) + closeBracket + content + closeTag
-          } else {
-            return openTag + ` style="${styleString}"` + closeBracket + content + closeTag
-          }
-        })
-      })
-    }
-
     // Apply button styles
     if (editableProps?.buttons) {
       Object.entries(editableProps.buttons).forEach(([buttonId, buttonData]) => {
@@ -115,55 +79,12 @@ export function EditableComponent({ block, onClick }: EditableComponentProps) {
           const text = buttonData.text || currentText
           const link = buttonData.link || "#"
 
-          // Create CSS string for button styles
-          const cssRules = []
-
-          // Handle padding specially for buttons
-          const buttonStyles = { ...styles }
-          if (styles.paddingX && styles.paddingY) {
-            buttonStyles.padding = `${styles.paddingY} ${styles.paddingX}`
-            delete buttonStyles.paddingX
-            delete buttonStyles.paddingY
-          }
-
-          // Handle border
-          if (styles.borderWidth && styles.borderStyle && styles.borderColor) {
-            buttonStyles.border = `${styles.borderWidth} ${styles.borderStyle} ${styles.borderColor}`
-            delete buttonStyles.borderWidth
-            delete buttonStyles.borderStyle
-            delete buttonStyles.borderColor
-          }
-
-          // Rename textColor to color for CSS
-          if (buttonStyles.textColor) {
-            buttonStyles.color = buttonStyles.textColor
-            delete buttonStyles.textColor
-          }
-
-          const basicCSS = createCSSString(buttonStyles)
-          if (basicCSS) cssRules.push(basicCSS)
-
-          const transformCSS = createTransformString(styles)
-          if (transformCSS) cssRules.push(transformCSS)
-
-          const filterCSS = createFilterString(styles)
-          if (filterCSS) cssRules.push(filterCSS)
-
-          const styleString = cssRules.join("; ")
-
           // Update href attribute
           let updatedOpenTag = openTag
           if (updatedOpenTag.includes("href=")) {
             updatedOpenTag = updatedOpenTag.replace(/href="[^"]*"/, `href="${link}"`)
           } else {
             updatedOpenTag = updatedOpenTag.replace(/<(\w+)/, `<$1 href="${link}"`)
-          }
-
-          // Add or update style attribute
-          if (updatedOpenTag.includes("style=")) {
-            updatedOpenTag = updatedOpenTag.replace(/style="([^"]*)"/, `style="$1; ${styleString}"`)
-          } else {
-            updatedOpenTag = updatedOpenTag + ` style="${styleString}"`
           }
 
           return updatedOpenTag + closeBracket + text + closeTag
@@ -177,26 +98,6 @@ export function EditableComponent({ block, onClick }: EditableComponentProps) {
       const regex = /(<section[^>]*data-component="hero"[^>]*)(>)/g
 
       content = content.replace(regex, (match, openTag, closeBracket) => {
-        const cssRules = []
-
-        const basicCSS = createCSSString(componentStyles)
-        if (basicCSS) cssRules.push(basicCSS)
-
-        const transformCSS = createTransformString(componentStyles)
-        if (transformCSS) cssRules.push(transformCSS)
-
-        const filterCSS = createFilterString(componentStyles)
-        if (filterCSS) cssRules.push(filterCSS)
-
-        const styleString = cssRules.join("; ")
-
-        if (styleString) {
-          if (openTag.includes("style=")) {
-            return openTag.replace(/style="([^"]*)"/, `style="$1; ${styleString}"`) + closeBracket
-          } else {
-            return openTag + ` style="${styleString}"` + closeBracket
-          }
-        }
 
         return match
       })

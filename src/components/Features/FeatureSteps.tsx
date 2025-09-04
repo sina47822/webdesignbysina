@@ -101,7 +101,7 @@ export default function FeatureSteps() {
                   className={cn(
                     'flex h-12 w-12 items-center justify-center rounded-full border-2 md:h-14 md:w-14',
                     index === currentFeature
-                      ? 'border-primary bg-primary/10 text-primary scale-110 [box-shadow:0_0_15px_rgba(192,15,102,0.3)]'
+                      ? 'border-primary bg-primary/10 text-primary scale-110 [box-shadow:0_0_15px_rgba(192,15,102,0.1)]'
                       : 'border-muted-foreground bg-muted',
                   )}
                 >
@@ -131,7 +131,7 @@ export default function FeatureSteps() {
                   index === currentFeature && (
                     <motion.div
                       key={index}
-                      className="absolute inset-0 overflow-hidden rounded-lg"
+                      className="relative md:absolute inset-0 overflow-hidden rounded-lg"
                       initial={{ y: 100, opacity: 0, rotateX: -20 }}
                       animate={{ y: 0, opacity: 1, rotateX: 0 }}
                       exit={{ y: -100, opacity: 0, rotateX: 20 }}
@@ -146,7 +146,7 @@ export default function FeatureSteps() {
                       />
                       <div className="from-background via-background/50 absolute right-0 bottom-0 left-0 h-2/3 bg-gradient-to-t to-transparent" />
 
-                      <div className="bg-background/80 absolute bottom-4 left-4 rounded-lg p-2 backdrop-blur-sm">
+                      <div className="bg-background/80 absolute bottom-10 md:bottom-4 left-4 rounded-lg p-2 backdrop-blur-sm">
                         <span className="text-primary text-xs font-medium">
                           {feature.step}
                         </span>

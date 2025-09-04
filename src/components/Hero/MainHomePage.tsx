@@ -59,7 +59,7 @@ const MainHomePage: React.FC = () => {
   return (
     <AuroraBackground>
       <div className="relative flex flex-col gap-4 items-center justify-center px-4">
-        <div className="text-3xl md:text-7xl font-bold dark:text-white text-center">
+        <div className="text-4xl md:text-7xl font-bold dark:text-white text-center">
           <span ref={starRef1}>
             <StarIcon className="text-yellow-100 duration-[.2s] hover:scale-[1.2] duration-2 hover:text-yellow-500 cursor-pointer inline-block" />
           </span>
@@ -68,7 +68,7 @@ const MainHomePage: React.FC = () => {
             <StarIcon className="text-yellow-100 hover:scale-[1.2] hover:text-yellow-500 cursor-pointer inline-block" />
           </span>
         </div>
-        <div className="font-extralight text-base md:text-4xl dark:text-neutral-200 py-4">
+        <div className="font-extralight text-xl md:text-4xl dark:text-neutral-200 py-4">
           <span ref={starRef3}>
             <StarIcon className="text-yellow-100 hover:scale-[1.2] hover:text-yellow-500 cursor-pointer inline-block" />
           </span>
@@ -77,19 +77,18 @@ const MainHomePage: React.FC = () => {
             <StarIcon className="text-yellow-100 hover:scale-[1.2] hover:text-yellow-500 cursor-pointer inline-block" />
           </span>
         </div>
-        <div className='flex gap-4'>
-          <button className="bg-black hover:bg-black/80 hover:scale-[1.1] duration-[.2s] dark:bg-white dark:hover:bg-gray-900 dark:hover:text-yellow-200 rounded-full w-fit text-white dark:text-black text-xl px-12 py-4">
+        <div className='flex gap-4 grid grid-cols-1 md:grid-cols-3'>
+          <button className="min-w-sm bg-black hover:bg-black/80 hover:scale-[1.1] duration-[.2s] dark:bg-white dark:hover:bg-gray-900 dark:hover:text-yellow-200 rounded-full w-fit text-white dark:text-black text-xl px-12 py-4">
             <Link href={'/pricing'}>
               <span>لیست قیمت</span> 
             </Link>
-
           </button>
-          <button className="bg-red-500 hover:bg-red-500/80 hover:scale-[1.1] duration-[.2s] dark:bg-white dark:hover:bg-gray-900 dark:hover:text-yellow-200 rounded-full w-fit text-white dark:text-black text-xl px-12 py-4">
+          <button className="min-w-sm bg-red-500 hover:bg-red-500/80 hover:scale-[1.1] duration-[.2s] dark:bg-white dark:hover:bg-gray-900 dark:hover:text-yellow-200 rounded-full w-fit text-white dark:text-black text-xl px-12 py-4">
             <Link href={'/features'}>
               <span>قابلیت ها</span> 
             </Link>
           </button>
-                    <button className="bg-red-500 hover:bg-red-500/80 hover:scale-[1.1] duration-[.2s] dark:bg-white dark:hover:bg-gray-900 dark:hover:text-yellow-200 rounded-full w-fit text-white dark:text-black text-xl px-12 py-4">
+          <button className="min-w-sm bg-blue-500 hover:bg-blue-500/80 hover:scale-[1.1] duration-[.2s] dark:bg-white dark:hover:bg-gray-900 dark:hover:text-yellow-200 rounded-full w-fit text-white dark:text-black text-xl px-12 py-4">
             <Link href={'/webbuilder'}>
               <span>سایت ساز</span> 
             </Link>

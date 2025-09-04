@@ -35,7 +35,7 @@ export default function WorksPage() {
       gsap.killTweensOf(track);
       gsap.set(track, { clearProps: "x" });
 
-      if (!isDesktop) return; // موبایل/تبلت: بدون افکت افقی
+      // if (!isDesktop) return; // موبایل/تبلت: بدون افکت افقی
 
       // تشخیص RTL از استایل واقعی کانتینر
       const isRTL = getComputedStyle(el).direction === "rtl";

@@ -127,7 +127,7 @@ export default function AppHero() {
   };
 
   return (
-    <section className="relative flex min-h-screen w-full flex-col items-center overflow-hidden bg-black py-16 text-white sm:px-6 lg:px-8 lg:py-16">
+    <section className="relative flex min-h-screen w-full flex-col items-center overflow-hidden bg-black py-5 text-white sm:px-6 lg:px-8 lg:py-8">
       <div className="absolute inset-0 z-0 h-full w-full rotate-180 items-center px-5 py-24 opacity-80 [background:radial-gradient(125%_125%_at_50%_10%,#000_40%,#63e_100%)]"></div>
       <svg
         id="noice"
@@ -178,7 +178,7 @@ export default function AppHero() {
         ></motion.div>
       </div>
 
-      <div className="fadein-blur relative z-0 mx-auto mb-10 h-[300px] w-[300px] lg:absolute lg:top-1/2 lg:right-1/2 lg:mx-0 lg:mb-0 lg:h-[500px] lg:w-[500px] lg:translate-x-1/2 lg:-translate-y-2/3">
+      <div className="fadein-blur relative z-0 mx-auto mb-10 h-[300px] w-[300px] lg:absolute lg:top-130 lg:right-1/2 lg:mx-0 lg:mb-0 lg:h-[500px] lg:w-[500px] lg:translate-x-1/2 lg:-translate-y-2/3">
         <img
           src="/nexus.webp"
           alt="Nexus Platform 3D Visualization"
@@ -226,7 +226,7 @@ export default function AppHero() {
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="relative z-10 mb-10 pt-[800px] flex w-full max-w-[1450px] flex-grow flex-col items-center justify-center px-4 text-center sm:px-8 lg:mb-0 lg:items-end lg:justify-start lg:text-right"
+        className="relative z-10 mb-10 md:pt-[700px] flex w-full max-w-[1450px] flex-grow flex-col items-center justify-center px-4 text-center sm:px-8 lg:mb-0 lg:items-end lg:justify-start lg:text-right"
       >
         <motion.div className="flex w-full flex-col items-center justify-between lg:flex-row lg:items-end">
 
@@ -309,13 +309,13 @@ export default function AppHero() {
             >
               <div className="rounded-lg border border-purple-500/20 bg-black/40 px-4 py-2 backdrop-blur-sm">
                 <p className="text-2xl font-bold text-white">
-                  {stats.users.toLocaleString()}+
+                  {stats.users}+
                 </p>
                 <p className="text-xs text-gray-400">کاربران فعال</p>
               </div>
               <div className="rounded-lg border border-blue-500/20 bg-black/40 px-4 py-2 backdrop-blur-sm">
                 <p className="text-2xl font-bold text-white">
-                  {stats.transactions.toLocaleString()}+
+                  {stats.transactions}+
                 </p>
                 <p className="text-xs text-gray-400">افزایش فروش</p>
               </div>

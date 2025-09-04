@@ -1,7 +1,7 @@
 "use client"
 
 import { useMemo } from "react"
-import type { Block } from "@/app/services/webbuilder/page"
+import type { Block } from "@/app/(site)/webbuilder/page"
 
 interface EditableComponentProps {
   block: Block

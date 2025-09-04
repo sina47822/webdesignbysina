@@ -1,0 +1,73 @@
+{
+  "meta": {
+    "title": "Core Web Vitals در ۲۰۲۵: LCP، INP، CLS — راهنمای بهبود",
+    "description": "آستانه‌های به‌روز LCP/INP/CLS، سنجش میدانی و آزمایشگاهی، و راهکارهای عملی برای بهبود عملکرد در Next.js.",
+    "slug": "core-web-vitals-2025",
+    "date": "2025-08-10",
+    "lastModified": "2025-08-20",
+    "cover": "/og/blog/nexus.webp",
+    "tags": ["Performance", "Core Web Vitals", "LCP", "INP", "CLS", "Next.js"],
+    "draft": false,
+    "canonical": "https://www.webdesignwithsina.ir/blog/core-web-vitals-2025"
+  },
+  "sections": [
+    {
+      "title": "Core Web Vitals در یک نگاه (۲۰۲۵)",
+      "level": 2,
+      "bodyMd": "- **LCP**: کمتر از 2.5s خوب، 2.5–4s نیاز به بهبود، بیشتر از 4s ضعیف.\n- **INP**: کمتر از 200ms خوب، 200–500ms نیاز به بهبود، بیشتر از 500ms ضعیف.\n- **CLS**: کمتر از 0.1 خوب، 0.1–0.25 نیاز به بهبود، بیشتر از 0.25 ضعیف.\n\nاین معیارها با داده‌های میدانی (CrUX) سنجیده می‌شوند و باید روی **۷۵٪** بازدیدها خوب باشند.",
+      "callout": {
+        "type": "info",
+        "content": "از ۲۰۲۴ به بعد **INP** جایگزین FID شد. اگر هنوز FID را رصد می‌کنی، به INP مهاجرت کن."
+      }
+    },
+    {
+      "title": "سنجش میدانی vs آزمایشگاهی",
+      "level": 2,
+      "bodyMd": "• **میدانی** (Field): از کاربران واقعی می‌آید (CrUX/Analytics).\n• **آزمایشگاهی** (Lab): در محیط کنترل‌شده (Lighthouse/WebPageTest) برای **عیب‌یابی**.\n\nهر دو لازم‌اند: آزمایشگاهی برای کشف مشکل، میدانی برای تایید اثر در دنیای واقعی."
+    },
+    {
+      "title": "بهبود LCP در Next.js",
+      "level": 2,
+      "bodyMd": "1) تصویر قهرمان (Hero) را با `next/image` و **`priority`** رندر کن.\n2) فونت‌های مهم را با `next/font` لود کن.\n3) Critical CSS را سریع برسان و از بلاکینگ‌های غیرضروری پرهیز کن.",
+      "image": {
+        "src": "/images/blog/cwv/lcp-waterfall.png",
+        "alt": "واترفال درخواست‌ها تا رندر LCP",
+        "caption": "تمرکز روی تصویر LCP و فونت اصلی."
+      },
+      "code": {
+        "language": "tsx",
+        "filename": "Hero.tsx",
+        "caption": "بهینه‌کردن تصویر LCP و فونت",
+        "content": "import Image from \"next/image\";\nimport { GeistSans } from \"next/font/google\";\n\nconst font = GeistSans({ subsets: [\"latin\"], display: \"swap\" });\n\nexport default function Hero(){\n  return (\n    <section className={`relative ${font.className}`}>\n      <Image\n        src=\"/images/hero.webp\"\n        alt=\"قهرمان\"\n        fill\n        priority\n        sizes=\"100vw\"\n        className=\"object-cover\"\n      />\n      <div className=\"relative z-10 p-8\">\n        <h1 className=\"text-3xl font-extrabold\">سلام کارایی 👋</h1>\n      </div>\n    </section>\n  );\n}"
+      }
+    },
+    {
+      "title": "کاهش CLS (جهش چیدمان)",
+      "level": 2,
+      "bodyMd": "ابعاد تصاویر/تبلیغات را از قبل مشخص کن، از **Placeholders** استفاده کن و فونت‌ها را با `display: swap` لود کن.",
+      "code": {
+        "language": "tsx",
+        "content": "import Image from \"next/image\";\n\nexport function Card(){\n  return (\n    <Image\n      src=\"/images/card.webp\"\n      alt=\"کارت\"\n      width={800}\n      height={450}\n      placeholder=\"blur\"\n      blurDataURL=\"data:image/webp;base64,UklGR...\"\n    />\n  );\n}"
+      }
+    },
+    {
+      "title": "بهبود INP (پاسخ‌گویی تعاملات)",
+      "level": 2,
+      "bodyMd": "• کارهای سنگین را با **Web Worker**/server actions از مسیر تعامل جدا کن.\n• از virtualization در لیست‌ها استفاده کن.\n• در React از **`useTransition`** برای تغییرات غیرضروری فوری استفاده کن.",
+      "code": {
+        "language": "tsx",
+        "caption": "تعامل روان با useTransition",
+        "content": "import { useState, useTransition } from \"react\";\n\nexport function SearchBox(){\n  const [isPending, startTransition] = useTransition();\n  const [q, setQ] = useState(\"\");\n\n  function onInput(e: React.ChangeEvent<HTMLInputElement>){\n    const value = e.target.value;\n    setQ(value);\n    startTransition(() => {\n      // فراخوانی فیلتر/جستجوی سنگین\n    });\n  }\n\n  return (\n    <input className=\"input\" value={q} onChange={onInput} />\n  );\n}"
+      },
+      "callout": {
+        "type": "warning",
+        "content": "Listenerهای عمومی روی document را کم کن؛ delegation هدفمند روی کانتینرهای کوچک‌تر، INP را بهبود می‌دهد."
+      }
+    },
+    {
+      "title": "جمع‌بندی",
+      "level": 2,
+      "bodyMd": "ابتدا مشکلات را در **Lab** پیدا کن، سپس با **Field** تایید کن. روی LCP/Image، CLS/Image+Fonts و INP/Interactions تمرکز کن تا به آستانه‌های ۲۰۲۵ برسی."
+    }
+  ]
+}

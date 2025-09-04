@@ -1,0 +1,90 @@
+---
+title: "Core Web Vitals در ۲۰۲۵: LCP، INP، CLS — راهنمای بهبود"
+description: "آستانه‌های به‌روز LCP/INP/CLS، سنجش میدانی و آزمایشگاهی، و راهکارهای عملی برای بهبود عملکرد در Next.js."
+slug: "core-web-vitals-2025"
+date: "2025-08-10"
+lastModified: "2025-08-20"
+cover: "/og/blog/nexus.webp"
+tags: ["Performance", "Core Web Vitals", "LCP", "INP", "CLS", "Next.js"]
+draft: false
+canonical: "https://www.webdesignwithsina.ir/blog/core-web-vitals-2025"
+---
+
+import Callout from "@/components/mdx/Callout"
+
+# Core Web Vitals در ۲۰۲۵: LCP، INP، CLS — راهنمای بهبود
+
+آستانه‌های به‌روز LCP/INP/CLS، سنجش میدانی و آزمایشگاهی، و راهکارهای عملی برای بهبود عملکرد در Next.js.
+
+<Callout type="info">
+این مقاله به‌صورت عملی و پروژه‌محور نوشته شده است. کدها برای App Router در Next.js طراحی شده‌اند.
+</Callout>
+
+## فهرست
+- [پیش‌نیازها](#پیش‌نیازها)
+- [راهنمای سریع](#راهنمای-سریع)
+- [جزییات پیاده‌سازی](#جزییات-پیادهسازی)
+- [اشتباهات رایج](#اشتباهات-رایج)
+- [چک‌لیست نهایی](#چکلیست-نهایی)
+
+## پیش‌نیازها
+- Node 18+، Next.js 14/15
+- ساختار App Router
+- دسترسی به دامنه و Search Console
+
+## راهنمای سریع
+- `metadataBase` را در `app/layout.tsx` تنظیم کنید.
+- OG/Twitter با تصویر 1200×630 تنظیم شود.
+- `alternates.canonical` را **مطلق** بنویسید.
+- `app/robots.ts` و `app/sitemap.ts` را اضافه کنید.
+- JSON-LD برای Organization/WebSite و صفحه‌ها.
+
+## جزییات پیاده‌سازی
+
+### نمونه‌ی متادیتا در layout
+```tsx
+export const metadata = {
+  metadataBase: new URL("https://www.webdesignwithsina.ir"),
+  title: { default: "WebDesignBySina", template: "%s | WebDesignBySina" },
+  description: "SEO-first websites with Next.js + Django.",
+  openGraph: {
+    type: "website",
+    url: "https://www.webdesignwithsina.ir",
+    images: [{ url: "/og/cover.jpg", width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ["/og/cover.jpg"],
+  },
+} as const
+```
+
+### canonical مطلق در صفحه‌ی داینامیک
+```tsx
+export async function generateMetadata({ params }): Promise<Metadata> {
+  const url = `https://www.webdesignwithsina.ir/blog/${params.slug}`;
+  return {
+    alternates: { canonical: url },
+  };
+}
+```
+
+### robots و sitemap
+- `app/robots.ts` و `app/sitemap.ts` را با دامنه‌ی اصلی تنظیم کنید.
+- برای بلاگ‌های Markdown از `fs.stat` برای `lastModified` استفاده کنید.
+
+## اشتباهات رایج
+- تصویر OG با ابعاد/کنتراست نامناسب
+- ندادن canonical مطلق در صفحات داینامیک
+- بی‌توجهی به INP/CLS و جاگذاری نادرست اسکریپت‌ها
+
+## چک‌لیست نهایی
+- [ ] OG و Twitter کامل
+- [ ] canonical مطلق
+- [ ] robots/sitemap
+- [ ] JSON-LD
+- [ ] پایش Core Web Vitals
+
+—
+انتشار اولیه: 2025-08-10 • آخرین بروزرسانی: 2025-08-20
+

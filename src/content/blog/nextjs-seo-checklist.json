@@ -1,0 +1,316 @@
+{
+  "meta": {
+    "title": "چک‌لیست سئوی Next.js (۲۰۲۵)",
+    "description": "چک‌لیست عملی برای سئوی Next.js با متادیتا، OG/Twitter، canonical مطلق، robots/sitemap، JSON-LD، i18n و بهینه‌سازی Core Web Vitals.",
+    "slug": "nextjs-seo-checklist",
+    "date": "2025-06-20",
+    "lastModified": "2025-07-15",
+    "cover": "/og/blog/nexus.webp",
+    "tags": ["Next.js", "SEO", "Metadata", "OG", "Canonical", "Sitemap"],
+    "draft": false,
+    "canonical": "https://www.webdesignwithsina.ir/blog/nextjs-seo-checklist"
+  },
+  "sections": [
+    {
+      "id": "intro",
+      "title": "مقدمه",
+      "level": 2,
+      "bodyMd": "چک‌لیست عملی برای سئوی Next.js با متادیتا، OG/Twitter، canonical مطلق، robots/sitemap، JSON-LD، i18n و بهینه‌سازی Core Web Vitals.\n\nقبل از شروع، بد نیست یادآوری کنیم که بهینه‌سازی موتور جستجو (SEO) بخش مهمی از هر پروژه وب است. با **App Router** و **Metadata API** مدیریت سئو ساده‌تر شده. در این مقاله یک چک‌لیست عملی و گام‌به‌گام داریم تا پروژه Next.js شما در سال ۲۰۲۵ از نظر سئو کاملاً بهینه باشد."
+    },
+    {
+      "id": "intro-callout",
+      "title": "نکته",
+      "level": 3,
+      "callout": {
+        "type": "info",
+        "content": "این مقاله عملی و پروژه‌محور است؛ کدها برای App Router در Next.js طراحی شده‌اند."
+      }
+    },
+    {
+      "id": "toc",
+      "title": "فهرست",
+      "level": 2,
+      "bodyMd": "- [پیش‌نیازها](#prerequisites)\n- [راهنمای سریع](#quick-start)\n- [جزییات پیاده‌سازی](#impl)\n  - [نمونهٔ تنظیم متادیتا در Layout](#metadata-layout)\n  - [canonical مطلق در صفحات داینامیک](#canonical)\n  - [robots.txt و sitemap.xml](#robots-sitemap)\n  - [تولید sitemap](#sitemap)\n  - [داده‌های ساخت‌یافته (JSON-LD)](#json-ld)\n  - [متادیتای مقاله و Article JSON-LD](#article-meta)\n  - [پشتیبانی چندزبانه و hreflang](#i18n)\n  - [بهینه‌سازی Core Web Vitals](#web-vitals)\n- [اشتباهات رایج](#pitfalls)\n- [چک‌لیست نهایی](#final-checklist)"
+    },
+    {
+      "id": "prerequisites",
+      "title": "پیش‌نیازها",
+      "level": 2,
+      "bodyMd": "- **Node.js 18+** برای سازگاری کامل با Next.js 14/15\n- **Next.js 14/15 (App Router)**\n- **App Directory structure** (مثل `app/layout.tsx`, `app/page.tsx`)\n- دامنه واقعی و **Google Search Console** برای معرفی sitemap و پایش ایندکس/Core Web Vitals"
+    },
+    {
+      "id": "quick-start",
+      "title": "راهنمای سریع",
+      "level": 2,
+      "bodyMd": "- `metadataBase` را در `app/layout.tsx` تنظیم کن.\n- OG/Twitter را با تصویر 1200×630 بهینه کن.\n- `alternates.canonical` را **مطلق** تنظیم کن.\n- `app/robots.ts` و `app/sitemap.ts` را اضافه کن.\n- JSON-LD (Organization/WebSite/Article) را بگذار."
+    },
+    {
+      "id": "impl",
+      "title": "جزییات پیاده‌سازی",
+      "level": 2,
+      "bodyMd": "در این بخش، هر گام را با نمونه‌کد بررسی می‌کنیم."
+    },
+    {
+      "id": "metadata-layout",
+      "title": "نمونهٔ تنظیم متادیتا در Layout",
+      "level": 3,
+      "bodyMd": "ابتدا متادیتای پایه را در `app/layout.tsx` اضافه کنید تا URLهای نسبی (مثل OG image) با `metadataBase` به آدرس کامل تبدیل شوند.",
+      "code": {
+        "language": "tsx",
+        "filename": "app/layout.tsx",
+        "caption": "Metadata پایه در Layout",
+        "content": "export const metadata = {\n  metadataBase: new URL(\"https://www.webdesignwithsina.ir\"),\n  title: { default: \"WebDesignBySina\", template: \"%s | WebDesignBySina\" },\n  description: \"SEO-first websites with Next.js + Django.\",\n  openGraph: {\n    type: \"website\",\n    url: \"https://www.webdesignwithsina.ir\",\n    siteName: \"WebDesignBySina\",\n    images: [{ url: \"/og/cover.jpg\", width: 1200, height: 630 }]\n  },\n  twitter: { card: \"summary_large_image\", images: [\"/og/cover.jpg\"] }\n} as const"
+      }
+    },
+    {
+      "id": "canonical",
+      "title": "canonical مطلق در صفحات داینامیک",
+      "level": 3,
+      "bodyMd": "برای صفحات پارامتری (مثل بلاگ)، `canonical` را در `generateMetadata` به صورت **مطلق** بسازید.",
+      "code": {
+        "language": "tsx",
+        "filename": "app/blog/[slug]/page.tsx",
+        "caption": "تولید canonical مطلق",
+        "content": "import type { Metadata } from \"next\";\nexport async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {\n  const url = `https://www.webdesignwithsina.ir/blog/${params.slug}`;\n  return { alternates: { canonical: url } };\n}"
+      },
+      "callout": {
+        "type": "warning",
+        "content": "اگر `metadataBase` نداری، canonical نسبی نگذار؛ لینک را مطلق بنویس."
+      }
+    },
+    {
+      "id": "robots-sitemap",
+      "title": "robots.txt و sitemap.xml در App Router",
+      "level": 3,
+      "bodyMd": "از Routeهای مخصوص استفاده کن تا robots.txt و sitemap.xml تولید شوند.",
+      "code": {
+        "language": "tsx",
+        "filename": "app/robots.ts",
+        "caption": "robots.txt داینامیک",
+        "content": "import type { MetadataRoute } from \"next\";\nexport default function robots(): MetadataRoute.Robots {\n  return {\n    rules: { userAgent: \"*\", allow: \"/\", disallow: \"/admin/\" },\n    sitemap: \"https://www.webdesignwithsina.ir/sitemap.xml\"\n  };\n}"
+      }
+    },
+    {
+      "id": "sitemap",
+      "title": "تولید sitemap",
+      "level": 4,
+      "bodyMd": "یک سایت‌مپ ساده‌ی استاتیک یا داینامیک بساز.",
+      "code": {
+        "language": "tsx",
+        "filename": "app/sitemap.ts",
+        "caption": "سایت‌مپ ساده",
+        "content": "import type { MetadataRoute } from \"next\";\nexport default function sitemap(): MetadataRoute.Sitemap {\n  const baseUrl = \"https://www.webdesignwithsina.ir\";\n  return [\n    { url: baseUrl, lastModified: new Date(), changeFrequency: \"daily\", priority: 1.0 },\n    { url: `${baseUrl}/blog`, lastModified: new Date(), changeFrequency: \"weekly\", priority: 0.8 }\n  ];\n}"
+      }
+    },
+    {
+      "id": "json-ld",
+      "title": "داده‌های ساخت‌یافته (JSON-LD)",
+      "level": 3,
+      "bodyMd": "Organization/WebSite را در Layout و Article را در صفحهٔ بلاگ با `<script type=\"application/ld+json\">` اضافه کن.",
+      "code": {
+        "language": "tsx",
+        "filename": "app/layout.tsx (بخشی از head)",
+        "caption": "JSON-LD عمومی سایت",
+        "content": "<script type=\"application/ld+json\"\n  dangerouslySetInnerHTML={{ __html: JSON.stringify({\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"Organization\",\n    \"name\": \"WebDesignBySina\",\n    \"url\": \"https://www.webdesignwithsina.ir\",\n    \"logo\": \"https://www.webdesignwithsina.ir/logo.png\"\n  }) }} />\n<script type=\"application/ld+json\"\n  dangerouslySetInnerHTML={{ __html: JSON.stringify({\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"WebSite\",\n    \"url\": \"https://www.webdesignwithsina.ir\",\n    \"name\": \"WebDesignBySina\",\n    \"potentialAction\": {\n      \"@type\": \"SearchAction\",\n      \"target\": \"https://www.webdesignwithsina.ir/search?query={q}\",\n      \"query-input\": \"required name=q\"\n    }\n  }) }} />"
+      }
+    },
+    {
+      "id": "article-meta",
+      "title": "متادیتای مقاله و Article JSON-LD",
+      "level": 3,
+      "bodyMd": "برای صفحات بلاگ، علاوه‌بر canonical، متادیتای Article و JSON-LD مقاله را هم اضافه کن تا از `date` و `lastModified` استفاده شود.",
+      "code": {
+        "language": "tsx",
+        "filename": "app/blog/[slug]/page.tsx",
+        "caption": "متادیتای مقاله + Article JSON-LD",
+        "content": "import type { Metadata } from \"next\";\nimport { notFound } from \"next/navigation\";\n// فرض: getPost(slug) عنوان/خلاصه/کاور/تاریخ‌ها را می‌دهد\nasync function getPost(slug: string) {\n  // ...\n}\nexport async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {\n  const post = await getPost(params.slug);\n  if (!post) return notFound();\n  const url = `https://www.webdesignwithsina.ir/blog/${params.slug}`;\n  return {\n    title: post.title,\n    description: post.description,\n    alternates: { canonical: url },\n    openGraph: {\n      type: \"article\",\n      url,\n      title: post.title,\n      description: post.description,\n      images: [{ url: post.cover ?? \"/og/blog/nexus.webp\", width: 1200, height: 630 }],\n      publishedTime: post.date,\n      modifiedTime: post.lastModified\n    },\n    twitter: { card: \"summary_large_image\", title: post.title, description: post.description, images: [post.cover ?? \"/og/blog/nexus.webp\"] }\n  };\n}\nexport default async function Page({ params }: { params: { slug: string } }) {\n  const post = await getPost(params.slug);\n  if (!post) return notFound();\n  return (\n    <article>\n      {/* ... محتوا ... */}\n      <script\n        type=\"application/ld+json\"\n        dangerouslySetInnerHTML={{ __html: JSON.stringify({\n          \"@context\": \"https://schema.org\",\n          \"@type\": \"Article\",\n          \"headline\": post.title,\n          \"description\": post.description,\n          \"image\": post.cover ? `https://www.webdesignwithsina.ir${post.cover}` : undefined,\n          \"datePublished\": post.date,\n          \"dateModified\": post.lastModified,\n          \"mainEntityOfPage\": { \"@type\": \"WebPage\", \"@id\": `https://www.webdesignwithsina.ir/blog/${params.slug}` }\n        }) }}\n      />\n    </article>\n  );\n}"
+      }
+    },
+        {
+      "id": "i18n",
+      "title": "پشتیبانی چندزبانه و hreflang (i18n SEO)",
+      "level": 3,
+      "bodyMd": "در `next.config.js` شئ `i18n` را تنظیم کنید تا زبان‌ها و زبان پیش‌فرض مشخص شوند. سپس با `alternates.languages`، تگ‌های hreflang را به‌صورت خودکار تولید کنید.",
+      "code": {
+        "language": "ts",
+        "filename": "next.config.js",
+        "caption": "پیکربندی i18n (مسیرهای بین‌المللی)",
+        "content": "module.exports = {\n  i18n: {\n    locales: [\"fa\", \"en\"],\n    defaultLocale: \"fa\",\n  },\n};"
+      }
+    },
+    {
+      "id": "i18n-alternates-root",
+      "title": "استفاده از alternates.languages در متادیتای Layout",
+      "level": 4,
+      "bodyMd": "برای صفحات ریشه (مثل صفحهٔ اصلی)، نمونهٔ زیر را در `app/layout.tsx` تنظیم کنید:",
+      "code": {
+        "language": "tsx",
+        "filename": "app/layout.tsx",
+        "caption": "alternates.languages در سطح ریشه",
+        "content": "export const metadata = {\n  metadataBase: new URL(\"https://www.webdesignwithsina.ir\"),\n  alternates: {\n    canonical: \"/\",\n    languages: {\n      \"fa-IR\": \"/\",      // نسخه فارسی – صفحه اصلی\n      \"en-US\": \"/en\"      // نسخه انگلیسی – صفحه اصلی انگلیسی\n    }\n  },\n  // ... سایر تنظیمات metadata ...\n} as const;"
+      }
+    },
+    {
+      "id": "i18n-alternates-about",
+      "title": "alternates.languages برای یک صفحه (مثلاً درباره ما)",
+      "level": 4,
+      "bodyMd": "برای صفحات مشخص (مثل درباره ما) می‌توانید مستقیماً در Metadata همان صفحه تنظیم کنید:",
+      "code": {
+        "language": "tsx",
+        "filename": "app/about/page.tsx",
+        "caption": "hreflang برای صفحهٔ درباره ما",
+        "content": "export const metadata = {\n  alternates: {\n    canonical: \"/about\",\n    languages: {\n      \"fa-IR\": \"/about\",\n      \"en-US\": \"/en/about\"\n    }\n  }\n};"
+      }
+    },
+    {
+      "id": "i18n-hreflang-meta",
+      "title": "hreflang با alternates.languages برای صفحات داینامیک",
+      "level": 4,
+      "bodyMd": "در صفحات پارامتری (مثل بلاگ)، نسخه‌های زبانی را بر اساس `slug` بسازید:",
+      "code": {
+        "language": "tsx",
+        "filename": "app/blog/[slug]/page.tsx",
+        "caption": "نمونهٔ alternates.languages (دینامیک)",
+        "content": "import type { Metadata } from \"next\";\nexport async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {\n  const base = \"https://www.webdesignwithsina.ir\";\n  const urlFa = `${base}/blog/${params.slug}`;\n  const urlEn = `${base}/en/blog/${params.slug}`;\n  return {\n    alternates: {\n      canonical: urlFa,\n      languages: {\n        \"fa-IR\": urlFa,\n        \"en-US\": urlEn\n      }\n    }\n  };\n}"
+      }
+    },
+    {
+      "id": "i18n-alternates-result",
+      "title": "خروجی تگ‌های head",
+      "level": 4,
+      "bodyMd": "پس از تنظیم بالا، تگ‌های زیر در `head` درج می‌شوند:",
+      "code": {
+        "language": "html",
+        "filename": "head.html",
+        "caption": "نمونهٔ خروجی",
+        "content": "<link rel=\\\"alternate\\\" hreflang=\\\"fa-IR\\\" href=\\\"https://www.webdesignwithsina.ir/about\\\" />\n<link rel=\\\"alternate\\\" hreflang=\\\"en-US\\\" href=\\\"https://www.webdesignwithsina.ir/en/about\\\" />\n<link rel=\\\"canonical\\\" href=\\\"https://www.webdesignwithsina.ir/about\\\" />"
+      }
+    },
+    {
+      "id": "i18n-extras",
+      "title": "نکات تکمیلی i18n",
+      "level": 4,
+      "bodyMd": "- محتوای متنی، متادیتا (Title/Description) و حتی `lang` مطابق زبان هر نسخه باشد. در Layout می‌توانید `<html lang={locale}>` را تنظیم کنید.\n- اگر برای هر زبان دامنهٔ جداگانه دارید، به‌جای مسیر نسبی، URL کامل همان دامنه را بدهید.\n- برای نسخهٔ پیش‌فرض هم یک `hreflang` بگذارید (مثلاً `fa-IR`). در صورت نیاز به `x-default`، می‌توانید آن را دستی داخل `<head>` اضافه کنید.\n- لینک تعویض زبان در سایت قرار دهید؛ مثال با Next `<Link>`:\n\n```tsx\nimport Link from \"next/link\";\n\n<Link href=\"/about\" locale=\"en\">English</Link>\n<Link href=\"/about\" locale=\"fa\">فارسی</Link>\n```"
+    },
+    {
+      "id": "web-vitals",
+      "title": "بهینه‌سازی Core Web Vitals (سرعت و تجربه)",
+      "level": 3,
+      "bodyMd": "علاوه بر تگ‌ها و موارد فنی سئو، سرعت و عملکرد سایت نقش مهمی در رتبه دارد. گوگل با **Core Web Vitals** تجربه کاربری را می‌سنجد. در زیر، شاخص‌ها و راهکارهای عملی Next.js را به‌صورت بخش‌بندی‌شده می‌بینید."
+    },
+    {
+      "id": "web-vitals-metrics",
+      "title": "شاخص‌ها و آستانه‌های پیشنهادی",
+      "level": 4,
+      "bodyMd": "- **LCP (Largest Contentful Paint)**: زمان نمایش بزرگ‌ترین محتوای قابل‌مشاهده (هدف: **< 2.5s**)\n- **FID (First Input Delay)**: معیار قدیمی تعامل اولیه؛ از **2024** با **INP** جایگزین شده\n- **CLS (Cumulative Layout Shift)**: جابه‌جایی تجمعی چیدمان (هدف: **< 0.1**)\n- **INP (Interaction to Next Paint)**: سنجهٔ پاسخ‌گویی به تعامل‌ها در طول جلسه (هدف: **< 200ms**)"
+    },
+    {
+      "id": "web-vitals-images",
+      "title": "بهینه‌سازی تصاویر",
+      "level": 4,
+      "bodyMd": "- از کامپوننت `<Image>` در Next.js استفاده کنید تا `width`/`height` و lazy-load به‌صورت خودکار مدیریت شود.\n- برای قهرمان صفحه (Hero/LCP) از تصاویر بهینه و ترجیحاً فرمت‌های نوین (WebP/AVIF) استفاده کنید.\n- Placeholder (blur) یا اندازهٔ ثابت تصویر را تنظیم کنید تا **CLS** کاهش یابد."
+    },
+    {
+      "id": "web-vitals-fonts",
+      "title": "فونت‌ها و نمایش متن",
+      "level": 4,
+      "bodyMd": "- از بهینه‌سازی فونت Next (`next/font`) یا `font-display: swap` استفاده کنید تا تأخیر نمایش (FOUT) کم شود.\n- زیرمجموعه‌سازی (subsetting) فونت و پرهیز از وزن‌های غیرضروری به کاهش JS/CSS کمک می‌کند."
+    },
+    {
+      "id": "web-vitals-scripts",
+      "title": "مدیریت اسکریپت‌ها و کتابخانه‌های ثالث",
+      "level": 4,
+      "bodyMd": "- اسکریپت‌های غیرضروری اولیه را با `<Script strategy=\\\"lazyOnload\\\">` به تعویق بیندازید.\n- برای اسکریپت‌هایی که باید قبل از تعامل آماده باشند (اما ضروری برای SSR نیستند)، بسته به نیاز از `strategy=\\\"beforeInteractive\\\"` یا `strategy=\\\"afterInteractive\\\"` استفاده کنید.\n- تعداد اسکریپت‌های «قبل از تعاملی» را کم نگه دارید؛ افزایش آن‌ها می‌تواند **INP** را بدتر کند."
+    },
+    {
+      "id": "web-vitals-cls",
+      "title": "کاهش CLS (پرش چیدمان)",
+      "level": 4,
+      "bodyMd": "- برای تصاویر/ویدیوها اندازهٔ ثابت یا Placeholder بگذارید.\n- برای بنرها/نوار اعلان/تبلیغات فضا رزرو کنید تا واردشدن ناگهانی باعث پرش نشود.\n- از بارگذاری تنبلِ محتواهای بالای‌تاپ (Above the Fold) که باعث جابه‌جایی می‌شود، خودداری کنید."
+    },
+    {
+      "id": "web-vitals-code-splitting",
+      "title": "تفکیک کد و بارگذاری تنبل",
+      "level": 4,
+      "bodyMd": "- Next.js به‌صورت خودکار code-splitting انجام می‌دهد؛ اما ماژول‌های سنگین را با `dynamic import()` فقط وقتی لازم شد لود کنید.\n- این کار حجم اولیه JS را کاهش می‌دهد و **TTFB/LCP** را بهبود می‌کند."
+    },
+    {
+      "id": "web-vitals-rendering",
+      "title": "انتخاب استراتژی رندر (ISR/SSG در برابر CSR)",
+      "level": 4,
+      "bodyMd": "- تا حد امکان از **ISR/SSG** استفاده کنید تا محتوای اولیه سریع و قابل ایندکس ارائه شود.\n- App Router (13+) به‌صورت پیش‌فرض سرور-رندر است و فقط بخش‌های تعاملی بعداً هیدریت می‌شوند—از این مزیت برای سئو بهره ببرید.\n- CSR کامل را فقط در صورت ضرورت به‌کار ببرید."
+    },
+    {
+      "id": "web-vitals-monitoring",
+      "title": "مانیتورینگ و تست",
+      "level": 4,
+      "bodyMd": "- پس از استقرار، با **Lighthouse** و **PageSpeed Insights** تست بگیرید.\n- در **Google Search Console** گزارش **Core Web Vitals (CrUX)** را دوره‌ای بررسی کنید و صفحات ضعیف را بهبود دهید.\n- در صورت نیاز، گزارش داخلی Web Vitals را در ریشهٔ اپ پیاده‌سازی کنید و متریک‌ها را به آنالیتیکس بفرستید."
+    },
+    {
+      "id": "web-vitals-monitoring",
+      "title": "مانیتورینگ و تست",
+      "level": 4,
+      "bodyMd": "- پس از استقرار، با **Lighthouse** و **PageSpeed Insights** تست بگیرید.\n- در **Google Search Console** گزارش **Core Web Vitals (CrUX)** را دوره‌ای بررسی کنید و صفحات ضعیف را بهبود دهید.\n- در صورت نیاز، گزارش داخلی Web Vitals را در ریشهٔ اپ پیاده‌سازی کنید و متریک‌ها را به آنالیتیکس بفرستید."
+    },
+    {
+      "id": "web-vitals-summary",
+      "title": "جمع‌بندی",
+      "level": 4,
+      "bodyMd": "تجربهٔ سریع و روان بخشی از سئو است. تنها داشتن متاتگ‌های درست کافی نیست؛ با بهینه‌سازی تصاویر، فونت‌ها، اسکریپت‌ها و استراتژی رندر، به آستانه‌های **LCP/CLS/INP** برسید و به‌صورت مستمر پایش کنید."
+    },
+    {
+      "id": "web-vitals-report",
+      "title": "مانیتورینگ و گزارش‌گیری Web Vitals",
+      "level": 4,
+      "bodyMd": "- پس از انتشار، با Lighthouse و PageSpeed Insights ارزیابی کن.\n- گزارش‌های **Core Web Vitals** در **Google Search Console (CrUX)** را دوره‌ای بررسی کن.\n- در صورت نیاز از جمع‌آوری داخلی با `useReportWebVitals` استفاده کن تا متریک‌ها را به سرویس آنالیتیکس خودت بفرستی."
+    },
+    {
+      "id": "pitfalls",
+      "title": "اشتباهات رایج",
+      "level": 2,
+      "bodyMd": "در مسیر پیاده‌سازی سئوی Next.js، چند خطای پرتکرار دیده می‌شود. در زیر، هر خطا را به‌همراه توضیح کوتاه و راه‌حل عملی آورده‌ایم."
+    },
+    {
+      "id": "pitfalls-og-image",
+      "title": "تصویر OG نامناسب",
+      "level": 3,
+      "bodyMd": "- تصویر خیلی کوچک یا با نسبت نادرست باعث برش/پیکسل‌شدن در کارت‌های پیش‌نمایش می‌شود.\n- پیشنهاد: ابعاد **1200×630** با کنتراست بالا و موضوع واضح (لوگو یا تصویری که خلاصهٔ محتوا را برساند).\n- اگر روی تصویر متن دارید، اندازه/رنگ متن باید خوانا باشد.\n- ویژگی `og:image:alt` را نیز تنظیم کنید تا توصیفی از تصویر به خزنده‌ها بدهید."
+    },
+    {
+      "id": "pitfalls-canonical",
+      "title": "canonical نسبی یا ناقص در صفحات داینامیک",
+      "level": 3,
+      "bodyMd": "- ننوشتن canonical یا قراردادن نسخهٔ نسبی/نادرست، به مشکل محتوای تکراری منجر می‌شود.\n- Next.js خودش به‌صورت خودکار canonical اضافه نمی‌کند؛ باید آن را تعریف کنید.\n- راه‌حل: برای هر صفحهٔ یکتا، یک canonical **مطلق** و کامل (شامل `https` و دامنه) بگذارید—خصوصاً در صفحات پارامتری (مثل بلاگ)."
+    },
+    {
+      "id": "pitfalls-canonical",
+      "title": "canonical نسبی یا ناقص در صفحات داینامیک",
+      "level": 3,
+      "bodyMd": "- ننوشتن canonical یا قراردادن نسخهٔ نسبی/نادرست، به مشکل محتوای تکراری منجر می‌شود.\n- Next.js خودش به‌صورت خودکار canonical اضافه نمی‌کند؛ باید آن را تعریف کنید.\n- راه‌حل: برای هر صفحهٔ یکتا، یک canonical **مطلق** و کامل (شامل `https` و دامنه) بگذارید—خصوصاً در صفحات پارامتری (مثل بلاگ)."
+    },
+    {
+      "id": "pitfalls-inp-cls-scripts",
+      "title": "بی‌توجهی به INP/CLS و جایگذاری نادرست اسکریپت‌ها",
+      "level": 3,
+      "bodyMd": "- تمرکز صرف روی متاتگ‌ها و بی‌توجهی به عملکرد می‌تواند نمرهٔ Core Web Vitals را خراب کند.\n- اسکریپت‌های آنالیتیکس/کتابخانه‌های حجیم در `<head>` یا بدون `async/def er` رندر/تعامل را بلوکه می‌کنند.\n- iframeهای چت/ویدیو اگر بهینه نشوند، **INP** را بدتر می‌کنند.\n- راه‌حل‌ها:\n  - اسکریپت‌های غیرضروری را تعویق دهید (مثلاً با `strategy=\"lazyOnload\"`).\n  - برای المان‌هایی که پرش ایجاد می‌کنند، ارتفاع ثابت/Placeholder درنظر بگیرید یا از Skeleton استفاده کنید تا **CLS** کنترل شود.\n  - عملکرد (Performance) را بخش جدانشدنی سئو بدانید و پیوسته آن را پایش کنید."
+    },
+    {
+      "id": "pitfalls-summary",
+      "title": "جمع‌بندی",
+      "level": 3,
+      "bodyMd": "با دوری از این خطاها، تلاش‌های سئوی شما نتیجهٔ بهتری می‌گیرد و سایت در بهترین حالت برای موتورهای جستجو عرضه می‌شود."
+    },
+    {
+      "id": "final-checklist",
+      "title": "چک‌لیست نهایی",
+      "level": 2,
+      "bodyMd": "- [ ] تنظیم کامل متادیتا: Title/Description + OG/Twitter با تصویر اشتراک‌گذاری بهینه\n- [ ] canonical **مطلق** برای همهٔ صفحات (خصوصاً داینامیک)\n- [ ] robots.txt و sitemap.xml درست؛ و ثبت sitemap در GSC\n- [ ] JSON-LD (Organization/WebSite/Article …) برای Rich Results\n- [ ] پایش و بهبود Core Web Vitals (LCP/INP/CLS) و مدیریت اسکریپت‌ها/تصاویر/فونت‌ها"
+    },
+    {
+      "id": "meta-updates",
+      "title": "زمان‌بندی انتشار",
+      "level": 2,
+      "bodyMd": "— انتشار اولیه: **2025-06-20** • آخرین بروزرسانی: **2025-07-15**"
+    }
+  ]
+}

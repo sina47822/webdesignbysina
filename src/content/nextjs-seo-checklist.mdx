@@ -1,0 +1,112 @@
+---
+title: "چک‌لیست سئوی Next.js (۲۰۲۵)"
+description: "چک‌لیست عملی برای سئوی Next.js با متادیتا، OG/Twitter، canonical مطلق، robots/sitemap، JSON-LD، i18n و بهینه‌سازی Core Web Vitals."
+slug: "nextjs-seo-checklist"
+date: "2025-06-20"
+lastModified: "2025-07-15"
+cover: "/og/blog/nexus.webp"
+tags: ["Next.js", "SEO", "Metadata", "OG", "Canonical", "Sitemap"]
+draft: false
+canonical: "https://www.webdesignwithsina.ir/blog/nextjs-seo-checklist"
+---
+
+import Callout from "@/components/mdx/Callout"
+
+# چک‌لیست سئوی Next.js (۲۰۲۵)
+
+چک‌لیست عملی برای سئوی Next.js با متادیتا، OG/Twitter، canonical مطلق، robots/sitemap، JSON-LD، i18n و بهینه‌سازی Core Web Vitals.
+
+<Callout type="info">
+این مقاله به‌صورت عملی و پروژه‌محور نوشته شده است. کدها برای App Router در Next.js طراحی شده‌اند.
+</Callout>
+
+## فهرست
+- [پیش‌نیازها](#پیش‌نیازها)
+- [راهنمای سریع](#راهنمای-سریع)
+- [جزییات پیاده‌سازی](#جزییات-پیادهسازی)
+- [اشتباهات رایج](#اشتباهات-رایج)
+- [چک‌لیست نهایی](#چکلیست-نهایی)
+
+## پیش‌نیازها
+
+برای اجرای موارد این چک‌لیست، مطمئن شوید شرایط زیر فراهم است:
+
+- **Node.js 18+** – استفاده از Node نسخه ۱۸ یا بالاتر توصیه می‌شود تا با Next.js 14/15 سازگاری کامل داشته باشید.
+- **Next.js 14/15 (App Router)** – پروژه‌ی خود را با ساختار جدید App Router (موجود از نسخه 13 به بعد) پیاده کنید. این مقاله فرض می‌کند که از App Router استفاده می‌کنید؛ اگر هنوز از Pages Router قدیمی استفاده می‌کنید، بهتر است مهاجرت کنید تا از قابلیت‌های جدید سئو بهره‌مند شوید.
+- **ساختار پروژه App Directory** – فایل‌ها و پوشه‌های پروژه را بر اساس *App Directory* تنظیم کرده باشید (به عنوان مثال فایل‌های `app/layout.tsx`, `app/page.tsx` و ... وجود داشته باشند).
+- **دسترسی به دامنه و Google Search Console** – سایت خود را بر روی یک دامنه واقعی مستقر کرده‌اید و دسترسی به Google Search Console دارید. برای بهره‌بردن کامل از سئو، باید سایت را در سرچ کنسول گوگل ثبت کنید تا بتوانید نقشه سایت (sitemap) را ارائه دهید و وضعیت ایندکس‌شدن صفحات و Core Web Vitals را پایش کنید.
+
+
+## راهنمای سریع
+
+اگر زمان کمی دارید، این چک‌لیست خلاصه را دنبال کنید:
+
+- `metadataBase` را در فایل ریشه `app/layout.tsx` تنظیم کنید تا Next.js بتواند URLهای متادیتای نسبی را به صورت خودکار به آدرس کامل تبدیل کند.
+- تگ‌های **Open Graph/Twitter** را با یک تصویر اشتراک‌گذاری (OG image) در ابعاد **1200×630px** و حجم مناسب تنظیم کنید.
+- مقدار `alternates.canonical` را برای هر صفحه (به‌ویژه صفحات داینامیک) به صورت یک URL **مطلق (Absolute)** تعیین کنید تا لینک canonical به‌درستی توسط موتورهای جستجو تفسیر شود.
+- فایل‌های ویژه‌ی `app/robots.ts` و `app/sitemap.ts` را به پروژه اضافه کنید تا به ترتیب فایل robots.txt و سایت‌مپ XML به طور خودکار تولید شوند.
+- داده‌های ساخت‌یافته **JSON-LD** برای سایت (Organization/WebSite) و برای صفحات مهم (مثلاً مقالات بلاگ به صورت Article) اضافه کنید تا شانس Rich Resultها در گوگل افزایش یابد.
+
+در ادامه، هر کدام از موارد بالا را به تفصیل توضیح داده و نحوه پیاده‌سازی آن‌ها را بررسی می‌کنیم.
+
+## جزییات پیاده‌سازی
+
+در این بخش، هر گام از چک‌لیست را با جزئیات بیشتری بررسی می‌کنیم و نمونه‌کدهای لازم را ارائه می‌دهیم. پیروی از این راهنما به شما کمک می‌کند تمامی جنبه‌های مهم سئو را در پروژه Next.js خود پوشش دهید.
+
+### نمونه‌ی متادیتا در layout
+```tsx
+export const metadata = {
+  metadataBase: new URL("https://www.webdesignwithsina.ir"),
+  title: { default: "WebDesignBySina", template: "%s | WebDesignBySina" },
+  description: "SEO-first websites with Next.js + Django.",
+  openGraph: {
+    type: "website",
+    url: "https://www.webdesignwithsina.ir",
+    images: [{ url: "/og/cover.jpg", width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ["/og/cover.jpg"],
+  },
+} as const
+```
+
+### canonical مطلق در صفحه‌ی داینامیک
+```tsx
+export async function generateMetadata({ params }): Promise<Metadata> {
+  const url = `https://www.webdesignwithsina.ir/blog/${params.slug}`;
+  return {
+    alternates: { canonical: url },
+  };
+}
+```
+
+### robots و sitemap
+- `app/robots.ts` و `app/sitemap.ts` را با دامنه‌ی اصلی تنظیم کنید.
+- برای بلاگ‌های Markdown از `fs.stat` برای `lastModified` استفاده کنید.
+
+## اشتباهات رایج
+- تصویر OG با ابعاد/کنتراست نامناسب
+- ندادن canonical مطلق در صفحات داینامیک
+- بی‌توجهی به INP/CLS و جاگذاری نادرست اسکریپت‌ها
+
+
+## چک‌لیست نهایی
+- [ ] OG و Twitter کامل
+- [ ] canonical مطلق
+- [ ] robots/sitemap
+- [ ] JSON-LD
+- [ ] پایش Core Web Vitals
+
+—
+انتشار اولیه: 2025-06-20 • آخرین بروزرسانی: 2025-07-15
+
+## Links to the example headings above
+
+Link to the sample section: [Link Text](#sample-section).
+
+Link to the helpful section: [Link Text](#thisll-be-a-helpful-section-about-the-greek-letter-Θ).
+
+Link to the first non-unique section: [Link Text](#this-heading-is-not-unique-in-the-file).
+
+Link to the second non-unique section: [Link Text](#this-heading-is-not-unique-in-the-file-1).

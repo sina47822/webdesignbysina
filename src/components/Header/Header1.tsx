@@ -27,17 +27,17 @@ const navItems: NavItem[] = [
     dropdownItems: [
       {
         name: 'سئو',
-        href: '/SEO',
+        href: '/services/SEO',
         description: 'رتبه اول گوگل شوید',
       },
       {
         name: 'پشتیبانی وبسایت',
-        href: '/ُsupports',
+        href: '/services/supports',
         description: 'با ما بمانید تا رشد کنید',
       },
       {
         name: 'سفارش المان طراحی',
-        href: '/feature-design',
+        href: '/services/feature-design',
         description: 'طراحی کامپوننت و المان ها مطابق سلیقه شما',
       },
       { 
@@ -46,15 +46,16 @@ const navItems: NavItem[] = [
         description: 'همین حالا سایت خود را بسازید' },
       { 
         name: 'دریافت آی پی',
-        href: '/ip-checker',
+        href: '/services/ip-checker',
         description: 'ip خود را جک کنید' },
       { 
         name: 'آپارات دانلودر',
-        href: '/aparat-dl',
+        href: '/services/aparat-dl',
         description: 'دانلود از آپارات' },
     ],
   },
   { name: 'قیمت', href: '/pricing' },
+  { name: 'نمونه کار', href: '/portfolios' },
   { name: 'ارتباط با ما', href: '/contact' },
 ];
 

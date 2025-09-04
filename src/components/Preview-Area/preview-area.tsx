@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { Droppable, Draggable } from "@hello-pangea/dnd"
-import type { Block } from "@/app/services/webbuilder/page"
+import type { Block } from "@/app/(site)/webbuilder/page"
 import { Trash2, Copy, Move, ArrowUp, ArrowDown, Settings } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { EditableComponent } from "@/components/Editable-Component/editable-component"

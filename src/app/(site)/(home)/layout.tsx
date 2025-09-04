@@ -1,9 +1,9 @@
-import "../globals.css";
+import "../../globals.css";
 import Header1 from "@/components/Header/Header1";
 import Footer4Col from "@/components/Footer/Footer4Col";
 import Loader from "@/components/Pages/Loading/Loading";
 import ScrollToTopProgress from "@/components/Scroll/Scroll";
-import Schema from "../Schema";
+import Schema from "../../Schema";
 
 export default function RootLayout({
   children,

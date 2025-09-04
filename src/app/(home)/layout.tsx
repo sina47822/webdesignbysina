@@ -11,7 +11,7 @@ export default function RootLayout({
 }>) {
   return (
       <div className="overflow-x-hidden">
-          <Loader text="gnidaoL" />
+          <Loader />
           <ScrollToTopProgress />
           <Header1 />
           {children}

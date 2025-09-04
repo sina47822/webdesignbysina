@@ -92,7 +92,7 @@ const testimonials = [
   {
     name: 'Jordan Hayes',
     role: 'CTO at Quantum Innovations',
-    img: '/api/portraits/men/22.jpg',
+    img: '/assets/img/team/3d-music-related-scene.jpg',
     description: (
       <p>
         NexaUI has completely transformed our development workflow.
@@ -106,7 +106,7 @@ const testimonials = [
   {
     name: 'Maya Rodriguez',
     role: 'Lead Developer at Skyline Digital',
-    img: '/api/portraits/women/33.jpg',
+    img: '/assets/img/team/3d-music-related-scene.jpg',
     description: (
       <p>
         I was skeptical at first, but NexaUI proved me wrong.
@@ -121,7 +121,7 @@ const testimonials = [
     {
     name: 'Jordan Hayes',
     role: 'CTO at Quantum Innovations',
-    img: '/api/portraits/men/22.jpg',
+    img: '/assets/img/team/3d-music-related-scene.jpg',
     description: (
       <p>
         NexaUI has completely transformed our development workflow.
@@ -135,7 +135,7 @@ const testimonials = [
   {
     name: 'Maya Rodriguez',
     role: 'Lead Developer at Skyline Digital',
-    img: '/api/portraits/women/33.jpg',
+    img: '/assets/img/team/3d-music-related-scene.jpg',
     description: (
       <p>
         I was skeptical at first, but NexaUI proved me wrong.
@@ -149,7 +149,7 @@ const testimonials = [
   },  {
     name: 'Jordan Hayes',
     role: 'CTO at Quantum Innovations',
-    img: '/api/portraits/men/22.jpg',
+    img: '/assets/img/team/3d-music-related-scene.jpg',
     description: (
       <p>
         NexaUI has completely transformed our development workflow.
@@ -163,7 +163,7 @@ const testimonials = [
   {
     name: 'Maya Rodriguez',
     role: 'Lead Developer at Skyline Digital',
-    img: '/api/portraits/women/33.jpg',
+    img: '/assets/img/team/3d-music-related-scene.jpg',
     description: (
       <p>
         I was skeptical at first, but NexaUI proved me wrong.
@@ -177,7 +177,7 @@ const testimonials = [
   },  {
     name: 'Jordan Hayes',
     role: 'CTO at Quantum Innovations',
-    img: '/api/portraits/men/22.jpg',
+    img: '/assets/img/team/3d-music-related-scene.jpg',
     description: (
       <p>
         NexaUI has completely transformed our development workflow.
@@ -191,7 +191,7 @@ const testimonials = [
   {
     name: 'Maya Rodriguez',
     role: 'Lead Developer at Skyline Digital',
-    img: '/api/portraits/women/33.jpg',
+    img: '/assets/img/team/3d-music-related-scene.jpg',
     description: (
       <p>
         I was skeptical at first, but NexaUI proved me wrong.
@@ -205,7 +205,7 @@ const testimonials = [
   },  {
     name: 'Jordan Hayes',
     role: 'CTO at Quantum Innovations',
-    img: '/api/portraits/men/22.jpg',
+    img: '/assets/img/team/3d-music-related-scene.jpg',
     description: (
       <p>
         NexaUI has completely transformed our development workflow.
@@ -219,7 +219,7 @@ const testimonials = [
   {
     name: 'Maya Rodriguez',
     role: 'Lead Developer at Skyline Digital',
-    img: '/api/portraits/women/33.jpg',
+    img: '/assets/img/team/3d-music-related-scene.jpg',
     description: (
       <p>
         I was skeptical at first, but NexaUI proved me wrong.

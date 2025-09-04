@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { Droppable, Draggable } from "@hello-pangea/dnd"
 import { ComponentCategories } from "../Component-library/component-library"
-import type { Block } from "@/app/webbuilder/page"
+import type { Block } from "@/app/services/webbuilder/page"
 import { Layers, Trash2, Copy, Settings, ChevronDown, ChevronRight, ArrowUp, ArrowDown, ChevronLeft } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"

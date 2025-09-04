@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { ArrowUp, ArrowDown, MoveUp, MoveDown } from "lucide-react"
-import type { Block } from "@/app/webbuilder/page"
+import type { Block } from "@/app/services/webbuilder/page"
 
 interface PositionControlsProps {
   block: Block

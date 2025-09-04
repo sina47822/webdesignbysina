@@ -21,21 +21,37 @@ const navItems: NavItem[] = [
   { name: 'درباره ما', href: '/about' },
   { name: 'قابلیت ها', href: '/features' },
   {
-    name: 'محصولات',
-    href: '/products',
+    name: 'خدمات',
+    href: '/services',
     hasDropdown: true,
     dropdownItems: [
       {
-        name: 'آنالیتیک',
-        href: '/analytics',
-        description: 'Track your metrics',
+        name: 'سئو',
+        href: '/SEO',
+        description: 'رتبه اول گوگل شوید',
       },
       {
-        name: 'داشبورد',
-        href: '/dashboard',
-        description: 'Manage your data',
+        name: 'پشتیبانی وبسایت',
+        href: '/ُsupports',
+        description: 'با ما بمانید تا رشد کنید',
       },
-      { name: 'گزارش گیری', href: '/reports', description: 'Generate insights' },
+      {
+        name: 'سفارش المان طراحی',
+        href: '/feature-design',
+        description: 'طراحی کامپوننت و المان ها مطابق سلیقه شما',
+      },
+      { 
+        name: 'سایت ساز',
+        href: '/webbuilder',
+        description: 'همین حالا سایت خود را بسازید' },
+      { 
+        name: 'دریافت آی پی',
+        href: '/ip-checker',
+        description: 'ip خود را جک کنید' },
+      { 
+        name: 'آپارات دانلودر',
+        href: '/aparat-dl',
+        description: 'دانلود از آپارات' },
     ],
   },
   { name: 'قیمت', href: '/pricing' },

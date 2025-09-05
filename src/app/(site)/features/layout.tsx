@@ -4,7 +4,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import type { ReactNode } from 'react';
 
-import "../globals.css";
+import "../../globals.css";
 import "./cursor.css";
 import Link from 'next/link'
 import Header3 from '@/components/Header/Header3';

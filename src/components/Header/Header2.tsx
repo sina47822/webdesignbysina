@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence, easeInOut } from 'framer-motion';
-import { Menu, X, ArrowRight, Zap, Search, ArrowLeft } from 'lucide-react';
+import { Menu, X, ArrowRight, Zap, Search, ArrowLeft, ChevronDown } from 'lucide-react';
 import Link from 'next/link';
 import SigninModal from '../Modals/SigninModal';
 import { ModeToggle } from '../ModeToggle';
@@ -10,21 +10,59 @@ import { ModeToggle } from '../ModeToggle';
 interface NavItem {
   name: string;
   href: string;
+  hasDropdown?: boolean;
+  dropdownItems?: { name: string; href: string; description?: string }[];
+
 }
 
 const navItems: NavItem[] = [
-  { name: 'Home', href: '/' },
-  { name: 'Features', href: '/features' },
-  { name: 'Solutions', href: '/solutions' },
-  { name: 'Pricing', href: '/pricing' },
-  { name: 'Resources', href: '/resources' },
-  { name: 'Contact', href: '/contact' },
+  { name: 'خانه', href: '/' },
+  { name: 'درباره ما', href: '/about' },
+  { name: 'قابلیت ها', href: '/features' },
+  {
+    name: 'خدمات',
+    href: '/services',
+    hasDropdown: true,
+    dropdownItems: [
+      {
+        name: 'سئو',
+        href: '/services/SEO',
+        description: 'رتبه اول گوگل شوید',
+      },
+      {
+        name: 'پشتیبانی وبسایت',
+        href: '/services/supports',
+        description: 'با ما بمانید تا رشد کنید',
+      },
+      {
+        name: 'سفارش المان طراحی',
+        href: '/services/feature-design',
+        description: 'طراحی کامپوننت و المان ها مطابق سلیقه شما',
+      },
+      { 
+        name: 'سایت ساز',
+        href: '/webbuilder',
+        description: 'همین حالا سایت خود را بسازید' },
+      { 
+        name: 'دریافت آی پی',
+        href: '/services/ip-checker',
+        description: 'ip خود را جک کنید' },
+      { 
+        name: 'آپارات دانلودر',
+        href: '/services/aparat-dl',
+        description: 'دانلود از آپارات' },
+    ],
+  },
+  { name: 'قیمت', href: '/pricing' },
+  { name: 'نمونه کار', href: '/portfolios' },
+  { name: 'ارتباط با ما', href: '/contact' },
 ];
 
 export default function Header2() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -76,6 +114,11 @@ export default function Header2() {
     open: { opacity: 1, x: 0 },
   };
 
+  const dropdownVariants = {
+    hidden: { opacity: 0, y: -10, scale: 0.95 },
+    visible: { opacity: 1, y: 0, scale: 1 },
+  };
+
   return (
     <>
       <motion.header
@@ -120,10 +163,14 @@ export default function Header2() {
                   key={item.name}
                   variants={itemVariants}
                   className="relative"
-                  onMouseEnter={() => setHoveredItem(item.name)}
-                  onMouseLeave={() => setHoveredItem(null)}
+                  onMouseEnter={() =>
+                    item.hasDropdown && setActiveDropdown(item.name)
+                  }
+                  onMouseLeave={() => setActiveDropdown(null)}
                 >
-                  <Link prefetch={false}                    href={item.href}
+                  <Link 
+                    prefetch={false}
+                    href={item.href}
                     className="text-foreground/80 hover:text-foreground relative rounded-lg px-4 py-2 text-sm font-medium transition-colors duration-200"
                   >
                     {hoveredItem === item.name && (
@@ -142,6 +189,38 @@ export default function Header2() {
                     )}
                     <span className="relative z-10">{item.name}</span>
                   </Link>
+                                  {item.hasDropdown && (
+                  <AnimatePresence>
+                    {activeDropdown === item.name && (
+                      <motion.div
+                        className="border-border bg-background/95 absolute top-full right-0 mt-2 w-64 overflow-hidden rounded-xl border shadow-xl backdrop-blur-lg"
+                        variants={dropdownVariants}
+                        initial="hidden"
+                        animate="visible"
+                        exit="hidden"
+                        transition={{ duration: 0.2 }}
+                      >
+                        {item.dropdownItems?.map((dropdownItem) => (
+                          <Link 
+                            prefetch={false}                            
+                            key={dropdownItem.name}
+                            href={dropdownItem.href}
+                            className="hover:bg-muted block px-4 py-3 transition-colors duration-200"
+                          >
+                            <div className="text-foreground font-medium">
+                              {dropdownItem.name}
+                            </div>
+                            {dropdownItem.description && (
+                              <div className="text-muted-foreground text-sm">
+                                {dropdownItem.description}
+                              </div>
+                            )}
+                          </Link>
+                        ))}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                )}
                 </motion.div>
               ))}
             </nav>
@@ -237,7 +316,7 @@ export default function Header2() {
                     className="bg-foreground text-background hover:bg-foreground/90 block w-full rounded-lg py-3 text-center font-medium transition-all duration-200"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
-                    Get Started
+                    پشتیبانی
                   </Link>
                 </motion.div>
               </div>

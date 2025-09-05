@@ -1,4 +1,4 @@
-// app/(site)/blog/[slug]/page.tsx
+// src/app/(site)/blog/[slug]/page.tsx
 import type { Metadata } from "next";
 import Script from "next/script";
 import Image from "next/image";

@@ -19,10 +19,10 @@ function BgGradient() {
   return <div aria-hidden className="fixed inset-0 -z-10 bg-gradient-to-b from-zinc-100 via-zinc-50 to-white dark:from-zinc-950 dark:via-zinc-900 dark:to-zinc-900" />;
 }
 function formatFa(d?: string) { return d ? new Intl.DateTimeFormat("fa-IR", { dateStyle: "medium" }).format(new Date(d)) : ""; }
-function getOrigin() {
+async function getOrigin() {
   const h = headers(); // ❗️پرونتز مهمه
-  const host = h.get("x-forwarded-host") ?? h.get("host");
-  const proto = h.get("x-forwarded-proto") ?? "http";
+  const host = (await h).get("x-forwarded-host") ?? (await h).get("host");
+  const proto = (await h).get("x-forwarded-proto") ?? "http";
   if (process.env.NEXT_PUBLIC_SITE_URL) return process.env.NEXT_PUBLIC_SITE_URL;
   if (!host) return "http://localhost:3000";
   return `${proto}://${host}`;

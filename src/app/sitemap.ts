@@ -49,13 +49,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }));
 
     // داینامیک بلاگ از فایل‌سیستم
-  const posts = await getAllPostsMeta();
-  const blogEntries: MetadataRoute.Sitemap = posts.map((p) => ({
-    url: `${SITE_URL}/blog/${p.slug}`,
-    lastModified: p.lastModified, // ← تاریخ واقعی از fs.stat
-    changeFrequency: "weekly",
-    priority: 0.7,
-  }));
+  // const posts = await getAllPostsMeta();
+  // const blogEntries: MetadataRoute.Sitemap = posts.map((p) => ({
+  //   url: `${SITE_URL}/blog/${p.slug}`,
+  //   lastModified: p.lastModified, // ← تاریخ واقعی از fs.stat
+  //   changeFrequency: "weekly",
+  //   priority: 0.7,
+  // }));
 
     // داینامیک بلاگ‌ها
   // const postsData = await getBlogPosts();
@@ -66,5 +66,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   //   priority: 0.7,
   // }));
 
-  return [...staticRoutes,  ...services, ...blogEntries];
+  return [...staticRoutes,  ...services];
 }

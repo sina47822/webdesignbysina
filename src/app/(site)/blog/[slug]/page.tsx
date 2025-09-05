@@ -41,10 +41,10 @@ type BlogDoc = {
   sections: Section[];
 };
 
-function getOrigin() {
+async function getOrigin() {
   const h = headers();
-  const host = h.get("x-forwarded-host") ?? h.get("host");
-  const proto = h.get("x-forwarded-proto") ?? "http";
+  const host = (await h).get("x-forwarded-host") ?? (await h).get("host");
+  const proto = (await h).get("x-forwarded-proto") ?? "http";
   if (process.env.NEXT_PUBLIC_SITE_URL) return process.env.NEXT_PUBLIC_SITE_URL;
   if (!host) return "http://localhost:3000";
   return `${proto}://${host}`;
@@ -282,7 +282,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
                   )}
 
                   {/* Callout */}
-                  {s.callout && <Callout type={(s.callout as any)?.type ?? "info"}>{s.callout.content}</Callout>}
+                  {s.callout && <Callout>{s.callout.content}</Callout>}
                 </section>
               ))}
             </div>

@@ -1,6 +1,6 @@
 // lib/blog-fs.ts  ← جایگزین کن
 export type PostCardMeta = {
-  [x: string]: any;
+  lastModified?: string | null;
   slug: string;
   title: string;
   description: string;
@@ -53,6 +53,7 @@ export async function getAllPostsMeta(): Promise<PostCardMeta[]> {
         tags: m.tags ?? [],
         date: m.date ?? new Date().toISOString(),
         mtime: m.lastModified ?? m.date ?? new Date().toISOString(),
+        lastModified: undefined
       };
       return item;
     })

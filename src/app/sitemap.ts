@@ -2,6 +2,14 @@
 import { getAllPostsMeta } from "@/lib/blog-fs";
 import type { MetadataRoute } from "next";
 
+function safeDate(d?: string | Date) {
+  const x = d ? new Date(d) : new Date();
+  return isNaN(x.getTime()) ? new Date() : x;
+}
+
+// Do NOT prerender; run on each request (or per cache rules)
+export const dynamic = "force-dynamic";
+export const fetchCache = "force-no-store"; // ensures fresh network calls
 // اگر روت‌های داینامیک داری، از دیتابیس/API بخون
 
 // شبیه‌سازی دیتای real برای blog (می‌تونی از DB/CMS/فایل هم بگیری)

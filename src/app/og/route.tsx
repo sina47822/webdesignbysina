@@ -1,5 +1,6 @@
 // app/og/route.tsx
 import { ImageResponse } from "next/og";
+import type { NextRequest } from "next/server";
 
 export const runtime = "edge";
 export const size = { width: 1200, height: 630 };
@@ -25,11 +26,11 @@ export const contentType = "image/png";
 
 // تست حتماً: با Card Validator توییتر و Sharing Debugger فیسبوک/متا تست کن.
 
-export async function GET() {
+export async function GET(_req: NextRequest) {
   // فونت فارسی را embed کن
   const dana = await fetch(
-    new URL("../../public/fonts/dana-regular.woff", import.meta.url)
-  ).then((res) => res.arrayBuffer());
+    new URL("./_assets/fonts/dana-regular.woff", import.meta.url) // relative to THIS file
+  ).then((r) => r.arrayBuffer());
 
   return new ImageResponse(
     (

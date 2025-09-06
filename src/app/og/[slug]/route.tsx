@@ -1,5 +1,6 @@
 // app/og/blog/[slug]/route.tsx
 import { ImageResponse } from "next/og";
+import type { NextRequest } from "next/server";
 
 export const runtime = "edge";
 export const contentType = "image/png";
@@ -20,11 +21,17 @@ const MAP: Record<string, { title: string; subtitle: string }> = {
   },
 };
 
-export async function GET(request: Request, { params }: { params: { slug: string } }) {
-  const slug = params.slug;
+export async function GET(
+  _req: NextRequest,
+  { params }: { params: Promise<{ slug: string }> }
+) {
+  
+  const { slug } = await params; // 👈 IMPORTANT: await the params
   const data = MAP[slug] ?? { title: slug, subtitle: "WebDesignBySina" };
 
-  const dana = await fetch(new URL("/fonts/dana-regular.woff", import.meta.url)).then(r => r.arrayBuffer());
+  const dana = await fetch(
+    new URL("../_assets/fonts/dana-regular.woff", import.meta.url)
+  ).then((r) => r.arrayBuffer());
 
   return new ImageResponse(
     (

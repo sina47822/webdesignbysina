@@ -3,18 +3,20 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { headers } from "next/headers";
 
 import { compileMDX } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
 import rehypePrettyCode from "rehype-pretty-code";
 import Callout from "@/components/mdx/Callout";
+import BgGradient from "@/components/Gradient/BgGradient/gray";
 
 export const runtime = "nodejs";
 export const revalidate = 60;
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.webdesignwithsina.ir";
+const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.webdesignwithsina.ir";
 
+/* ---------- Types ---------- */
 type Section = {
   id?: string;
   title: string;
@@ -41,22 +43,13 @@ type BlogDoc = {
   sections: Section[];
 };
 
-async function getOrigin() {
-  const h = headers();
-  const host = (await h).get("x-forwarded-host") ?? (await h).get("host");
-  const proto = (await h).get("x-forwarded-proto") ?? "http";
-  if (process.env.NEXT_PUBLIC_SITE_URL) return process.env.NEXT_PUBLIC_SITE_URL;
-  if (!host) return "http://localhost:3000";
-  return `${proto}://${host}`;
-}
-
-function BgGradient() {
-  return (
-    <div
-      aria-hidden
-      className="fixed inset-0 -z-10 bg-gradient-to-b from-zinc-100 via-zinc-50 to-white dark:from-zinc-950 dark:via-zinc-900 dark:to-zinc-900"
-    />
-  );
+/* ---------- Fetch helper ---------- */
+async function getPost(slug: string): Promise<BlogDoc | null> {
+  const res = await fetch(`${SITE_URL}/api/content/blog/${slug}`, {
+    next: { revalidate },
+  });
+  if (!res.ok) return null;
+  return res.json();
 }
 
 /* ---------- TOC helpers ---------- */
@@ -74,7 +67,7 @@ function buildToc(sections: Array<{ id?: string; title: string; level?: 2 | 3 | 
   const items: TocItem[] = [];
   const stack: TocItem[] = [];
   for (const s of sections) {
-    const level = ((s.level ?? 2) as 2 | 3 | 4);
+    const level = (s.level ?? 2) as 2 | 3 | 4;
     const id = s.id ?? slugifyFa(s.title);
     const node: TocItem = { id, title: s.title, level, children: [] };
     while (stack.length && stack[stack.length - 1].level >= level) stack.pop();
@@ -86,13 +79,14 @@ function buildToc(sections: Array<{ id?: string; title: string; level?: 2 | 3 | 
 }
 
 /* ---------- Metadata ---------- */
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const origin = getOrigin();
-  const res = await fetch(`${origin}/api/content/blog/${params.slug}`, { next: { revalidate } });
-  if (!res.ok) return { title: "Not found" };
-  const doc: BlogDoc = await res.json();
-  const m = doc.meta;
+export async function generateMetadata(
+  { params }: { params: Promise<{ slug: string }> } // 👈 امضا را Promise کنید
+): Promise<Metadata> {
+  const { slug } = await params; // 👈 قبل از استفاده await
+  const doc = await getPost(slug);
+  if (!doc) return { title: "Not found" };
 
+  const m = doc.meta;
   const url = m.canonical ?? `${SITE_URL}/blog/${m.slug}`;
   const title = m.title;
   const desc = m.description ?? "";
@@ -114,12 +108,14 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 }
 
 /* ---------- Page ---------- */
-export default async function BlogPostPage({ params }: { params: { slug: string } }) {
-  const origin = getOrigin();
-  const res = await fetch(`${origin}/api/content/blog/${params.slug}`, { next: { revalidate } });
-  if (!res.ok) return notFound();
+export default async function BlogPostPage(
+  { params }: { params: Promise<{ slug: string }> } // 👈 امضا را Promise کنید
+) {
+  const { slug } = await params; // 👈 قبل از استفاده await
 
-  const doc: BlogDoc = await res.json();
+  const doc = await getPost(slug);
+  if (!doc) return notFound();
+
   const m = doc.meta;
   if (m.draft) return notFound();
 
@@ -147,7 +143,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
   // Compile sections (MD + code) and ensure stable id
   const compiledSections = await Promise.all(
     (doc.sections ?? []).map(async (s, i) => {
-      const level = (Math.min(Math.max(s.level ?? 2, 2), 4) as 2 | 3 | 4);
+      const level = Math.min(Math.max(s.level ?? 2, 2), 4) as 2 | 3 | 4;
       const id = s.id ?? slugifyFa(s.title) ?? `${i}`;
 
       const bodyNode = s.bodyMd
@@ -193,7 +189,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
       <BgGradient />
       <Script id="ld-article" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleLd) }} />
 
-      <article className="max-w-7xl  px-4 md:px-6 lg:px-8 py-16 mx-auto ">
+      <article className="max-w-7xl px-4 md:px-6 lg:px-8 py-16 mx-auto">
         {/* Cover + H1 */}
         <div className="relative max-w-4xl mx-auto mt-8 overflow-hidden rounded-3xl border border-zinc-200/70 dark:border-zinc-800/70 bg-white/70 dark:bg-zinc-900/40 backdrop-blur shadow-sm ring-1 ring-black/0 hover:ring-black/5 dark:hover:ring-white/10 transition">
           <div className="relative aspect-[1200/630]">
@@ -265,17 +261,16 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
                     <div 
                       dir="ltr"
                       className="
-                        not-prose  rounded-2xl p-4
+                        not-prose rounded-2xl p-4
                         bg-zinc-100 dark:bg-gray-400/15
                         border border-zinc-200 dark:border-neutral-800
                         overflow-x-auto
                       "
                       data-theme="github-dark"
-                      >
+                    >
                       {s.code.filename && (
                         <div className="text-xs text-zinc-500 mb-2">{s.code.filename}</div>
                       )}
-                      {/* MDX-rendered codeblock */}
                       <div className="[&>pre]:!m-0">{s.codeNode}</div>
                       {s.code.caption && <div className="text-xs text-zinc-500 mt-2">{s.code.caption}</div>}
                     </div>
@@ -290,7 +285,6 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
 
           {/* Sticky TOC - 3/12 */}
           <aside className="hidden lg:block lg:col-span-3 lg:self-start">
-            {/* نکته: sticky روی خود nav اعمال شده تا ۱۰۰٪ عمل کند */}              
             <nav className="sticky top-24 max-h-[calc(100vh-6rem)] overflow-auto rounded-xl border border-zinc-200/60 dark:border-zinc-800/60 bg-white/60 dark:bg-zinc-900/50 backdrop-blur p-4">
               <div className="text-sm font-semibold mb-2">فهرست مطالب</div>
               {toc.length === 0 ? (

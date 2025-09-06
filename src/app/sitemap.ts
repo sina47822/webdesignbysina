@@ -21,41 +21,42 @@ async function getServiceRoutes() {
     { url: "/services/supports", lastModified: "2025-08-01" },
     { url: "/services/aparat-dl", lastModified: "2025-08-01" },
     { url: "/services/ip-checker", lastModified: "2025-08-01" },
-    { url: "/services/webbuilder", lastModified: "2025-08-01" },
     { url: "/services/feature-design", lastModified: "2025-08-01" },
   ];
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const SITE_URL = "https://www.webdesignwithsina.ir";
+  const now = new Date();
 
   const staticRoutes: MetadataRoute.Sitemap = [
-    { url: `${SITE_URL}/`, lastModified: new Date(), changeFrequency: "weekly", priority: 1 },
-    { url: `${SITE_URL}/portfolios`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.7 },
-    { url: `${SITE_URL}/contact`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
-    { url: `${SITE_URL}/about`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
-    { url: `${SITE_URL}/pricing`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
-    { url: `${SITE_URL}/features`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
-    { url: `${SITE_URL}/blog`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.7 },
-    { url: `${SITE_URL}/services`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
+    { url: `${SITE_URL}/`, lastModified: now, changeFrequency: "weekly", priority: 1 },
+    { url: `${SITE_URL}/portfolios`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
+    { url: `${SITE_URL}/contact`, lastModified: now, changeFrequency: "yearly", priority: 0.6 },
+    { url: `${SITE_URL}/about`, lastModified: now, changeFrequency: "yearly", priority: 0.6 },
+    { url: `${SITE_URL}/pricing`, lastModified: now, changeFrequency: "yearly", priority: 0.6 },
+    { url: `${SITE_URL}/features`, lastModified: now, changeFrequency: "yearly", priority: 0.6 },
+    { url: `${SITE_URL}/blog`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
+    { url: `${SITE_URL}/services`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
+    { url: `${SITE_URL}/webbuilder`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
   ];
 
   // داینامیک سرویس‌ها
   const services = (await getServiceRoutes()).map((r) => ({
     url: `${SITE_URL}${r.url}`,
-    lastModified: r.lastModified ? new Date(r.lastModified) : new Date(),
+    lastModified: r.lastModified ? new Date(r.lastModified) : now,
     changeFrequency: "weekly" as const,
-    priority: 0.7,
+    priority: 0.8,
   }));
 
     // داینامیک بلاگ از فایل‌سیستم
-  // const posts = await getAllPostsMeta();
-  // const blogEntries: MetadataRoute.Sitemap = posts.map((p) => ({
-  //   url: `${SITE_URL}/blog/${p.slug}`,
-  //   lastModified: p.lastModified, // ← تاریخ واقعی از fs.stat
-  //   changeFrequency: "weekly",
-  //   priority: 0.7,
-  // }));
+  const posts = await getAllPostsMeta();
+  const blogEntries: MetadataRoute.Sitemap = posts.map((p) => ({
+    url: `${SITE_URL}/blog/${p.slug}`,
+    lastModified: p.lastModified ? new Date(p.lastModified) : new Date(), // ← تاریخ واقعی از fs.stat
+    changeFrequency: "weekly",
+    priority: 0.7,
+  }));
 
     // داینامیک بلاگ‌ها
   // const postsData = await getBlogPosts();
@@ -66,5 +67,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   //   priority: 0.7,
   // }));
 
-  return [...staticRoutes,  ...services];
+  return [...staticRoutes,  ...services, ...blogEntries];
 }

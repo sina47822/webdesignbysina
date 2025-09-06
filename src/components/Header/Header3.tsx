@@ -19,12 +19,15 @@ interface NavItem {
 const navItems: NavItem[] = [
   { name: 'خانه', href: '/' },
   { name: 'درباره ما', href: '/about' },
-  { name: 'قابلیت ها', href: '/features' },
   {
     name: 'خدمات',
     href: '/services',
     hasDropdown: true,
     dropdownItems: [
+      { 
+        name: 'قیمت گذاری',
+        href: '/pricing',
+        description: 'قیمت گذاری برای طراحی سایت' },
       {
         name: 'سئو',
         href: '/services/SEO',
@@ -36,7 +39,7 @@ const navItems: NavItem[] = [
         description: 'با ما بمانید تا رشد کنید',
       },
       {
-        name: 'سفارش المان طراحی',
+        name: 'سفارش طراحی المان',
         href: '/services/feature-design',
         description: 'طراحی کامپوننت و المان ها مطابق سلیقه شما',
       },
@@ -54,7 +57,7 @@ const navItems: NavItem[] = [
         description: 'دانلود از آپارات' },
     ],
   },
-  { name: 'قیمت', href: '/pricing' },
+  { name: 'بلاگ', href: '/blog' },
   { name: 'نمونه کار', href: '/portfolios' },
   { name: 'ارتباط با ما', href: '/contact' },
 ];

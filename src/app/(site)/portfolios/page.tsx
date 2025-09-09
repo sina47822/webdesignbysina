@@ -1,10 +1,11 @@
+import InteractiveLinksPage from '@/components/Pages/Portfolios/InterActiveFull'
 import Portfolios1 from '@/components/Pages/Portfolios/Portfolios'
 import React from 'react'
 
 const Portfolios = () => {
   return (
     <div>
-      <Portfolios1 />
+      <InteractiveLinksPage />
     </div>
   )
 }

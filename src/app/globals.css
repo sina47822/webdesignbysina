@@ -323,3 +323,24 @@ body {
     opacity: 0.8;
   }
 }
+
+/* globals.css */
+  .strokeme {
+    color: var(--primary-foreground);
+    background-color: transparent;
+    text-shadow:
+      -1px -1px 0 var(--primary),
+        1px -1px 0 var(--primary),
+      -1px  1px 0 var(--primary),
+        1px  1px 0 var(--primary);
+    transition: all 0.3s ease;
+  }
+
+  .strokeme:hover {
+    color: var(--primary);
+    text-shadow:
+      -1px -1px 0 var(--primary-foreground),
+      1px -1px 0 var(--primary-foreground),
+      -1px  1px 0 var(--primary-foreground),
+      1px  1px 0 var(--primary-foreground);
+  }

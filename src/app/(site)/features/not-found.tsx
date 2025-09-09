@@ -74,7 +74,7 @@ export default function NotFoundFeatures() {
                         </button>
 
 
-                        <Link href="/(demo)/contact" className="group flex items-center justify-between rounded-xl border px-4 py-3 hover:bg-gray-50">
+                        <Link href="/contact" className="group flex items-center justify-between rounded-xl border px-4 py-3 hover:bg-gray-50">
                             <div className="flex items-center gap-2">
                             <span className="grid h-9 w-9 place-items-center rounded-md bg-gray-200 text-gray-700"><FaEnvelope /></span>
                             <span className="font-medium">ارتباط با ما</span>

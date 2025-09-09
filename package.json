@@ -49,6 +49,7 @@
     "remark-gfm": "^4.0.1",
     "shiki": "^3.12.2",
     "styled-jsx": "^5.1.7",
+    "swiper": "^11.2.10",
     "swr": "^2.3.6",
     "tailwind-merge": "^3.3.1"
   },

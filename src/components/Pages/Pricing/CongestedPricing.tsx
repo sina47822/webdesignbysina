@@ -18,7 +18,7 @@ const plans = [
     name: 'شرکتی و رزومه',
     price: '20000000',
     yearlyPrice: '16000000',
-    period: 'ماهانه',
+    period: 'سالانه',
     features: [
       'طراحی تک صفحه ای',
       'سئو پایه',
@@ -35,7 +35,7 @@ const plans = [
     name: 'فروشگاهی',
     price: '40000000',
     yearlyPrice: '32000000',
-    period: 'ماهانه',
+    period: 'سالانه',
     features: [
       'طراحی چند صفحه ای',
       'سئو پایه',
@@ -55,7 +55,7 @@ const plans = [
     name: 'آموزش آنلاین و رزرو',
     price: '60000000',
     yearlyPrice: '48000000',
-    period: 'ماهانه',
+    period: 'سالانه',
     features: [
       'طراحی چند صفحه ای',
       'سئو پایه',
@@ -129,7 +129,7 @@ export default function CongestedPricing() {
           این قیمت گذاری پایه برای ورود شما به دنیای کسب و کار اینترنتی که سئو شده و با توجه به همه نیازهای شما طراحی می شود.
           <br />
           اما اگر شما سایت دارید یا طراحی اختصاصی می گردید می توانید می توانید از
-        <span className='' ><a href="/special-pricing" className='duration-[.4s] group-hover:text-blue-500 group-hover:font-bold'> این لینک </a></span>
+        <span className='' ><a href="/pricing" className='duration-[.4s] group-hover:text-blue-500 group-hover:font-bold'> این لینک </a></span>
         وارد شوید
         </p>
       </div>
@@ -148,7 +148,7 @@ export default function CongestedPricing() {
         <span className="group mr-2 font-semibold">
           سفارش همراه با 
           <span>
-            <a href="/support-pricing" className='px-1 duration-[.4s] group-hover:text-blue-500 group-hover:font-bold'>
+            <a href="/pricing" className='px-1 duration-[.4s] group-hover:text-blue-500 group-hover:font-bold'>
              پشتیبانی
             </a>
           </span>

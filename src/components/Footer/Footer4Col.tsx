@@ -7,11 +7,11 @@ import Link from 'next/link';
 import { FaDribbble, FaFacebook, FaGithub, FaInstagram, FaTwitter } from 'react-icons/fa';
 
 const data = {
-  facebookLink: 'https://facebook.com/mvpblocks',
-  instaLink: 'https://instagram.com/mvpblocks',
-  twitterLink: 'https://twitter.com/mvpblocks',
-  githubLink: 'https://github.com/mvpblocks',
-  dribbbleLink: 'https://dribbble.com/mvpblocks',
+  facebookLink: 'https://facebook.com/webdesignwithsina',
+  instaLink: 'https://instagram.com/webdesignwithsina',
+  twitterLink: 'https://twitter.com/webdesignwithsina',
+  githubLink: 'https://github.com/webdesignwithsina',
+  dribbbleLink: 'https://dribbble.com/webdesignwithsina',
   services: {
     webdev: '/web-development',
     webdesign: '/web-design',
@@ -25,12 +25,12 @@ const data = {
     history: '/company-history',
     team: '/meet-the-team',
     handbook: '/employee-handbook',
-    careers: '/careers',
+    careers: '/contact/#careers',
   },
   help: {
-    faqs: '/faqs',
-    support: '/support',
-    livechat: '/live-chat',
+    faqs: '/contact/#faqs',
+    support: '/services/support',
+    livechat: '/contact/#live-chat',
   },
   contact: {
     email: 'info@webdesignbysina.ir',

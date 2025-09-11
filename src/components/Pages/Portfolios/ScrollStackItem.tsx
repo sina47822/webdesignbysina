@@ -14,7 +14,7 @@ export const ScrollStackItem: React.FC<ScrollStackItemProps> = ({
 }) => (
   <div
     className={`
-      scroll-stack-card relative w-full max-w-lg mx-auto
+      scroll-stack-card relative w-full max-w-2xl md:max-w-5xl xl:max-w-7xl mx-auto
       h-auto my-5 p-4 rounded-2xl
       shadow-[0_8px_30px_rgba(0,0,0,0.08)]
       origin-top will-change-transform

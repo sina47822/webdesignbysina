@@ -1,5 +1,4 @@
 "use client";
-
 import React, { ReactNode, useLayoutEffect, useRef, useCallback } from "react";
 import Lenis from "lenis";
 
@@ -8,19 +7,19 @@ export interface ScrollStackItemProps {
   itemClassName?: string;
   children: ReactNode;
 }
+
 export const ScrollStackItem: React.FC<ScrollStackItemProps> = ({
   children,
   itemClassName = "",
 }) => (
   <div
-    className={`
-      scroll-stack-card relative w-full max-w-2xl md:max-w-5xl xl:max-w-7xl mx-auto
-      h-auto my-5 p-4 rounded-2xl
-      shadow-[0_8px_30px_rgba(0,0,0,0.08)]
-      origin-top will-change-transform
-      opacity-0 translate-y-3 transition-opacity duration-500
-      ${itemClassName}
-    `.trim()}
+    className={[
+      "scroll-stack-card",
+      "relative w-full max-w-2xl md:max-w-5xl xl:max-w-7xl mx-auto h-auto my-5 p-4",
+      "rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.08)]",
+      "origin-top will-change-transform opacity-0 translate-y-3 transition-opacity duration-500",
+      itemClassName.trim(),
+    ].join(" ")}
     style={{
       backfaceVisibility: "hidden",
       transformStyle: "preserve-3d",
@@ -37,17 +36,22 @@ export const ScrollStackItem: React.FC<ScrollStackItemProps> = ({
 export interface ScrollStackProps {
   className?: string;
   children: React.ReactNode;
-  itemDistance?: number;       // فاصله عمودی بین کارت‌ها
-  itemScale?: number;          // اختلاف اسکیل هر کارت نسبت به قبلی
-  itemStackDistance?: number;  // فاصله چسبندگی در حالت پین
-  stackPosition?: string;      // نقطه پین (درصد از ارتفاع نما)
-  scaleEndPosition?: string;   // جایی که اسکیل به هدف می‌رسه
-  baseScale?: number;          // اسکیل پایه برای کارت اول
-  rotationAmount?: number;     // اگر خواستی چرخش بدی (پیش‌فرض 0)
+  itemDistance?: number; // فاصله عمودی بین کارت‌ها
+  itemScale?: number; // اختلاف اسکیل هر کارت نسبت به قبلی
+  itemStackDistance?: number; // فاصله چسبندگی در حالت پین
+  stackPosition?: string; // نقطه پین (درصد از ارتفاع نما)
+  scaleEndPosition?: string; // جایی که اسکیل به هدف می‌رسه
+  baseScale?: number; // اسکیل پایه برای کارت اول
+  rotationAmount?: number; // اگر خواستی چرخش بدی (پیش‌فرض 0)
   useWindowScroll?: boolean;
-  smooth?: boolean;            // Lenis
+  smooth?: boolean; // Lenis
   onStackComplete?: () => void;
 }
+
+type Transform = { y: number; s: number; r: number };
+
+// helper type to set webkitTransform without `any`
+type CSSStyleWithWebkit = CSSStyleDeclaration & { webkitTransform?: string };
 
 export default function ScrollStack({
   children,
@@ -67,9 +71,10 @@ export default function ScrollStack({
   const stackCompletedRef = useRef(false);
   const rafId = useRef<number | null>(null);
   const lenisRef = useRef<{ lenis: Lenis; id: number } | null>(null);
-  const cardsRef = useRef<HTMLElement[]>([]);
-  const lastTransformsRef = useRef(new Map<number, { y: number; s: number; r: number }>());
-  const targetTransformsRef = useRef(new Map<number, { y: number; s: number; r: number }>());
+
+  const cardsRef = useRef<HTMLDivElement[]>([]);
+  const lastTransformsRef = useRef(new Map<number, Transform>());
+  const targetTransformsRef = useRef(new Map<number, Transform>());
   const tickingRef = useRef(false);
   const lastTimeRef = useRef<number>(performance.now());
 
@@ -79,7 +84,7 @@ export default function ScrollStack({
     if (typeof value === "string" && value.includes("%")) {
       return (parseFloat(value) / 100) * containerHeight;
     }
-    return parseFloat(value as string);
+    return Number(value);
   }, []);
 
   const getScrollData = useCallback(() => {
@@ -119,6 +124,7 @@ export default function ScrollStack({
     const endEl = useWindowScroll
       ? (document.querySelector(".scroll-stack-end") as HTMLElement | null)
       : (scrollerRef.current?.querySelector(".scroll-stack-end") as HTMLElement | null);
+
     const endTop = endEl ? getElementOffset(endEl) : 0;
 
     const clamp01 = (n: number) => (n < 0 ? 0 : n > 1 ? 1 : n);
@@ -149,7 +155,7 @@ export default function ScrollStack({
       if (card.getAttribute("data-appear") !== "true") {
         card.setAttribute("data-appear", "true");
         card.style.opacity = "1";
-        card.style.translate = "0 0";
+        (card.style as CSSStyleDeclaration).translate = "0 0";
       }
     });
 
@@ -189,7 +195,7 @@ export default function ScrollStack({
     lastTimeRef.current = now;
 
     // سرعت اسموس (هرچه بزرگ‌تر، سریع‌تر)
-    const speed = 12;                       // وزن اسموس
+    const speed = 12;
     const alpha = 1 - Math.exp(-speed * dt); // از 0 تا 1
 
     cardsRef.current.forEach((card, i) => {
@@ -202,7 +208,6 @@ export default function ScrollStack({
 
       // فقط transform؛ هیچ فیلتر/blur که لرزش بده نداریم
       card.style.transform = `translate3d(0, ${y}px, 0) scale(${s}) rotate(${r}deg)`;
-
       lastTransformsRef.current.set(i, { y, s, r });
     });
   }, []);
@@ -226,9 +231,9 @@ export default function ScrollStack({
     // کارت‌ها
     cardsRef.current = Array.from(
       useWindowScroll
-        ? document.querySelectorAll(".scroll-stack-card")
-        : (scrollerRef.current?.querySelectorAll(".scroll-stack-card") ?? [])
-    ) as HTMLElement[];
+        ? (document.querySelectorAll(".scroll-stack-card") as NodeListOf<HTMLDivElement>)
+        : (scrollerRef.current?.querySelectorAll(".scroll-stack-card") as NodeListOf<HTMLDivElement> | null) ?? []
+    );
 
     // استایل پایه کارت‌ها
     cardsRef.current.forEach((card, i) => {
@@ -237,7 +242,9 @@ export default function ScrollStack({
       }
       card.style.willChange = "transform";
       card.style.transformOrigin = "top center";
-      (card.style as any).webkitTransform = "translateZ(0)";
+
+      // enable GPU compositing without `any`
+      (card.style as CSSStyleWithWebkit).webkitTransform = "translateZ(0)";
       card.style.transform = "translateZ(0)";
       card.style.backfaceVisibility = "hidden";
       card.style.filter = ""; // blur حذف
@@ -245,19 +252,23 @@ export default function ScrollStack({
 
     // لیسنر اسکرول: یا Lenis یا نیتیو (اما بدون scroll-behavior smooth)
     if (smooth) {
+      const wrapperEl: HTMLElement | undefined = useWindowScroll ? undefined : scrollerRef.current ?? undefined;
+      const contentEl: HTMLElement | undefined = useWindowScroll
+        ? undefined
+        : (scrollerRef.current?.querySelector(".scroll-stack-inner") as HTMLElement | null) ?? undefined;
+
       const lenis = new Lenis({
         // برای window نیازی به wrapper/content نیست
-        wrapper: useWindowScroll ? undefined : (scrollerRef.current as any),
-        content: useWindowScroll
-          ? undefined
-          : (scrollerRef.current?.querySelector(".scroll-stack-inner") as HTMLElement),
+        // these properties are optional; pass only when defined
+        ...(wrapperEl ? { wrapper: wrapperEl } : {}),
+        ...(contentEl ? { content: contentEl } : {}),
         duration: 1.05,
         easing: (t: number) => 1 - Math.pow(1 - t, 3),
         smoothWheel: true,
         wheelMultiplier: 0.95,
         lerp: 0.12,
         syncTouch: true,
-      });
+      } as unknown as ConstructorParameters<typeof Lenis>[0]); // keep exact lib typing happy across versions
 
       lenis.on("scroll", onScroll);
 
@@ -269,8 +280,8 @@ export default function ScrollStack({
       lenisRef.current = { lenis, id };
       onScroll(); // اولین فریم
     } else {
-      const container = useWindowScroll ? window : (scrollerRef.current as HTMLElement);
-      container.addEventListener("scroll", onScroll, { passive: true });
+      const container: HTMLElement | Window = useWindowScroll ? window : (scrollerRef.current as HTMLDivElement);
+      container.addEventListener("scroll", onScroll as EventListener, { passive: true });
       onScroll();
     }
 
@@ -281,9 +292,10 @@ export default function ScrollStack({
         lenis.destroy();
         lenisRef.current = null;
       } else {
-        const container = useWindowScroll ? window : (scrollerRef.current as HTMLElement);
-        container.removeEventListener("scroll", onScroll as any);
+        const container: HTMLElement | Window = useWindowScroll ? window : (scrollerRef.current as HTMLDivElement);
+        container.removeEventListener("scroll", onScroll as EventListener);
       }
+
       if (rafId.current) cancelAnimationFrame(rafId.current);
       lastTransformsRef.current.clear();
       targetTransformsRef.current.clear();
@@ -292,7 +304,7 @@ export default function ScrollStack({
 
   return (
     <div
-      className={`relative w-full h-full overflow-y-auto overflow-x-visible ${className}`.trim()}
+      className={["relative w-full h-full overflow-y-auto overflow-x-visible", className.trim()].join(" ")}
       ref={scrollerRef}
       style={{
         overscrollBehavior: "contain",

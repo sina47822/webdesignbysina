@@ -2,6 +2,7 @@
 import type { Metadata } from "next";
 import BgGradient from "@/components/Gradient/BgGradient/gray";
 import BlogList from "./BlogList";
+import { getAllPostsMeta } from "@/lib/blog-fs";
 export const runtime = "nodejs";
 export const revalidate = 60;
 
@@ -37,8 +38,7 @@ async function getPosts(): Promise<Card[]> {
 }
 
 export default async function BlogIndexPage() {
-  const posts = await getPosts();
-
+  const posts = await getAllPostsMeta(); // ← دیگه fetch لازم نیست
   return (
     <>
       <BgGradient />

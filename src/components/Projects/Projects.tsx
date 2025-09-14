@@ -90,12 +90,12 @@ export default function WorksPage() {
                 <div className="absolute inset-0 bg-black/30" />
               </div>
 
-              <div className="cont absolute bg-white/40 dark:bg-gray-700/40 rounded-full mx-auto bottom-20 right-30 left-30 z-10 flex items-center gap-4 p-6">
+              <div className="cont absolute bg-white/40 dark:bg-gray-700/40 rounded-full mx-auto bottom-20 md:right-30 md:left-30 z-10 flex items-center gap-4 p-6">
                 <div className="text-right px-10">
                   <span className="block text-sm tracking-widest text-white/80">
                     {item.category}
                   </span>
-                  <h5 className="mt-1 text-2xl font-semibold">{item.title}</h5>
+                  <h5 className="mt-1 md:text-2xl font-semibold">{item.title}</h5>
                 </div>
                 <div className="mr-auto">
                   <h6 className="text-lg text-white/80 px-10">{item.year}</h6>

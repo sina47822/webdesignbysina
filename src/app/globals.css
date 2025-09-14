@@ -359,7 +359,7 @@ html, body {
 
   /* روی هاور: 1s تأخیر + 4.5s حرکت تا پایین */
   .group:hover .hover-pan {
-    animation: pan-down 6.5s ease-out 0.5s forwards;
+    animation: pan-down 6.5s ease-out 1s forwards;
   }
 
   /* انیمیشن پَن از بالا به پایین */

@@ -78,17 +78,17 @@ const MainHomePage: React.FC = () => {
           </span>
         </div>
         <div className='flex gap-4 grid grid-cols-1 md:grid-cols-3'>
-          <button className="min-w-sm bg-black hover:bg-black/80 hover:scale-[1.1] duration-[.2s] dark:bg-white dark:hover:bg-gray-900 dark:hover:text-yellow-200 rounded-full w-fit text-white dark:text-black text-xl px-12 py-4">
+          <button className="min-w-xs md:min-w-sm bg-black hover:bg-black/80 hover:scale-[1.1] duration-[.2s] dark:bg-white dark:hover:bg-gray-900 dark:hover:text-yellow-200 rounded-full w-full md:w-fit text-white dark:text-black text-xl px-12 py-4">
             <Link href={'/pricing'}>
               <span>لیست قیمت</span> 
             </Link>
           </button>
-          <button className="min-w-sm bg-red-500 hover:bg-red-500/80 hover:scale-[1.1] duration-[.2s] dark:bg-white dark:hover:bg-gray-900 dark:hover:text-yellow-200 rounded-full w-fit text-white dark:text-black text-xl px-12 py-4">
+          <button className="min-w-xs md:min-w-sm bg-red-500 hover:bg-red-500/80 hover:scale-[1.1] duration-[.2s] dark:bg-white dark:hover:bg-gray-900 dark:hover:text-yellow-200 rounded-full w-full md:w-fit text-white dark:text-black text-xl px-12 py-4">
             <Link href={'/features'}>
               <span>قابلیت ها</span> 
             </Link>
           </button>
-          <button className="min-w-sm bg-blue-500 hover:bg-blue-500/80 hover:scale-[1.1] duration-[.2s] dark:bg-white dark:hover:bg-gray-900 dark:hover:text-yellow-200 rounded-full w-fit text-white dark:text-black text-xl px-12 py-4">
+          <button className="min-w-xs md:min-w-sm bg-blue-500 hover:bg-blue-500/80 hover:scale-[1.1] duration-[.2s] dark:bg-white dark:hover:bg-gray-900 dark:hover:text-yellow-200 rounded-full w-full md:w-fit text-white dark:text-black text-xl px-12 py-4">
             <Link href={'/webbuilder'}>
               <span>سایت ساز</span> 
             </Link>

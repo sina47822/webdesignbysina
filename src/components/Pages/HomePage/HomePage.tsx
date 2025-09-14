@@ -13,9 +13,9 @@ const HomePage = () => {
   return (
     <main className="">
         <MainHomePage />
-        <WorksPage />
         <FeatureSteps />
         <AppHero />
+        <WorksPage />
         <div className="flex justify-center py-20"> 
           <Testimonials />
         </div>

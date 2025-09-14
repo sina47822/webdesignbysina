@@ -21,16 +21,16 @@ export default function GlobalSearchPage() {
 
     return (
         <main className="min-h-[70vh] pt-48">
-            <div className="mx-auto max-w-2xl rounded-2xl border bg-white p-8 shadow-sm">
-                <h1 className="text-2xl font-bold mb-4">جستجوی سایت</h1>
-                <form onSubmit={handleSubmit} className="flex gap-2 mb-6">
+            <div className="mx-auto max-w-2xl rounded-2xl border bg-background p-8 shadow-sm">
+                <h1 className="text-2xl font-bold mb-4">جستجو</h1>
+                <form onSubmit={handleSubmit} className="flex flex-col md:flex-row gap-2 mb-6">
                     <div className="relative flex-1">
                         <FaSearch className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400" />
                         <input
                             name="q"
                             defaultValue={q}
                             placeholder="عبارت موردنظر خود را جستجو کنید..."
-                            className="w-full rounded-xl border px-10 py-3 focus:outline-none focus:ring-2 focus:ring-rose-500"
+                            className="text-xs md:text-lg w-full rounded-xl border px-10 py-3 focus:outline-none focus:ring-2 focus:ring-rose-500"
                             dir="rtl"
                         />
                     </div>

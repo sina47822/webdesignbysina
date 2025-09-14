@@ -10,10 +10,10 @@ import Image from 'next/image'; // Import Next.js Image component
 export default function Page() { // Renamed `page` to `Page`
   const Id = useId();
   return (
-    <div className='grid grid-cols-2 h-full'>
-      <div className='flex flex-col justify-center items-center py-20 px-10 md:px-0'>
-        <Card className='flex flex-col justify-center  items-center px-10 py-10'>
-          <div className='flex flex-col justify-center items-center py-20'>
+    <div className='grid grid-cols-1 md:grid-cols-2 h-full'>
+      <div className='flex flex-col justify-center items-center py-25 px-4 md:px-0'>
+        <Card className='flex flex-col justify-center  items-center px-4 md:px-10 md:py-10'>
+          <div className='flex flex-col justify-center items-center py-5 md:py-20'>
               <div className="flex flex-col items-center gap-2">
                 <div
                   className="flex size-11 shrink-0 items-center justify-center rounded-full border"
@@ -31,7 +31,7 @@ export default function Page() { // Renamed `page` to `Page`
 
               <form className="space-y-5">
                 <div className="space-y-4">
-                  <div className="*:not-first:mt-2">
+                  <div className="*:not-first:mt-2 pt-6">
                     <Label htmlFor={`${Id}-email`}>ایمیل</Label>
                     <Input
                       id={`${Id}-email`}
@@ -73,22 +73,15 @@ export default function Page() { // Renamed `page` to `Page`
               </form>
 
               <div className="before:bg-border after:bg-border flex items-center gap-3 before:h-px before:flex-1 after:h-px after:flex-1">
-                <span className="text-muted-foreground text-xs">یا</span>
+                <span className="text-muted-foreground text-xs py-2">یا</span>
               </div>
 
-              <SignupModal />
+              <SignupModal/>
           </div>
         </Card>
       </div>
-      <div className='relative hidden items-center justify-center m-auto md:flex'>
-        {/* Replaced <img> with <Image /> from next/image */}
-        <Image 
-          src="/assets/img/dbass-login.png" 
-          alt="ورود به سایت" 
-          className='h-full w-full' 
-          layout="fill" // Adjusted to fill the parent container
-          objectFit="cover" // Ensures image is resized properly
-        />
+      <div className='hidden items-center justify-center m-auto md:flex'>
+        <img src="/assets/img/dbass-login.png" alt="ورود به سایت" className='h-full w-full'/>
       </div>
     </div>
   );

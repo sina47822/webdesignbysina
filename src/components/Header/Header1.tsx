@@ -263,7 +263,7 @@ export default function Header1() {
                 <Link
                   prefetch={false}
                   href="/search"
-                  className="text-foreground hover:bg-muted bg-black dark:bg-white block px-4 py-3 font-medium transition-colors duration-200"
+                  className="text-foreground hover:bg-muted bg-background hover:bg-blue-500/40 block px-6 py-3 font-medium transition-colors duration-200 justify-self-center"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   جستجو
@@ -271,7 +271,7 @@ export default function Header1() {
                 <div className="space-y-2 px-6 py-2 ">
                   <Link 
                     prefetch={false}
-                    href="/login"
+                    href="/signin"
                     className="text-foreground cursor-pointer hover:bg-muted block w-full rounded-2xl py-3 text-center font-medium transition-colors duration-200"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >

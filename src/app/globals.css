@@ -349,3 +349,30 @@ html, body {
       -1px  1px 0 var(--primary-foreground),
       1px  1px 0 var(--primary-foreground);
   }
+
+  @layer utilities {
+  /* وقتی هاور نیست، انیمیشن نداشته باشه و بالا باشه */
+  .hover-pan {
+    animation: none;
+    object-position: top;
+  }
+
+  /* روی هاور: 1s تأخیر + 4.5s حرکت تا پایین */
+  .group:hover .hover-pan {
+    animation: pan-down 6.5s ease-out 0.5s forwards;
+  }
+
+  /* انیمیشن پَن از بالا به پایین */
+  @keyframes pan-down {
+    0%   { object-position: top; }
+    100% { object-position: bottom; }
+  }
+
+  /* احترام به کاهش حرکت سیستم */
+  @media (prefers-reduced-motion: reduce) {
+    .hover-pan,
+    .group:hover .hover-pan {
+      animation: none !important;
+    }
+  }
+}

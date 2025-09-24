@@ -13,16 +13,10 @@ export default function FeatureHero({ gifUrl }: HeroProps) {
       className={"min-h-[80vh] dark:bg-gray-950 dark:text-gray-100 transition-colors min-h-[80vh] bg-white text-gray-900 transition-colors"
       }
     >
-      <div className="max-w-6xl mx-auto px-6 py-16 grid md:grid-cols-2 gap-10 items-center">
+      <div className="max-w-6xl mx-auto px-6 pt-12 md:pt-36 grid md:grid-cols-2 gap-10 items-center">
         {/* متن */}
         <div>
-          <button
-            onClick={() => setDark((v) => !v)}
-            className="mb-6 rounded-xl border px-3 py-1.5 text-sm hover:opacity-90"
-          >
-          </button>
-
-          <h1 className="text-3xl md:text-5xl font-black leading-tight">
+          <h1 className="text-2xl md:text-3xl font-black leading-tight">
             طراحی کامپوننت‌های Next.js با Tailwind و TypeScript
           </h1>
 

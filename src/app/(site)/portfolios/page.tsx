@@ -8,7 +8,7 @@ const Portfolios = () => {
     <div className='flex flex-col items-center justify-center py-24'>
           <h1 className="text-4xl font-bold">
             نمونه پروژه ها
-        </h1>
+          </h1>
       <ScrollStacks />
     </div>
   )

@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Link from "next/link";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -72,8 +73,11 @@ export default function WorksPage() {
 
   return (
     <>
-      <div className=" py-10 bg-gray-200/20">
-              <h2 className="text-4xl justify-self-center font-yekan font-bold">نمونه پروژه ها</h2>
+      <div className="flex flex-col justify-center items-center gap-2 py-10 bg-gray-200/20">
+        <h2 className="text-4xl justify-self-center font-yekan font-bold">نمونه پروژه ها</h2>
+        <Link className="text-blue-300 hover:text-blue-600 underline" href='/portfolios'>
+        همه پروژه ها
+        </Link>
       </div>
     <section
       ref={containerRef}

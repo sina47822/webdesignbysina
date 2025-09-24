@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button"
 import { Monitor, Tablet, Smartphone, Download, Trash2 } from "lucide-react"
 import { ConfirmationDialog } from "@/components/Dialog/confirmation-dialog"
 import { ModeToggle } from "../ModeToggle"
+import { FaHome } from "react-icons/fa"
+import Link from "next/link"
 
 interface ToolbarProps {
   previewMode: "desktop" | "tablet" | "mobile"
@@ -45,16 +47,19 @@ export function Toolbar({ previewMode, onPreviewModeChange, onExport, onClear }:
             </Button>
           </div>
         </div>
-
         <div className="flex items-center space-x-2">
           <Button variant="outline" onClick={() => setShowClearDialog(true)}>
             <Trash2 className="w-4 h-4 mr-2" />
             پاک کردن همه بخش ها
           </Button>
-          <Button onClick={onExport}>
+          <Link href='/' className="border border-1 dark:border-gray-500 dark:bg-gray-700 bg-gray-100 border-gray-200 rounded-lg flex gap-1 text-sm px-10 py-[7px]">
+            <FaHome className="w-4 h-4 mr-2" />
+            خانه
+          </Link>
+          {/* <Button onClick={onExport}>
             <Download className="w-4 h-4 mr-2" />
             خروجی HTML
-          </Button>
+          </Button> */}
           <ModeToggle />
         </div>
       </div>

@@ -81,7 +81,6 @@ export default function WorksPage() {
       </div>
     <section
       ref={containerRef}
-      dir="rtl" // اگر کل سایت RTL است می‌توانی این خط را حذف کنی
       className="works thecontainer relative h-screen overflow-hidden bg-neutral-950 text-white"
     >
 

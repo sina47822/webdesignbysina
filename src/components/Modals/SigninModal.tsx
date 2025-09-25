@@ -1,4 +1,6 @@
-import { useId } from 'react';
+'use client'
+import React, {SyntheticEvent, useId, useState} from 'react';
+import { useRouter } from 'next/navigation'
 
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -16,7 +18,40 @@ import SignupModal from './SignupModal';
 import { FaUser } from 'react-icons/fa';
 
 export default function SigninModal() {
-  const id = useId();
+    const router = useRouter();
+    const id = useId();
+  
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [submitting, setSubmitting] = useState(false)
+    const [error, setError] = useState<string | null>(null)
+    const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL ?? 'http://localhost:8000'
+  
+      const submit = async (e : SyntheticEvent) => {
+        e.preventDefault()
+        setSubmitting(true)
+        setError(null)
+    
+        try {
+          const res = await fetch(`${API_BASE}/api/login/`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify({ email, password }),
+          })
+    
+          if (!res.ok) {
+            const text = await res.text()
+            throw new Error(text || `Request failed with ${res.status}`)
+            }
+    
+          router.push('/')
+        } catch (err: any) {
+          setError(err?.message ?? 'مشکلی پیش آمد. دوباره تلاش کنید.')
+        } finally {
+          setSubmitting(false)
+        }
+      }
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -45,8 +80,11 @@ export default function SigninModal() {
               <Label htmlFor={`${id}-email`}>ایمیل</Label>
               <Input
                 id={`${id}-email`}
+                onChange={e => setEmail(e.target.value)}
+                value={email}
                 placeholder="example@gmail.com"
                 type="email"
+                autoComplete="email"
                 required
               />
             </div>
@@ -54,8 +92,12 @@ export default function SigninModal() {
               <Label htmlFor={`${id}-password`}>رمز عبور</Label>
               <Input
                 id={`${id}-password`}
+                onChange={e => setPassword(e.target.value)}
+                value={password}
                 placeholder="رمز عبور خود را وارد کنید"
                 type="password"
+                autoComplete="new-password"
+                minLength={8}
                 required
               />
             </div>
@@ -77,8 +119,13 @@ export default function SigninModal() {
               آیا رمز عبور را فراموش کردید؟
             </a>
           </div>
-          <Button type="button" className="w-full">
-            ورود
+          {error && (
+            <p className="text-sm text-red-600" role="alert">
+              {error}
+            </p>
+          )}
+          <Button type="submit" className="w-full cursor-pointer" disabled={submitting}>
+            {submitting ? 'در حال ارسال…' : 'ورود'}
           </Button>
         </form>
 

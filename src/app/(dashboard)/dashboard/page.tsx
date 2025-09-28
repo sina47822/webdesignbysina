@@ -10,7 +10,7 @@ export default function DashboardPage() {
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(false);
   const [editMode, setEditMode] = useState(false);
-  const [formData, setFormData] = useState({ name: "", phone: "", email: "" });
+  const [formData, setFormData] = useState({ name: "", phone: "", email: "", username: "" });
 
   // دریافت اطلاعات کاربر
   const fetchUser = async () => {
@@ -33,7 +33,7 @@ export default function DashboardPage() {
 
       const data = await res.json();
       setUser(data);
-      setFormData({ name: data.name || "", phone: data.phone || "", email: data.email || "" });
+      setFormData({ name: data.name || "", phone: data.phone || "", email: data.email || "", username: data.username || "" });
     } catch (error) {
       router.push("/signin");
     } finally {
@@ -90,12 +90,20 @@ export default function DashboardPage() {
       alert(data.detail || 'خطا در ارسال کد');
     }
   };
-  
+
   if (loading || !user) return <p>در حال بارگذاری...</p>;
 
   return (
     <div className="p-6 max-w-md mx-auto">
-      <h1 className="text-xl mb-4">خوش آمدید، {user.username || user.phone}</h1>
+      <h1 className="text-xl mb-4">
+        خوش آمدید،
+        {user.name ? (
+          ` ${user.name}`
+        ) : (
+          ` ${user.email || user.phone}`
+        )
+        }
+      </h1>
 
       {!editMode ? (
         <>
@@ -157,7 +165,13 @@ export default function DashboardPage() {
             onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
             className="border p-2 w-full mb-2 rounded"
           />
-
+          <input
+            type="text"
+            placeholder="نام کاربری"
+            value={formData.username}
+            onChange={(e) => setFormData({ ...formData, username: e.target.value })}
+            className="border p-2 w-full mb-2 rounded"
+          />
           <div className="flex gap-2 mt-2">
             <button
               className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"

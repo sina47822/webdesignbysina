@@ -9,12 +9,20 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import SignupModal from '@/components/Modals/SignupModal';
 import { Card } from '@/components/ui/card';
+import Link from 'next/link';
+  
+// Helper to read XSRF-TOKEN cookie that Sanctum sets
+function getCookie(name: string) {
+  if (typeof document === 'undefined') return null
+  const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'))
+  return match ? decodeURIComponent(match[2]) : null
+}
+const csrftoken = getCookie('csrftoken') // Django writes this cookie
 
 export default function Page() { // Renamed `page` to `Page`
   const router = useRouter();
   const id = useId();
-
-  const [email, setEmail] = useState('');
+  const [identifier, setIdentifier] = useState('');
   const [password, setPassword] = useState('');
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -26,19 +34,29 @@ export default function Page() { // Renamed `page` to `Page`
       setError(null)
   
       try {
-        const res = await fetch(`${API_BASE}/api/login/`, {
+        const res = await fetch(`${API_BASE}/api/auth/login/`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'X-CSRFToken': csrftoken ?? ''
+         },
         credentials: 'include',
-        body: JSON.stringify({ email, password }),
+
+        body: JSON.stringify({ identifier, password }),
         })
-  
+        
+        const data = await res.json();
         if (!res.ok) {
-          const text = await res.text()
-          throw new Error(text || `Request failed with ${res.status}`)
+          throw new Error(data || `Request failed with ${res.status}`)
           }
-  
-        router.push('/')
+          
+        // ذخیره توکن‌ها (برای شروع)
+        localStorage.setItem('access', data.access);
+        localStorage.setItem('refresh', data.refresh);
+
+        // می‌تونید user رو هم ذخیره کنید
+        localStorage.setItem('user', JSON.stringify(data.user));
+        router.push('/dashboard')
       } catch (err: any) {
         setError(err?.message ?? 'مشکلی پیش آمد. دوباره تلاش کنید.')
       } finally {
@@ -70,12 +88,10 @@ export default function Page() { // Renamed `page` to `Page`
                   <div className="*:not-first:mt-2 pt-6">
                     <Label htmlFor={`${id}-email`}>ایمیل</Label>
                     <Input
-                      id={`${id}-email`}
-                      onChange={e => setEmail(e.target.value)}
-                      value={email}
-                      placeholder="example@gmail.com"
-                      type="email"
-                      autoComplete="email"
+                      id={`${id}-identifier`}
+                      onChange={e => setIdentifier(e.target.value)}
+                      value={identifier}
+                      placeholder="یوزر نیم شماره موبایل یا پسورد"
                       required
                     />
                   </div>
@@ -124,7 +140,11 @@ export default function Page() { // Renamed `page` to `Page`
                 <span className="text-muted-foreground text-xs py-2">یا</span>
               </div>
 
-              <SignupModal/>
+                <Button type="button" className="w-full cursor-pointer bg-background/50 hover:bg-background text-foreground">
+                  <Link href={'/signup'}>
+                  عضویت
+                  </Link>
+                </Button>
           </div>
         </Card>
       </div>

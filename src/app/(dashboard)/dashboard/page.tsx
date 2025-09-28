@@ -1,69 +1,95 @@
-'use client'
-import React, { useEffect, useState } from 'react'
+"use client";
 
-// Helper to read XSRF-TOKEN cookie that Sanctum sets
-function getCookie(name: string) {
-  if (typeof document === 'undefined') return null
-  const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'))
-  return match ? decodeURIComponent(match[2]) : null
-}
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
-const dashboard = () => {
-    const [user, setUser] = useState<{ name: string } | null>(null)
-    const [loading, setLoading] = useState(true)
-    const [error, setError] = useState<string | null>(null)
-    const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL ?? 'http://localhost:8000'
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL ?? 'http://localhost:8000'
 
-    useEffect( () => {
-        const checkAuth = async () => {
-            try {
-                // 1) Ensure CSRF cookie exists (necessary for Sanctum)
-                await fetch(`${API_BASE}/sanctum/csrf-cookie`, {
-                    method: 'GET',
-                    credentials: 'include',
-                })
-                const res = await fetch(`${API_BASE}/api/user/`, {
-                method: 'GET',
-                credentials: 'include', // sends cookies with request
-                headers: {
-                    // Some setups need this header on GET as well:
-                    'X-XSRF-TOKEN': getCookie('XSRF-TOKEN') ?? '',
-                },
-            })
-            console.log(res)
-            if (!res.ok) {
-                throw new Error(`${res.status} ${res.statusText}`)
-            }
-                    
-            const data = await res.json()
-            setUser({name: data.name})
-            } catch (err: any) {
-                setError(err.message)
-            } finally {
-                setLoading(false)
-            }
+export default function DashboardPage() {
+  const router = useRouter();
+  const [user, setUser] = useState<any>(null);
+  const [loading, setLoading] = useState(false);
+  
+  useEffect(() => {
+    const token = localStorage.getItem("access");
+    if (!token) {
+      router.push("/signin");
+      return;
+    }
+
+    fetch(`${API_BASE}/api/auth/user/`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+      .then((res) => {
+        if (res.status === 401) {
+          router.push("/signin");
         }
-        checkAuth()
+        return res.json();
+      })
+      .then((data) => setUser(data))
+      .catch(() => router.push("/signin"));
+  }, [router]);
 
-    }, [])
+  const handleSendToken = async (type: 'email' | 'phone') => {
+    const identifier = type === 'email' ? user.email : user.phone;
 
-    
-    if (loading) {
-        return <div>Loading…</div>
+    const res = await fetch(`${API_BASE}/api/auth/send-token/`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ identifier, purpose: 'verify' }),
+    });
+
+    if (res.ok) {
+      router.push(`/OTP?type=${type}&identifier=${identifier}`);
+    } else {
+      const data = await res.json();
+      alert(data.detail || 'خطا در ارسال کد');
     }
+  };
 
-    if (error) {
-        return <div>{error}</div>
-    }
+  if (!user) return <p>در حال بارگذاری...</p>;
+
   return (
-    <div>
-      {user ? (
-        <h1>Welcome, {user.name}!</h1>
-      ) : (
-        <h1>You are not logged in.</h1>
-      )}
-    </div>
-  )
-}
+    <div className="p-6">
+      <h1 className="text-xl">خوش آمدید، {user.username || user.phone}</h1>
+      <p>ایمیل: {user.email || "ثبت نشده"}</p>
+      <p>شماره موبایل: {user.phone || "ثبت نشده"}</p>
+      <p>یوزرنیم: {user.username || "ثبت نشده"}</p>
+      <p>اسم: {user.name || "ثبت نشده"}</p>
+      <p>یوزرنیم: {user.username || "ثبت نشده"}</p>
+      <p>یوزرنیم: {user.username || "ثبت نشده"}</p>
+      <p>شماره موبایل تایید شده: {user.is_phone_verified ? "بله" : "خیر"}</p>
+      <p>ایمیل تایید شده: {user.is_email_verified ? "بله" : "خیر"}</p>
 
-export default dashboard
+      {/* دکمه‌های تایید */}
+      {!user.is_phone_verified && (
+        <button
+          className="mt-2 bg-blue-500 text-white px-4 py-2 rounded"
+          onClick={() =>  handleSendToken('phone')}
+        >
+          تایید شماره موبایل
+        </button>
+      )}
+
+      {!user.is_email_verified && (
+        <button
+          className="mt-2 ml-2 bg-green-500 text-white px-4 py-2 rounded"
+          onClick={() =>  handleSendToken('email')}
+        >
+          تایید ایمیل
+        </button>
+      )}
+
+      <button
+        className="mt-4 bg-red-500 text-white px-4 py-2 rounded"
+        onClick={() => {
+          localStorage.removeItem("access");
+          localStorage.removeItem("refresh");
+          router.push("/signin");
+        }}
+      >
+        خروج
+      </button>
+    </div>
+  );
+}

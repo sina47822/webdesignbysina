@@ -15,7 +15,9 @@ export default function SignupModal() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [password_confirm, setPassword_confirm] = useState('');
   const [number, setNumber] = useState('');
+  const [username, setUsername] = useState('');
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL ?? 'http://localhost:8000'
@@ -26,10 +28,10 @@ export default function SignupModal() {
     setError(null)
 
     try {
-      const res = await fetch(`${API_BASE}/api/register/`, {
+      const res = await fetch(`${API_BASE}/api/auth/register/`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, email, number, password }),
+      body: JSON.stringify({ name,username, email, number, password, password_confirm }),
       })
 
       if (!res.ok) {
@@ -81,6 +83,17 @@ export default function SignupModal() {
               </div>
               
               <div className="*:not-first:mt-2">
+                <Label htmlFor={`${id}-username`}>نام کاربری</Label>
+                <Input
+                  id={`${id}-username`}
+                  onChange={e => setUsername(e.target.value)}
+                  value={username}
+                  placeholder="sina-afshar"
+                  type="text"
+                  
+                />
+              </div>
+              <div className="*:not-first:mt-2">
                 <Label htmlFor={`${id}-email`}>ایمیل</Label>
                 <Input
                   id={`${id}-email`}
@@ -89,7 +102,7 @@ export default function SignupModal() {
                   placeholder="example@gmail.com"
                   type="email"
                   autoComplete="email"
-                  required
+                  
                 />
               </div>
 
@@ -117,6 +130,19 @@ export default function SignupModal() {
                   placeholder="رمز عبور خود را وارد کنید"
                   type="password"
                   autoComplete="new-password"
+                  minLength={8}
+                  required
+                />
+              </div>
+              <div className="*:not-first:mt-2">
+                <Label htmlFor={`${id}-password_confirm`}>رمز عبور</Label>
+                <Input
+                  id={`${id}-password_confirm`}
+                  onChange={e => setPassword_confirm(e.target.value)}
+                  value={password_confirm}
+                  placeholder="رمز عبور خود را وارد کنید"
+                  type="password"
+                  autoComplete="password"
                   minLength={8}
                   required
                 />

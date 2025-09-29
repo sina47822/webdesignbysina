@@ -2,7 +2,6 @@
 import type { Metadata } from "next";
 import BgGradient from "@/components/Gradient/BgGradient/gray";
 import BlogList from "./BlogList";
-import { getAllPostsMeta } from "@/lib/blog-fs";
 export const runtime = "nodejs";
 export const revalidate = 60;
 
@@ -30,7 +29,7 @@ type Card = {
 };
 
 async function getPosts(): Promise<Card[]> {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/content/blog`, {
+  const res = await fetch(`${process.env.NEXT_BACKEND_SITE_URL}/api/posts/`, {
     next: { revalidate },
   });
   if (!res.ok) return [];
@@ -38,7 +37,7 @@ async function getPosts(): Promise<Card[]> {
 }
 
 export default async function BlogIndexPage() {
-  const posts = await getAllPostsMeta(); // ← دیگه fetch لازم نیست
+  const posts = await getPosts(); // ← دیگه fetch لازم نیست
   return (
     <>
       <BgGradient />

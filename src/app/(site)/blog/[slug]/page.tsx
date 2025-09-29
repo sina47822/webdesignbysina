@@ -3,55 +3,54 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-
 import { compileMDX } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
 import rehypePrettyCode from "rehype-pretty-code";
 import Callout from "@/components/mdx/Callout";
 import BgGradient from "@/components/Gradient/BgGradient/gray";
-
 export const runtime = "nodejs";
 export const revalidate = 60;
-
 const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.webdesignwithsina.ir";
-
+  process.env.NEXT_BACKEND_SITE_URL ?? "https://www.webdesignwithsina.ir";
 /* ---------- Types ---------- */
 type Section = {
   id?: string;
   title: string;
-  level?: 2 | 3 | 4;
+  level?: number;
   bodyMd?: string;
   bodyHtml?: string;
-  image?: { src: string; alt: string; caption?: string };
-  code?: { language?: string; content: string; caption?: string; filename?: string };
-  callout?: { type?: "info" | "warning" | "success" | "error"; content: string };
+  image?: { src: string; alt: string };
+  image_caption?: string;
+  callout_type?: "info" | "warning" | "tip" | "danger" | undefined ;
+  callout_content?: string;
+  code_caption?: string;
+  code_content?: string;
 };
-
 type BlogDoc = {
-  meta: {
-    title: string;
-    description?: string;
-    slug: string;
-    date?: string;
-    lastModified?: string;
-    cover?: string | null;
-    tags?: string[];
-    draft?: boolean;
-    canonical?: string | null;
-  };
+  id: number;
+  title: string;
+  description?: string;
+  slug: string;
+  date_published?: string;
+  last_modified?: string;
+  cover?: string | null;
+  tags?: string[];
+  categories?: string[];
+  draft?: boolean;
+  canonical?: string | null;
+  metadata?: any;
   sections: Section[];
 };
-
 /* ---------- Fetch helper ---------- */
 async function getPost(slug: string): Promise<BlogDoc | null> {
-  const res = await fetch(`${SITE_URL}/api/content/blog/${slug}`, {
+  const res = await fetch(`${SITE_URL}/api/posts/${slug}/export`, { // Fixed: Use /export for {meta, sections}
     next: { revalidate },
   });
   if (!res.ok) return null;
-  return res.json();
+  const data = await res.json();
+  if (!data || !data.meta) return null;
+  return { ...data.meta, sections: data.sections, id: 0 };
 }
-
 /* ---------- TOC helpers ---------- */
 function slugifyFa(s: string) {
   return s
@@ -77,21 +76,18 @@ function buildToc(sections: Array<{ id?: string; title: string; level?: 2 | 3 | 
   }
   return items;
 }
-
 /* ---------- Metadata ---------- */
 export async function generateMetadata(
-  { params }: { params: Promise<{ slug: string }> } // 👈 امضا را Promise کنید
+  { params }: { params: Promise<{ slug: string }> }
 ): Promise<Metadata> {
-  const { slug } = await params; // 👈 قبل از استفاده await
+  const { slug } = await params;
   const doc = await getPost(slug);
   if (!doc) return { title: "Not found" };
-
-  const m = doc.meta;
+  const m = doc;
   const url = m.canonical ?? `${SITE_URL}/blog/${m.slug}`;
   const title = m.title;
   const desc = m.description ?? "";
   const cover = m.cover ?? `/og/blog/${m.slug}`;
-
   return {
     title,
     description: desc,
@@ -106,30 +102,25 @@ export async function generateMetadata(
     twitter: { card: "summary_large_image", title, description: desc, images: [cover] },
   };
 }
-
 /* ---------- Page ---------- */
 export default async function BlogPostPage(
-  { params }: { params: Promise<{ slug: string }> } // 👈 امضا را Promise کنید
+  { params }: { params: Promise<{ slug: string }> }
 ) {
-  const { slug } = await params; // 👈 قبل از استفاده await
-
+  const { slug } = await params;
   const doc = await getPost(slug);
   if (!doc) return notFound();
-
-  const m = doc.meta;
+  const m = doc;
   if (m.draft) return notFound();
-
   const cover = m.cover ?? `/og/blog/${m.slug}`;
-  const faDate = m.date ? new Intl.DateTimeFormat("fa-IR", { dateStyle: "medium" }).format(new Date(m.date)) : "";
-  const faMod = m.lastModified ? new Intl.DateTimeFormat("fa-IR", { dateStyle: "medium" }).format(new Date(m.lastModified)) : "";
-
+  const faDate = m.date_published ? new Intl.DateTimeFormat("fa-IR", { dateStyle: "medium" }).format(new Date(m.date_published)) : "";
+  const faMod = m.last_modified ? new Intl.DateTimeFormat("fa-IR", { dateStyle: "medium" }).format(new Date(m.last_modified)) : "";
   const articleLd = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     headline: m.title,
     description: m.description,
-    datePublished: m.date,
-    dateModified: m.lastModified,
+    datePublished: m.date_published,
+    dateModified: m.last_modified,
     mainEntityOfPage: m.canonical ?? `${SITE_URL}/blog/${m.slug}`,
     image: [`${SITE_URL}${cover}`],
     author: { "@type": "Organization", name: "WebDesignWithSina" },
@@ -139,13 +130,11 @@ export default async function BlogPostPage(
       logo: { "@type": "ImageObject", url: `${SITE_URL}/icons/android-chrome-512x512.png` },
     },
   };
-
   // Compile sections (MD + code) and ensure stable id
   const compiledSections = await Promise.all(
     (doc.sections ?? []).map(async (s, i) => {
       const level = Math.min(Math.max(s.level ?? 2, 2), 4) as 2 | 3 | 4;
       const id = s.id ?? slugifyFa(s.title) ?? `${i}`;
-
       const bodyNode = s.bodyMd
         ? (
             await compileMDX({
@@ -161,11 +150,10 @@ export default async function BlogPostPage(
             })
           ).content
         : null;
-
-      const codeNode = s.code
+      const codeNode = s.code_content
         ? (
             await compileMDX({
-              source: `\`\`\`${s.code.language ?? ""}\n${s.code.content}\n\`\`\``,
+              source: `\`\`\`\n${s.code_content}\n\`\`\``,
               options: {
                 parseFrontmatter: false,
                 mdxOptions: {
@@ -176,19 +164,15 @@ export default async function BlogPostPage(
             })
           ).content
         : null;
-
       return { key: `${id}-${i}`, ...s, id, level, bodyNode, codeNode };
     })
   );
-
   // Build TOC (based on h2/h3/h4)
   const toc = buildToc(compiledSections.map(s => ({ id: s.id, title: s.title, level: s.level })));
-
   return (
     <>
       <BgGradient />
       <Script id="ld-article" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleLd) }} />
-
       <article className="max-w-7xl px-4 md:px-6 lg:px-8 py-16 mx-auto">
         {/* Cover + H1 */}
         <div className="relative max-w-4xl mx-auto mt-8 overflow-hidden rounded-3xl border border-zinc-200/70 dark:border-zinc-800/70 bg-white/70 dark:bg-zinc-900/40 backdrop-blur shadow-sm ring-1 ring-black/0 hover:ring-black/5 dark:hover:ring-white/10 transition">
@@ -213,7 +197,6 @@ export default async function BlogPostPage(
             </div>
           </div>
         </div>
-
         {/* Body + Sticky TOC (grid) */}
         <div className="mt-10 grid gap-8 lg:grid-cols-12 items-start">
           {/* Main content — 9/12 */}
@@ -234,11 +217,9 @@ export default async function BlogPostPage(
                   {s.level === 2 && <h2 id={s.id} className="text-2xl font-yekan font-bold text-blue-300 py-4">{s.title}</h2>}
                   {s.level === 3 && <h3 id={s.id} className="text-xl font-yekan font-bold text-blue-500 py-4">{s.title}</h3>}
                   {s.level === 4 && <h4 id={s.id} className="text-lg font-yekan font-bold text-blue-800 py-4">{s.title}</h4>}
-
                   {/* متن */}
                   {s.bodyNode}
                   {!s.bodyNode && s.bodyHtml && <div dangerouslySetInnerHTML={{ __html: s.bodyHtml }} />}
-
                   {/* تصویر */}
                   {s.image && (
                     <figure>
@@ -250,15 +231,14 @@ export default async function BlogPostPage(
                         sizes="(min-width: 768px) 768px, 100vw"
                         className="rounded-xl border border-zinc-200/70 dark:border-zinc-800/70"
                       />
-                      {s.image.caption && (
-                        <figcaption className="text-sm text-zinc-500">{s.image.caption}</figcaption>
+                      {s.image_caption && (
+                        <figcaption className="text-sm text-zinc-500">{s.image_caption}</figcaption>
                       )}
                     </figure>
                   )}
-
                   {/* کد — p-4 + rounded-2xl */}
-                  {s.code && (
-                    <div 
+                  {s.code_content && (
+                    <div
                       dir="ltr"
                       className="
                         not-prose rounded-2xl p-4
@@ -268,21 +248,16 @@ export default async function BlogPostPage(
                       "
                       data-theme="github-dark"
                     >
-                      {s.code.filename && (
-                        <div className="text-xs text-zinc-500 mb-2">{s.code.filename}</div>
-                      )}
                       <div className="[&>pre]:!m-0">{s.codeNode}</div>
-                      {s.code.caption && <div className="text-xs text-zinc-500 mt-2">{s.code.caption}</div>}
+                      {s.code_caption && <div className="text-xs text-zinc-500 mt-2">{s.code_caption}</div>}
                     </div>
                   )}
-
                   {/* Callout */}
-                  {s.callout && <Callout>{s.callout.content}</Callout>}
+                  {s.callout_content && <Callout type={s.callout_type}>{s.callout_content}</Callout>}
                 </section>
               ))}
             </div>
           </div>
-
           {/* Sticky TOC - 3/12 */}
           <aside className="hidden lg:block lg:col-span-3 lg:self-start">
             <nav className="sticky top-24 max-h-[calc(100vh-6rem)] overflow-auto rounded-xl border border-zinc-200/60 dark:border-zinc-800/60 bg-white/60 dark:bg-zinc-900/50 backdrop-blur p-4">
@@ -319,7 +294,6 @@ export default async function BlogPostPage(
             </nav>
           </aside>
         </div>
-
         {/* Footer CTAs */}
         <div className="mx-auto mt-12 max-w-3xl">
           <div className="rounded-2xl border border-zinc-200/60 dark:border-zinc-800/60 bg-white/70 dark:bg-zinc-900/50 backdrop-blur p-5 flex items-center justify-between">

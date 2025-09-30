@@ -12,19 +12,26 @@ export const runtime = "nodejs";
 export const revalidate = 60;
 const SITE_URL =
   process.env.NEXT_BACKEND_SITE_URL ?? "https://www.webdesignwithsina.ir";
+
 /* ---------- Types ---------- */
 type Section = {
   id?: string;
   title: string;
   level?: number;
-  bodyMd?: string;
+  // possible field names we want to support:
+  bodyMd?: string;      // your payload uses this
   bodyHtml?: string;
-  image?: { src: string; alt: string };
-  image_caption?: string;
-  callout_type?: "info" | "warning" | "tip" | "danger" | undefined ;
-  callout_content?: string;
-  code_caption?: string;
   code_content?: string;
+  code?: string;        // or `code`
+  image?: { src: string; alt?: string };
+  image_src?: string;   // in case API returns flat fields
+  image_caption?: string;
+  imageCaption?: string;
+  callout_content?: string;
+  callout?: string;     // or `callout`
+  code_caption?: string;
+  callout_type?: "info" | "warning" | "tip" | "danger" | undefined;
+  [k: string]: any;
 };
 type BlogDoc = {
   id: number;
@@ -41,9 +48,10 @@ type BlogDoc = {
   metadata?: any;
   sections: Section[];
 };
+
 /* ---------- Fetch helper ---------- */
 async function getPost(slug: string): Promise<BlogDoc | null> {
-  const res = await fetch(`${SITE_URL}/api/posts/${slug}/export`, { // Fixed: Use /export for {meta, sections}
+  const res = await fetch(`${SITE_URL}/api/posts/${slug}/export`, {
     next: { revalidate },
   });
   if (!res.ok) return null;
@@ -51,6 +59,7 @@ async function getPost(slug: string): Promise<BlogDoc | null> {
   if (!data || !data.meta) return null;
   return { ...data.meta, sections: data.sections, id: 0 };
 }
+
 /* ---------- TOC helpers ---------- */
 function slugifyFa(s: string) {
   return s
@@ -76,6 +85,7 @@ function buildToc(sections: Array<{ id?: string; title: string; level?: 2 | 3 | 
   }
   return items;
 }
+
 /* ---------- Metadata ---------- */
 export async function generateMetadata(
   { params }: { params: Promise<{ slug: string }> }
@@ -102,6 +112,7 @@ export async function generateMetadata(
     twitter: { card: "summary_large_image", title, description: desc, images: [cover] },
   };
 }
+
 /* ---------- Page ---------- */
 export default async function BlogPostPage(
   { params }: { params: Promise<{ slug: string }> }
@@ -130,45 +141,89 @@ export default async function BlogPostPage(
       logo: { "@type": "ImageObject", url: `${SITE_URL}/icons/android-chrome-512x512.png` },
     },
   };
-  // Compile sections (MD + code) and ensure stable id
+
+  /* ---------- Compile sections (support multiple field names) ---------- */
   const compiledSections = await Promise.all(
-    (doc.sections ?? []).map(async (s, i) => {
+    (doc.sections ?? []).map(async (rawSection, i) => {
+      const s = rawSection as Section & { body?: string; code?: string; callout?: string; image_src?: string; imageCaption?: string };
       const level = Math.min(Math.max(s.level ?? 2, 2), 4) as 2 | 3 | 4;
       const id = s.id ?? slugifyFa(s.title) ?? `${i}`;
-      const bodyNode = s.bodyMd
+
+      // body: prefer bodyMd, fallback to body (or bodyHtml handled later)
+      const bodySource = s.bodyMd ?? (s as any).body ?? null;
+      const bodyNode = bodySource
         ? (
             await compileMDX({
-              source: s.bodyMd,
+              source: bodySource,
               components: { Callout },
               options: {
                 parseFrontmatter: false,
-                mdxOptions: {
-                  remarkPlugins: [remarkGfm],
-                  rehypePlugins: [[rehypePrettyCode, { theme: "github-dark" }]],
-                },
+                mdxOptions: { remarkPlugins: [remarkGfm], rehypePlugins: [[rehypePrettyCode, { theme: "github-dark" }]] },
               },
             })
           ).content
         : null;
-      const codeNode = s.code_content
+
+      // code: support both `code_content` and `code`
+      const codeSource = s.code_content ?? s.code ?? (s as any).codeSnippet ?? null;
+      const codeNode = codeSource
         ? (
             await compileMDX({
-              source: `\`\`\`\n${s.code_content}\n\`\`\``,
+              source: "```\n" + codeSource + "\n```",
               options: {
                 parseFrontmatter: false,
-                mdxOptions: {
-                  remarkPlugins: [remarkGfm],
-                  rehypePlugins: [[rehypePrettyCode, { theme: "github-dark" }]],
-                },
+                mdxOptions: { remarkPlugins: [remarkGfm], rehypePlugins: [[rehypePrettyCode, { theme: "github-dark" }]] },
               },
             })
           ).content
         : null;
-      return { key: `${id}-${i}`, ...s, id, level, bodyNode, codeNode };
+
+      // callout: support callout_content or callout
+      const calloutSource = s.callout_content ?? s.callout ?? (s as any).note ?? null;
+      const calloutNode = calloutSource
+        ? (
+            await compileMDX({
+              source: calloutSource,
+              components: { Callout },
+              options: { parseFrontmatter: false, mdxOptions: { remarkPlugins: [remarkGfm] } },
+            })
+          ).content
+        : null;
+
+      // image: support image object or flat image_src
+      const imageObj = s.image ?? (s.image_src ? { src: s.image_src, alt: s.title } : undefined);
+
+      // image caption: support multiple names
+      const imageCaptionSource = s.image_caption ?? s.imageCaption ?? (s as any).imageCaption ?? null;
+      const imageCaptionNode = imageCaptionSource
+        ? (
+            await compileMDX({
+              source: imageCaptionSource,
+              options: { parseFrontmatter: false, mdxOptions: { remarkPlugins: [remarkGfm] } },
+            })
+          ).content
+        : null;
+
+      return {
+        key: `${id}-${i}`,
+        raw: s,
+        id,
+        level,
+        title: s.title,
+        bodyNode,
+        bodyHtml: s.bodyHtml ?? null,
+        codeNode,
+        codeCaption: s.code_caption ?? null,
+        calloutNode,
+        calloutType: s.callout_type ?? "info",
+        image: imageObj,
+        imageCaptionNode,
+      };
     })
   );
-  // Build TOC (based on h2/h3/h4)
+
   const toc = buildToc(compiledSections.map(s => ({ id: s.id, title: s.title, level: s.level })));
+
   return (
     <>
       <BgGradient />
@@ -197,6 +252,7 @@ export default async function BlogPostPage(
             </div>
           </div>
         </div>
+
         {/* Body + Sticky TOC (grid) */}
         <div className="mt-10 grid gap-8 lg:grid-cols-12 items-start">
           {/* Main content — 9/12 */}
@@ -212,32 +268,35 @@ export default async function BlogPostPage(
                 prose-code:ltr prose-p:leading-8 prose-li:leading-8
               "
             >
-              {compiledSections.map((s) => (
+              {compiledSections.map((s: any) => (
                 <section key={s.key} className="scroll-mt-24">
                   {s.level === 2 && <h2 id={s.id} className="text-2xl font-yekan font-bold text-blue-300 py-4">{s.title}</h2>}
                   {s.level === 3 && <h3 id={s.id} className="text-xl font-yekan font-bold text-blue-500 py-4">{s.title}</h3>}
                   {s.level === 4 && <h4 id={s.id} className="text-lg font-yekan font-bold text-blue-800 py-4">{s.title}</h4>}
-                  {/* متن */}
+
+                  {/* Body: compiled MDX or raw HTML fallback */}
                   {s.bodyNode}
                   {!s.bodyNode && s.bodyHtml && <div dangerouslySetInnerHTML={{ __html: s.bodyHtml }} />}
-                  {/* تصویر */}
-                  {s.image && (
+
+                  {/* Image (supports object or flat field), with compiled caption fallback */}
+                  {s.image && s.image.src && (
                     <figure>
                       <Image
                         src={s.image.src}
-                        alt={s.image.alt || s.title}
+                        alt={s.image.alt ?? s.title}
                         width={1200}
                         height={630}
                         sizes="(min-width: 768px) 768px, 100vw"
                         className="rounded-xl border border-zinc-200/70 dark:border-zinc-800/70"
                       />
-                      {s.image_caption && (
-                        <figcaption className="text-sm text-zinc-500">{s.image_caption}</figcaption>
-                      )}
+                      {s.imageCaptionNode ? (
+                        <figcaption className="text-sm text-zinc-500">{s.imageCaptionNode}</figcaption>
+                      ) : null}
                     </figure>
                   )}
-                  {/* کد — p-4 + rounded-2xl */}
-                  {s.code_content && (
+
+                  {/* Code block (compiled so rehype-pretty-code runs) */}
+                  {s.codeNode && (
                     <div
                       dir="ltr"
                       className="
@@ -249,15 +308,21 @@ export default async function BlogPostPage(
                       data-theme="github-dark"
                     >
                       <div className="[&>pre]:!m-0">{s.codeNode}</div>
-                      {s.code_caption && <div className="text-xs text-zinc-500 mt-2">{s.code_caption}</div>}
+                      {s.codeCaption && <div className="text-xs text-zinc-500 mt-2">{s.codeCaption}</div>}
                     </div>
                   )}
-                  {/* Callout */}
-                  {s.callout_content && <Callout type={s.callout_type}>{s.callout_content}</Callout>}
+
+                  {/* Callout: prefer compiled MDX node, else plain text via Callout */}
+                  {s.calloutNode ? (
+                    <Callout type={s.calloutType}>{s.calloutNode}</Callout>
+                  ) : s.raw && ((s.raw.callout ?? s.raw.callout_content) ? (
+                    <Callout type={s.calloutType}>{s.raw.callout ?? s.raw.callout_content}</Callout>
+                  ) : null)}
                 </section>
               ))}
             </div>
           </div>
+
           {/* Sticky TOC - 3/12 */}
           <aside className="hidden lg:block lg:col-span-3 lg:self-start">
             <nav className="sticky top-24 max-h-[calc(100vh-6rem)] overflow-auto rounded-xl border border-zinc-200/60 dark:border-zinc-800/60 bg-white/60 dark:bg-zinc-900/50 backdrop-blur p-4">
@@ -294,6 +359,7 @@ export default async function BlogPostPage(
             </nav>
           </aside>
         </div>
+
         {/* Footer CTAs */}
         <div className="mx-auto mt-12 max-w-3xl">
           <div className="rounded-2xl border border-zinc-200/60 dark:border-zinc-800/60 bg-white/70 dark:bg-zinc-900/50 backdrop-blur p-5 flex items-center justify-between">

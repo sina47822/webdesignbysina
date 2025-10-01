@@ -72,3 +72,26 @@ docker stop my-nextjs-app
 docker rm my-nextjs-app
 <!-- docker run again -->
 ```
+
+# create network (once)
+docker network create my_network
+
+# create volumes if you declared them external (once)
+docker volume create postgres_data
+docker volume create media_volume
+
+# Start Postgres
+docker-compose -f docker-compose.db.yml up -d
+
+# Start Django backend
+docker-compose -f docker-compose.backend.yml up -d
+
+# Run migrations & collectstatic (only once)
+docker-compose -f docker-compose.backend.yml run --rm backend python manage.py migrate
+docker-compose -f docker-compose.backend.yml run --rm backend python manage.py collectstatic --noinput
+
+# Start Next.js frontend
+docker-compose -f docker-compose.frontend.yml up -d
+
+# Start Nginx proxy
+docker-compose -f docker-compose.nginx.yml up -d

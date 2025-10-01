@@ -5,6 +5,10 @@ import BlogList from "./BlogList";
 export const runtime = "nodejs";
 export const revalidate = 60;
 
+// Fallback site URL used during build if NEXT_BACKEND_SITE_URL is not set.
+// Keep this in sync with your other pages.
+const SITE_API_URL = process.env.NEXT_BACKEND_SITE_URL ?? process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.webdesignwithsina.ir";
+
 export const metadata: Metadata = {
   title: "بلاگ",
   description: "مقالات فنی Next.js، Django و Performance",
@@ -29,15 +33,46 @@ type Card = {
 };
 
 async function getPosts(): Promise<Card[]> {
-  const res = await fetch(`${process.env.NEXT_BACKEND_SITE_URL}/api/posts/`, {
-    next: { revalidate },
-  });
-  if (!res.ok) return [];
-  return res.json();
+  // build URL safely
+  const base = SITE_API_URL.replace(/\/+$/, ""); // remove trailing slash
+  const url = `${base}/api/posts/`;
+
+  // Short timeout so build doesn't hang if API is unreachable
+  const controller = new AbortController();
+  const timeoutMs = 7000; // 7s - tweak as needed
+  const timeout = setTimeout(() => controller.abort(), timeoutMs);
+
+  try {
+    const res = await fetch(url, {
+      signal: controller.signal,
+      next: { revalidate },
+    });
+
+    clearTimeout(timeout);
+
+    if (!res.ok) {
+      console.error(`getPosts: non-ok response ${res.status} when fetching ${url}`);
+      return [];
+    }
+
+    // ensure we await the JSON
+    const data = (await res.json()) as Card[];
+    if (!Array.isArray(data)) {
+      console.error(`getPosts: expected array from ${url}, got:`, typeof data);
+      return [];
+    }
+    return data;
+  } catch (err: any) {
+    clearTimeout(timeout);
+    // Helpful debug info for build logs (ECONNREFUSED, DNS, timeout, etc.)
+    console.error(`getPosts: fetch failed for ${url}:`, err?.message ?? err);
+    return [];
+  }
 }
 
 export default async function BlogIndexPage() {
-  const posts = await getPosts(); // ← دیگه fetch لازم نیست
+  const posts = await getPosts();
+
   return (
     <>
       <BgGradient />

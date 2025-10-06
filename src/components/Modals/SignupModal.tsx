@@ -24,7 +24,7 @@ export default function SignupModal() {
   const [number, setNumber] = useState('');
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL ?? 'http://localhost:8000'
+  const API_BASE = process.env.NEXT_BACKEND_SITE_URL ?? '"http://nginx"'
 
   const submit = async (e : SyntheticEvent) => {
     e.preventDefault()
